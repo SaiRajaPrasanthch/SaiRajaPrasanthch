@@ -1,0 +1,6 @@
+package com.seanergydigital.dmggo
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
