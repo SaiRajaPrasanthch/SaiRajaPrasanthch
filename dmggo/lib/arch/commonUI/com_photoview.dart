@@ -59,44 +59,44 @@ class CommonPhotoview extends StatelessWidget {
       bottom: h_10,
       child: Container(
         width: screenWidth,
-        height: h_200,
+        height: h_120,
         color: cblack38,
         child: Padding(
           padding: EdgeInsets.all(h_5),
           child: Column(
             children: [
-              Text(
-                strHeaderBS,
-                style: grfwbsn_12wh,
-              ),
-              Padding(
-                padding: EdgeInsets.all(h_5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CommonButton(
-                      color: appColor,
-                      dWidth: screenWidth! / h_5,
-                      strBtnText: strLeft,
-                    ),
-                    CommonButton(
-                      color: ctransparent,
-                      dWidth: screenWidth! / h_3,
-                      strBtnText: strRight,
-                    ),
-                    CommonButton(
-                      color: ctransparent,
-                      dWidth: screenWidth! / h_5,
-                      strBtnText: strFront,
-                    ),
-                    CommonButton(
-                      color: ctransparent,
-                      dWidth: screenWidth! / h_5,
-                      strBtnText: strBack,
-                    ),
-                  ],
-                ),
-              ),
+              // Text(
+              //   strHeaderBS,
+              //   style: grfwbsn_12wh,
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.all(h_5),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       CommonButton(
+              //         color: appColor,
+              //         dWidth: screenWidth! / h_5,
+              //         strBtnText: strLeft,
+              //       ),
+              //       CommonButton(
+              //         color: ctransparent,
+              //         dWidth: screenWidth! / h_3,
+              //         strBtnText: strRight,
+              //       ),
+              //       CommonButton(
+              //         color: ctransparent,
+              //         dWidth: screenWidth! / h_5,
+              //         strBtnText: strFront,
+              //       ),
+              //       CommonButton(
+              //         color: ctransparent,
+              //         dWidth: screenWidth! / h_5,
+              //         strBtnText: strBack,
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Expanded(
                 flex: i_4,
                 child: ListView.builder(

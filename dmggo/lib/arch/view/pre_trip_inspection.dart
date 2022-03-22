@@ -25,7 +25,7 @@ class PreTripInspection extends StatelessWidget {
       ),
       body: SafeArea(
         child: Column(
-          children: [header(), qrScanner(), listOfdefects(), submit()],
+          children: [header(), qrScanner(), newDamage(), sbh_10w_0, submit()],
         ),
       ),
     );
@@ -120,17 +120,69 @@ class PreTripInspection extends StatelessWidget {
 
 // pre trip inspection defects list
   Widget listOfdefects() {
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: listPTIS.length,
+        itemBuilder: (context, index) {
+          return CommonPreTripListTile(
+            strTitle: listPTIS[index].strTitle,
+            strSubTitle: listPTIS[index].strSubTitle,
+            isavail: listPTIS[index].isCheck,
+            check: listPTIS[index].check,
+            strStatus: listPTIS[index].strStatus,
+            strImage: listPTIS[index].strImage,
+          );
+        });
+  }
+
+  Widget newDamage() {
     return Expanded(
-      child: ListView.builder(
-          itemCount: listPTIS.length,
-          itemBuilder: (context, index) {
-            return CommonPreTripListTile(
-              strTitle: listPTIS[index].strTitle,
-              strSubTitle: listPTIS[index].strSubTitle,
-              isavail: listPTIS[index].isCheck,
-            );
-          }),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            listOfdefects(),
+            Divider(
+              height: h_01,
+            ),
+            SizedBox(
+              height: h_50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "New Damage",
+                    style: grfwbsn_18b,
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: h_01,
+            ),
+            listOfNewdefects(),
+          ],
+        ),
+      ),
     );
+  }
+
+  Widget listOfNewdefects() {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: listNewDamage.length,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return CommonPreTripListTile(
+            strTitle: listNewDamage[index].strTitle,
+            strSubTitle: listNewDamage[index].strSubTitle,
+            isavail: listNewDamage[index].isCheck,
+            check: listNewDamage[index].check,
+            strStatus: listNewDamage[index].strStatus,
+            strImage: listNewDamage[index].strImage,
+          );
+        });
   }
 
 // submit button

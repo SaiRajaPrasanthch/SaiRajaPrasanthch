@@ -175,9 +175,9 @@ String strCamera = 'Camera';
 
 String strGallery = 'Gallery';
 
-String strSelectPhoto = 'Select Photo';
+String strSelectPhoto = 'Photo';
 
-String strSelectPhotoDesc = 'From one of the option';
+String strSelectPhotoDesc = 'Capture the damage';
 
 String strNoDesc = 'No Description';
 
@@ -199,4 +199,7 @@ String strFront = 'front';
 
 String strBack = 'back';
 
-String strOdometerTitle = 'Please enter the current Odometer Reading of the vehicle';
+String strOdometerTitle =
+    'Please enter the current Odometer Reading of the vehicle';
+
+String strVerified = 'Verified';

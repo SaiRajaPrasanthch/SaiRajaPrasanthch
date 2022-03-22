@@ -95,12 +95,57 @@ var currentTab = [
 ];
 
 List<PTI> listPTIS = [
-  PTI(isCheck: false, strTitle: strDashLights, strSubTitle: strNFLDB),
-  PTI(isCheck: true, strTitle: strHeadLights, strSubTitle: strLHB),
-  PTI(strTitle: strTires, strSubTitle: strVSI),
-  PTI(strTitle: strPackages, strSubTitle: strNPLV),
-  PTI(isCheck: false, strTitle: strFrontCond, strSubTitle: strUDED),
-  PTI(isCheck: false, strTitle: strRearCond, strSubTitle: strUDED),
-  PTI(isCheck: false, strTitle: strDriverSideCond, strSubTitle: strUDED),
-  PTI(isCheck: false, strTitle: strPassSideCond, strSubTitle: strUDED),
+  PTI(
+      isCheck: false,
+      strTitle: strDashLights,
+      strSubTitle: strNFLDB,
+      strStatus: "Defective",
+      strImage: 'assets/images/dash_lights.jpg',
+      check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(
+      isCheck: true,
+      strTitle: strHeadLights,
+      strSubTitle: strLHB,
+      strStatus: "Working",
+      check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(
+      strTitle: strTires,
+      strSubTitle: strVSI,
+      strStatus: "",
+      check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(
+      strTitle: strPackages,
+      strSubTitle: strNPLV,
+      strStatus: "",
+      check: Check(strFail: 'Found Packages', strPass: 'Empty')),
+];
+List<PTI> listNewDamage = [
+  PTI(
+      isCheck: false,
+      strTitle: strFrontCond,
+      strStatus: "Damage Found",
+      strSubTitle: strUDED,
+      strImage: 'assets/images/truck_front.jpg',
+      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+  PTI(
+      isCheck: true,
+      strTitle: strRearCond,
+      strSubTitle: strUDED,
+      strStatus: "Fine",
+      strImage: 'assets/images/truck_rear.jpeg',
+      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+  PTI(
+      isCheck: false,
+      strTitle: strDriverSideCond,
+      strSubTitle: strUDED,
+      strStatus: "Damage Found",
+      strImage: 'assets/images/truck_driver_side.jpeg',
+      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+  PTI(
+      isCheck: false,
+      strTitle: strPassSideCond,
+      strSubTitle: strUDED,
+      strStatus: "Damage Found",
+      strImage: 'assets/images/truck_passenger_side.jpeg',
+      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
 ];

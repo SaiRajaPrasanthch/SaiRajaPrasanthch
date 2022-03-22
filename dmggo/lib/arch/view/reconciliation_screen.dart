@@ -172,7 +172,7 @@ class Reconciliation extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(h_15),
                 child: Text(
-                  'Dispute 1',
+                  'Current Dispute',
                   style: grfwbsndul_14blu,
                 ),
               ),

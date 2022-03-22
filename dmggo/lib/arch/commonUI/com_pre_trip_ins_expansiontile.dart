@@ -1,6 +1,8 @@
+import 'package:dmggo/arch/commonUI/com_camera_bottomsheet.dart';
 import 'package:dmggo/arch/commonUI/com_photoview.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/models/pretrip_inspec_popup_model.dart';
+import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/view/pretripinspec_popup.dart';
@@ -8,6 +10,7 @@ import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -15,11 +18,17 @@ class CommonPreTripListTile extends StatelessWidget {
   final String strTitle;
   final bool? isavail;
   final String? strSubTitle;
+  final Check check;
+  final String? strStatus;
+  final String? strImage;
   CommonPreTripListTile(
       {Key? key,
       required this.strTitle,
       required this.strSubTitle,
-      this.isavail})
+      this.isavail,
+      this.strStatus,
+      this.strImage,
+      required this.check})
       : super(key: key);
 
   @override
@@ -30,11 +39,18 @@ class CommonPreTripListTile extends StatelessWidget {
           onExpansionChanged: isavail == null || isavail! ? null : (value) {},
           childrenPadding:
               EdgeInsets.only(left: h_20, right: h_10, top: h_5, bottom: h_5),
-          children: isavail == null || isavail!
-              ? []
-              : listPTIP
-                  .map((e) => listPhotoDisplay(e: e, context: context))
-                  .toList(),
+          children:
+              //  isavail == null || isavail!
+              //     ?
+              [
+            if (strImage != null)
+              listPhotoDisplay(e: strImage, context: context),
+            if (strStatus == 'Defective' || strStatus == 'Damage Found')
+              listAddIamge(context: context),
+          ],
+          // : listPTIP
+          //     .map((e) => listPhotoDisplay(e: strImage, context: context))
+          //     .toList(),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -64,7 +80,7 @@ class CommonPreTripListTile extends StatelessWidget {
                 child: Column(
                   children: [
                     speedDialWidget(context),
-                    Text('Verified!', style: grfwnsn_10b),
+                    Text(strStatus!, style: grfwnsn_10b),
                   ],
                 ),
               )
@@ -110,7 +126,7 @@ class CommonPreTripListTile extends StatelessWidget {
             size: h_20,
           ),
           backgroundColor: cgreen,
-          label: strPass,
+          label: check.strPass,
         ),
         SpeedDialChild(
             child: Icon(
@@ -119,7 +135,7 @@ class CommonPreTripListTile extends StatelessWidget {
               size: h_20,
             ),
             backgroundColor: cred,
-            label: strFail,
+            label: check.strFail,
             onTap: () => showDialog(
                 context: context,
                 builder: (_) => CommonPreTripInspectPopup(strTitle: strTitle))),
@@ -128,12 +144,12 @@ class CommonPreTripListTile extends StatelessWidget {
   }
 
 // showing list of photos uploaded by driver in pre trip inspection
-  Widget listPhotoDisplay({required PTIP e, required BuildContext context}) {
+  Widget listPhotoDisplay({String? e, required BuildContext context}) {
     return GestureDetector(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => CommonPhotoview(strIamgeName: e.strImage))),
+              builder: (context) => CommonPhotoview(strIamgeName: e!))),
       child: Padding(
         padding: EdgeInsets.all(h_2),
         child: Container(
@@ -154,7 +170,7 @@ class CommonPreTripListTile extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: brCir_5,
                       child: Image.asset(
-                        e.strImage,
+                        e!,
                         height: h_30,
                         width: h_10,
                         fit: BoxFit.fitWidth,
@@ -165,11 +181,12 @@ class CommonPreTripListTile extends StatelessWidget {
                 sbh_5w_5,
                 Expanded(
                   flex: i_8,
-                  child: Text(
-                    e.strDescription == '' ? strNoDesc : e.strDescription,
-                    style:
-                        e.strDescription == '' ? grfwnsn_14gy500 : grfwnsn_14b,
-                  ),
+                  child: sbh_5w_5,
+                  // child: Text(
+                  //   e.strDescription == '' ? strNoDesc : e.strDescription,
+                  //   style:
+                  //       e.strDescription == '' ? grfwnsn_14gy500 : grfwnsn_14b,
+                  // ),
                 ),
                 Expanded(
                   flex: 2,
@@ -177,6 +194,63 @@ class CommonPreTripListTile extends StatelessWidget {
                       onPressed: () {},
                       icon: Icon(
                         Icons.cancel_rounded,
+                        color: cred,
+                      )),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget listAddIamge({required BuildContext context}) {
+    return GestureDetector(
+      onTap: () {
+        showCupertinoModalPopup(
+            context: context, builder: (context) => CommonCameraBottomSheet());
+      },
+      child: Padding(
+        padding: EdgeInsets.all(h_2),
+        child: Container(
+          height: h_50,
+          decoration: BoxDecoration(
+            borderRadius: brCir_10,
+            color: cgrey_300,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(h_4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: i_2,
+                  child: Padding(
+                    padding: EdgeInsets.all(h_5),
+                    child: ClipRRect(
+                        borderRadius: brCir_5,
+                        child: Icon(
+                          Icons.image_outlined,
+                          size: h_30,
+                          color: cgrey_500,
+                        )),
+                  ),
+                ),
+                sbh_5w_5,
+                Expanded(
+                  flex: i_8,
+                  child: Text(
+                    "Add Image",
+                    style: grfwnsn_14gy500,
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add,
                         color: cred,
                       )),
                 )

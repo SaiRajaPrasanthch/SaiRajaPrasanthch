@@ -17,13 +17,13 @@ class CommonCameraBottomSheet extends StatelessWidget {
         style: grfwnsn_14b,
       ),
       actions: [
-        CupertinoActionSheetAction(
-          onPressed: () {},
-          child: Text(
-            strGallery,
-            style: grfwbsn_14b,
-          ),
-        ),
+        // CupertinoActionSheetAction(
+        //   onPressed: () {},
+        //   child: Text(
+        //     strGallery,
+        //     style: grfwbsn_14b,
+        //   ),
+        // ),
         CupertinoActionSheetAction(
           onPressed: () {},
           child: Text(
