@@ -11,7 +11,7 @@ class CommonTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarProvider>(context);
+    BottomNavigationBarProvider provider = Provider.of<BottomNavigationBarProvider>(context);
 
     return BottomNavigationBar(
       backgroundColor: cgrey_200,

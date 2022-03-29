@@ -86,7 +86,9 @@ flutter:
     - assets/images/truck_passenger_side.jpeg
     - assets/images/truck_rear.jpeg
     - assets/images/dash_lights.jpg
-
+    - assets/images/driver.png
+    - assets/images/punch.png
+    - assets/images/lunch.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

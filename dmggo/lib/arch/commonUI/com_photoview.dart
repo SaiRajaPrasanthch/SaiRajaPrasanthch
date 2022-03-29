@@ -1,11 +1,9 @@
-import 'package:dmggo/arch/commonUI/com_button.dart';
 import 'package:dmggo/arch/commonUI/com_camera_bottomsheet.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
-import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

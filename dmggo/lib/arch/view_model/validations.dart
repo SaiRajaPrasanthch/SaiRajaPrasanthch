@@ -1,3 +1,5 @@
+import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
+import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/models/validation_model.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -33,7 +35,7 @@ class Validations extends ChangeNotifier {
       _phoneNumber = ValidationItem(null, strEmailOrPass);
       return false;
     } else if (isPhone(value)) {
-      if (value.length >= 10) {
+      if (value.length >= i_10) {
         _phoneNumber = ValidationItem(value, null);
         return false; //make it true
 
@@ -44,20 +46,33 @@ class Validations extends ChangeNotifier {
     } else if (!isEmail(value)) {
       _phoneNumber = ValidationItem(null, strErrValidEmail);
       return false;
-    } else if (value != dummyStrDrFirstimEmail &&
-        value != dummyStrDriverEmail &&
-        value != dummyStrOwnerEmail) {
+    } else if (value.toLowerCase() != dummyStrDrFirstimEmail.toLowerCase() &&
+        value.toLowerCase() != dummyStrDriverEmail.toLowerCase() &&
+        value.toLowerCase() != dummyStrOwnerEmail.toLowerCase() &&
+        value.toLowerCase() != dummyStrManagerEmail.toLowerCase()) {
       _phoneNumber = ValidationItem(null, strEmailOrPassDontExist);
       return false;
     } else {
       if (value.toLowerCase() == dummyStrDrFirstimEmail.toLowerCase()) {
-        currentTab.insert(0, DriverOnboardingScreen());
+        strEmail = dummyStrDrFirstimEmail;
+        currentTab.insert(i_0, DriverOnboardingScreen());
       }
       if (value.toLowerCase() == dummyStrDriverEmail.toLowerCase()) {
-        currentTab.insert(0, DriverHomeScreen());
+        strEmail = dummyStrDriverEmail;
+        currentTab.insert(i_0, DriverHomeScreen());
       }
-      if (value.toLowerCase() == dummyStrOwnerEmail.toLowerCase()) {
-        currentTab.insert(0, ManagerHomeScreen());
+      if (value.toLowerCase() == dummyStrOwnerEmail.toLowerCase() ||
+          value.toLowerCase() == dummyStrManagerEmail.toLowerCase()) {
+        strEmail = value.toLowerCase();
+        currentTab.insert(i_0, ManagerHomeScreen());
+        if (value.toLowerCase() == dummyStrOwnerEmail.toLowerCase()) {
+          if (!listMHS
+              .contains(DrOBS(bStatus: false, strTitle: strReconcilation))) {
+            listMHS.add(
+              DrOBS(bStatus: false, strTitle: strReconcilation),
+            );
+          }
+        }
       }
       _phoneNumber = ValidationItem(value, null);
     }

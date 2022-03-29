@@ -3,6 +3,7 @@ import 'package:dmggo/arch/commonUI/com_comingsoon.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/daily_veh_inspec_screen.dart';
+import 'package:dmggo/arch/view/driver_clock_punch.dart';
 import 'package:dmggo/arch/view/qr_code_screen.dart';
 import 'package:dmggo/arch/view/reconciliation_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,14 @@ class CommonListTile extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Reconciliation(
+                                    strTitle: strTitle!,
+                                  )))
+                      : 
+                      strTitle == strMyClockPunches
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DrvierClockPunch(
                                     strTitle: strTitle!,
                                   )))
                       : Navigator.push(

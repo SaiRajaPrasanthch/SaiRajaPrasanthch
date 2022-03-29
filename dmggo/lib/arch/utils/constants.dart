@@ -33,13 +33,18 @@ double h_1 = 1.0;
 double h_05 = 0.5;
 double h_01 = 0.1;
 double h_0 = 0.0;
+int i_10 = 10;
 int i_8 = 8;
 int i_6 = 6;
 int i_4 = 4;
+int i_3 = 3;
 int i_2 = 2;
 int i_1 = 1;
+int i_0 = 0;
 double? screenWidth;
 double? screenHeight;
+
+String? strEmail;
 
 //list Driver on boarding Steps
 List<DrOBS> listDrOBS = [
@@ -65,7 +70,7 @@ List<DrOBS> listMHS = [
   DrOBS(bStatus: false, strTitle: strACD),
   DrOBS(intCount: 1, bStatus: false, strTitle: strETD),
   DrOBS(bStatus: false, strTitle: strPCR),
-  DrOBS(bStatus: false, strTitle: strReconcilation),
+
 ];
 
 //list Driver home screen

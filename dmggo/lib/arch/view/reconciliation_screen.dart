@@ -59,7 +59,7 @@ class Reconciliation extends StatelessWidget {
               ? Expanded(
                   flex: i_2,
                   child: CommonDropdown(
-                    strSelectedValue: listWeek[0],
+                    strSelectedValue: listWeek[i_0],
                     listdata: listWeek,
                     textStyle: grfwnsn_14b,
                   ))
@@ -68,7 +68,7 @@ class Reconciliation extends StatelessWidget {
           Expanded(
               flex: i_2,
               child: CommonDropdown(
-                strSelectedValue: listYear[0],
+                strSelectedValue: listYear[i_0],
                 listdata: listYear,
                 textStyle: grfwnsn_14b,
               ))
@@ -164,7 +164,7 @@ class Reconciliation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            flex: 2,
+            flex: i_2,
             child: GestureDetector(
               onTap: () {
                 showDisputeAlert(conDispute);
@@ -172,7 +172,7 @@ class Reconciliation extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(h_15),
                 child: Text(
-                  'Current Dispute',
+                  strReportedDispute,
                   style: grfwbsndul_14blu,
                 ),
               ),
@@ -185,14 +185,12 @@ class Reconciliation extends StatelessWidget {
               child: DropdownButtonFormField(
                 onTap: () {},
                 decoration: InputDecoration(
-                  // filled: true,
-                  // fillColor: Colors.yellow,
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ctransparent)),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: h_1, horizontal: h_5),
                 ),
-                value: listDispute[0],
+                value: listDispute[i_0],
                 style: grfwnsn_10b,
                 isExpanded: true,
                 items: listDispute
@@ -221,13 +219,13 @@ class Reconciliation extends StatelessWidget {
           return AlertDialog(
             shape: rrbr_10,
             title: Text(
-              'Write About the dispute',
+             strWriteAboutDispute,
               style: grfwbsn_16b,
             ),
             content: Comtextfield(
-              strHintText: 'Tell us more about the dispute.',
-              strLabelText: 'Tell us more about the dispute.',
-              iMaxLines: 3,
+              strHintText: strTellUsMoreAboutTheDispute,
+              strLabelText: strTellUsMoreAboutTheDispute,
+              iMaxLines: i_3,
             ),
             actions: [
               CommonButton(
@@ -258,16 +256,16 @@ class Reconciliation extends StatelessWidget {
           return AlertDialog(
             shape: rrbr_10,
             title: Text(
-              'Discussion about the dispute',
+             strDiscussionAboutTheDispute,
               style: grfwbsn_16b,
             ),
             content: Comtextfield(
               controller: TextEditingController(
                   text:
-                      '21/1 - 1 Missing AMZL cancel.\n 26/2 - Remove 3 DSP cancels.\n 27/1 Add 1 training day for Stancy Grove.'),
-              strHintText: 'All about the dispute.',
-              strLabelText: 'All about the dispute.',
-              iMaxLines: 3,
+                     dummyStrReportedDispute ),
+              strHintText: strAllAboutTheDispute,
+              strLabelText: strAllAboutTheDispute,
+              iMaxLines: i_3,
             ),
             actions: [
               CommonButton(

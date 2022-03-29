@@ -46,6 +46,8 @@ Color cblack38 = Colors.black38;
 
 Color cwhite = Colors.white;
 
+Color cyellow = Colors.yellow;
+
 Color ctransparent = Colors.transparent;
 
 Color camber_50 = Colors.amber.shade50;

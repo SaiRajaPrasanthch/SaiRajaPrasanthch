@@ -80,6 +80,7 @@ String strETD = 'Edit/Term Driver';
 
 String strPCR = 'Pay Change Requests';
 String strReconcilation = 'Reconciliation';
+String strMyClockPunches = 'My Clock Punches';
 
 // Driver Home screen action
 
@@ -97,8 +98,7 @@ String strMCP = 'My Clock Punches';
 String strMOP = 'My Odometer Punches';
 String strQR = 'QR';
 
-String strWelcomeMSG =
-    'Welcome Mike! Complete the following steps below to get started';
+String strWelcomeMSG = 'Welcome Mike! Complete the following steps below to get started';
 
 String strTypeMsg = 'Type a message';
 
@@ -147,12 +147,17 @@ String strPackages = "Packages";
 String strNPLV = "No packages left in vehicle";
 
 String strNewDamage = "New Damage";
+
 String strFrontCond = "Front Condition";
+
 String strRearCond = "Rear Condition";
+
 String strDriverSideCond = "Driver Side Condition";
+
 String strPassSideCond = "Passenger Side Condition";
 
 String strUDED = "Undocumented external damage";
+
 String strVehicle = "Vechicle :";
 
 String strOdometer = "Odometer :";
@@ -199,7 +204,30 @@ String strFront = 'front';
 
 String strBack = 'back';
 
-String strOdometerTitle =
-    'Please enter the current Odometer Reading of the vehicle';
+String strOdometerTitle = 'Please enter the current Odometer Reading of the vehicle';
 
 String strVerified = 'Verified';
+
+String strDriver = 'Driver';
+
+String strOwner = 'Owner';
+
+String strManager = 'Manager';
+
+String strLogout = 'Logout';
+
+String strWriteAboutDispute = 'Write About the dispute';
+
+String strTellUsMoreAboutTheDispute = 'Tell us more about the dispute.';
+
+String strAddImage = "Add Image";
+
+String strDefective = 'Defective';
+
+String strDamageFound = 'Damage Found';
+
+String strReportedDispute = 'Reported Dispute';
+
+String strDiscussionAboutTheDispute = 'Discussion about the dispute';
+
+String strAllAboutTheDispute='All about the dispute.';

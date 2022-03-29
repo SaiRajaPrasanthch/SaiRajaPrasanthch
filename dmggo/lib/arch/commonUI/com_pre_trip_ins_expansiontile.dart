@@ -1,15 +1,13 @@
 import 'package:dmggo/arch/commonUI/com_camera_bottomsheet.dart';
 import 'package:dmggo/arch/commonUI/com_photoview.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
-import 'package:dmggo/arch/models/pretrip_inspec_popup_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
-import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
+import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/pretripinspec_popup.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
-import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -21,15 +19,7 @@ class CommonPreTripListTile extends StatelessWidget {
   final Check check;
   final String? strStatus;
   final String? strImage;
-  CommonPreTripListTile(
-      {Key? key,
-      required this.strTitle,
-      required this.strSubTitle,
-      this.isavail,
-      this.strStatus,
-      this.strImage,
-      required this.check})
-      : super(key: key);
+  CommonPreTripListTile({Key? key, required this.strTitle, required this.strSubTitle, this.isavail, this.strStatus, this.strImage, required this.check}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +27,11 @@ class CommonPreTripListTile extends StatelessWidget {
       children: [
         ExpansionTile(
           onExpansionChanged: isavail == null || isavail! ? null : (value) {},
-          childrenPadding:
-              EdgeInsets.only(left: h_20, right: h_10, top: h_5, bottom: h_5),
-          children:
-              //  isavail == null || isavail!
-              //     ?
-              [
-            if (strImage != null)
-              listPhotoDisplay(e: strImage, context: context),
-            if (strStatus == 'Defective' || strStatus == 'Damage Found')
-              listAddIamge(context: context),
+          childrenPadding: EdgeInsets.only(left: h_20, right: h_10, top: h_5, bottom: h_5),
+          children: [
+            if (strImage != null) listPhotoDisplay(e: strImage, context: context),
+            if (strStatus == strDefective || strStatus == strDamageFound) listAddIamge(context: context),
           ],
-          // : listPTIP
-          //     .map((e) => listPhotoDisplay(e: strImage, context: context))
-          //     .toList(),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -115,8 +96,7 @@ class CommonPreTripListTile extends StatelessWidget {
       spacing: h_4,
       elevation: h_0,
       childrenButtonSize: Size(h_40, h_40),
-      // shape: StadiumBorder(),
-      // visible: true,
+   
       direction: SpeedDialDirection.up,
       children: [
         SpeedDialChild(
@@ -136,9 +116,7 @@ class CommonPreTripListTile extends StatelessWidget {
             ),
             backgroundColor: cred,
             label: check.strFail,
-            onTap: () => showDialog(
-                context: context,
-                builder: (_) => CommonPreTripInspectPopup(strTitle: strTitle))),
+            onTap: () => showDialog(context: context, builder: (_) => CommonPreTripInspectPopup(strTitle: strTitle))),
       ],
     );
   }
@@ -146,10 +124,7 @@ class CommonPreTripListTile extends StatelessWidget {
 // showing list of photos uploaded by driver in pre trip inspection
   Widget listPhotoDisplay({String? e, required BuildContext context}) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CommonPhotoview(strIamgeName: e!))),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CommonPhotoview(strIamgeName: e!))),
       child: Padding(
         padding: EdgeInsets.all(h_2),
         child: Container(
@@ -182,11 +157,7 @@ class CommonPreTripListTile extends StatelessWidget {
                 Expanded(
                   flex: i_8,
                   child: sbh_5w_5,
-                  // child: Text(
-                  //   e.strDescription == '' ? strNoDesc : e.strDescription,
-                  //   style:
-                  //       e.strDescription == '' ? grfwnsn_14gy500 : grfwnsn_14b,
-                  // ),
+                 
                 ),
                 Expanded(
                   flex: 2,
@@ -208,8 +179,7 @@ class CommonPreTripListTile extends StatelessWidget {
   Widget listAddIamge({required BuildContext context}) {
     return GestureDetector(
       onTap: () {
-        showCupertinoModalPopup(
-            context: context, builder: (context) => CommonCameraBottomSheet());
+        showCupertinoModalPopup(context: context, builder: (context) => CommonCameraBottomSheet());
       },
       child: Padding(
         padding: EdgeInsets.all(h_2),
@@ -241,7 +211,7 @@ class CommonPreTripListTile extends StatelessWidget {
                 Expanded(
                   flex: i_8,
                   child: Text(
-                    "Add Image",
+                    strAddImage,
                     style: grfwnsn_14gy500,
                   ),
                 ),
