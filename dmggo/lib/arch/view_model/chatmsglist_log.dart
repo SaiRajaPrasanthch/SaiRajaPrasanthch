@@ -4,17 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quickblox_sdk/chat/constants.dart';
 import 'package:quickblox_sdk/mappers/qb_message_mapper.dart';
-import 'package:quickblox_sdk/models/qb_dialog.dart';
 import 'package:quickblox_sdk/models/qb_message.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 class ChatMsgListProvider with ChangeNotifier {
   List<QBMessage?> messages = [];
   StreamSubscription? someSubscription;
- 
+
   chatMessages(String strRoomId) async {
     try {
-      messages = await QB.chat.getDialogMessages(strRoomId, markAsRead: true);
+      // messages = await QB.chat.getDialogMessages(strRoomId, markAsRead: true);
       notifyListeners();
 
       // chatReadSubcriptions();

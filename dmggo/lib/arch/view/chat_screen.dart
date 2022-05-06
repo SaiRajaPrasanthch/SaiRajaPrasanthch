@@ -1,4 +1,3 @@
-import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/chatmsglist_log.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/commonUI/com_msgthread.dart';
@@ -65,9 +64,10 @@ class ChatScreen extends StatelessWidget {
     required BuildContext context,
   }) {
     TextEditingController txtChat = TextEditingController();
-    // ChatMsgListProvider chatlog = Provider.of<ChatMsgListProvider>(
-    //   context,
-    // );
+    ChatMsgListProvider chatlog = Provider.of<ChatMsgListProvider>(
+      context,
+      //  listen: false
+    );
 
     return Container(
       alignment: Alignment.bottomCenter,

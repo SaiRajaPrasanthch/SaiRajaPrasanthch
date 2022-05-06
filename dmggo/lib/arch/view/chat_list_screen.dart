@@ -13,13 +13,9 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChatListProvider d = Provider.of<ChatListProvider>(
-      context,
-      //  listen: false
-    );
-    Future.delayed(Duration(seconds: 2), () {
-      d.chatListData();
-    });
+    // Future.delayed(Duration(seconds: 2), () {
+    // d.chatListData();
+    // });
     print('loop');
     return Scaffold(
         appBar: AppBar(
@@ -31,11 +27,18 @@ class ChatListScreen extends StatelessWidget {
           ),
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
         ),
-        body: ListView.builder(
-            itemCount: d.dialogs.length,
-            itemBuilder: (context, index) {
-              return CommonChatListTile(value: d.dialogs[index]!);
-            }));
+        body: listDialogs(context: context));
+  }
+
+  Widget listDialogs({required BuildContext context}) {
+    ChatListProvider d = context.watch<ChatListProvider>();
+    d.chatListData();
+
+    return ListView.builder(
+        itemCount: d.dialogs.length,
+        itemBuilder: (context, index) {
+          return CommonChatListTile(value: d.dialogs[index]!);
+        });
   }
 
 // popup menu item for chat
