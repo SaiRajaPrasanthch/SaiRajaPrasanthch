@@ -5,27 +5,31 @@ import 'package:dmggo/arch/utils/constants.dart';
 
 SizedBox sbh_50w_0 = SizedBox(
   height: h_50,
-  width: 0,
+  width: h_0,
 );
 
 SizedBox sbh_30w_0 = SizedBox(
   height: h_30,
-  width: 0,
+  width: h_0,
 );
 
 SizedBox sbh_20w_0 = SizedBox(
   height: h_20,
-  width: 0,
+  width: h_0,
 );
 
 SizedBox sbh_10w_0 = SizedBox(
   height: h_10,
-  width: 0,
+  width: h_0,
+);
+SizedBox sbh_15w_2 = SizedBox(
+  height: h_15,
+  width: h_2,
 );
 
 SizedBox sbh_5w_0 = SizedBox(
   height: h_5,
-  width: 0,
+  width: h_0,
 );
 SizedBox sbh_5w_5 = SizedBox(
   height: h_5,

@@ -3,6 +3,9 @@ import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
+import 'package:quickblox_sdk/chat/constants.dart';
+import 'package:quickblox_sdk/models/qb_session.dart';
+import 'package:quickblox_sdk/models/qb_user.dart';
 
 double hinf = double.infinity;
 double h_200 = 200.0;
@@ -46,6 +49,19 @@ double? screenHeight;
 
 String? strEmail;
 
+//Chat
+QBUser? qbUser;
+QBSession? qbSession;
+String qbEventConnected = QBChatEvents.CONNECTED;
+String qbEventReceiveNewMessage = QBChatEvents.RECEIVED_NEW_MESSAGE;
+
+String appId = "96229";
+String authKey = "GcVHtt-UkZZ84bS";
+String authSecret = "sq8wzzpvET-zzq3";
+String accountKey = "pasWx-r41pLAkL8gZF4D";
+
+
+
 //list Driver on boarding Steps
 List<DrOBS> listDrOBS = [
   DrOBS(intCount: 0, bStatus: true, strTitle: strDrOBAUEs),
@@ -70,7 +86,6 @@ List<DrOBS> listMHS = [
   DrOBS(bStatus: false, strTitle: strACD),
   DrOBS(intCount: 1, bStatus: false, strTitle: strETD),
   DrOBS(bStatus: false, strTitle: strPCR),
-
 ];
 
 //list Driver home screen
@@ -100,45 +115,14 @@ var currentTab = [
 ];
 
 List<PTI> listPTIS = [
-  PTI(
-      isCheck: false,
-      strTitle: strDashLights,
-      strSubTitle: strNFLDB,
-      strStatus: "Defective",
-      strImage: 'assets/images/dash_lights.jpg',
-      check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(
-      isCheck: true,
-      strTitle: strHeadLights,
-      strSubTitle: strLHB,
-      strStatus: "Working",
-      check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(
-      strTitle: strTires,
-      strSubTitle: strVSI,
-      strStatus: "",
-      check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(
-      strTitle: strPackages,
-      strSubTitle: strNPLV,
-      strStatus: "",
-      check: Check(strFail: 'Found Packages', strPass: 'Empty')),
+  PTI(isCheck: false, strTitle: strDashLights, strSubTitle: strNFLDB, strStatus: "Defective", strImage: 'assets/images/dash_lights.jpg', check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(isCheck: true, strTitle: strHeadLights, strSubTitle: strLHB, strStatus: "Working", check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(strTitle: strTires, strSubTitle: strVSI, strStatus: "", check: Check(strFail: 'Defective', strPass: 'Working')),
+  PTI(strTitle: strPackages, strSubTitle: strNPLV, strStatus: "", check: Check(strFail: 'Found Packages', strPass: 'Empty')),
 ];
 List<PTI> listNewDamage = [
-  PTI(
-      isCheck: false,
-      strTitle: strFrontCond,
-      strStatus: "Damage Found",
-      strSubTitle: strUDED,
-      strImage: 'assets/images/truck_front.jpg',
-      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
-  PTI(
-      isCheck: true,
-      strTitle: strRearCond,
-      strSubTitle: strUDED,
-      strStatus: "Fine",
-      strImage: 'assets/images/truck_rear.jpeg',
-      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+  PTI(isCheck: false, strTitle: strFrontCond, strStatus: "Damage Found", strSubTitle: strUDED, strImage: 'assets/images/truck_front.jpg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+  PTI(isCheck: true, strTitle: strRearCond, strSubTitle: strUDED, strStatus: "Fine", strImage: 'assets/images/truck_rear.jpeg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
   PTI(
       isCheck: false,
       strTitle: strDriverSideCond,

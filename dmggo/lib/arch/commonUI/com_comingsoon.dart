@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
@@ -10,6 +11,7 @@ class CommonComingSoon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: h_0,
         centerTitle: false,
         title: Text(
           strTitle,

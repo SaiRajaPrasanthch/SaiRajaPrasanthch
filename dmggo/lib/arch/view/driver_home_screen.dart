@@ -11,6 +11,7 @@ class DriverHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: h_0,
         centerTitle: false,
         title: Row(
           children: [

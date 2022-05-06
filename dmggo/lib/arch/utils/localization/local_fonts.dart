@@ -14,7 +14,6 @@ TextStyle grfwnsn_16b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontS
 TextStyle grfwnsn_18b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack);
 TextStyle grfwnsn_20b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack);
 
-TextStyle grfwbsn_12b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_12, color: cblack);
 TextStyle grfwbsn_14b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cblack);
 TextStyle grfwbsn_16b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack);
 TextStyle grfwbsn_18b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack);
@@ -32,17 +31,21 @@ TextStyle grfwbsn_16wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontSt
 TextStyle grfwbsn_18wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white);
 TextStyle grfwbsn_20wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white);
 
+TextStyle grfwnsn_18gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cgrey_500);
+
 TextStyle grfwnsn_16gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: cgrey_500);
 
 TextStyle grfwnsn_14gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500);
 
 TextStyle grfwbsn_14gy500 = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500);
+TextStyle grfwnsn_10gy600 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cgrey_600);
 
 TextStyle grfwnsn_14gy = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey);
 
 TextStyle grfwnsn_12gy = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: cgrey);
 
 TextStyle grfwnsn_18do = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor);
+TextStyle grfwnsn_16do = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: appColor);
 
 TextStyle grfwbsn_18do = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor);
 //with letter spacing

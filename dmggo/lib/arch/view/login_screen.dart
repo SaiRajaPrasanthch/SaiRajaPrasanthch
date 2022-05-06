@@ -1,3 +1,7 @@
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
+import 'package:dmggo/arch/repo/chat_api.dart';
+import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/view/launch_screen.dart';
 import 'package:dmggo/arch/view/signup_screen.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
@@ -16,11 +20,21 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController txtEmailCont = TextEditingController();
+
+  static final Config config = Config(
+    tenant: '647119b9-2120-453d-ab27-e02884c15a1b',
+    clientId: 'fe3d0d8a-0f41-4783-8766-44cee5ef23d6',
+    scope: 'openid profile offline_access',
+    redirectUri: 'msauth.com.seanergydigital.dmggo://auth',
+  );
+  final AadOAuth oauth = AadOAuth(config);
+
   @override
   Widget build(BuildContext context) {
     screenWidth ??= MediaQuery.of(context).size.width;
     screenHeight ??= MediaQuery.of(context).size.height;
     Validations validation = context.watch<Validations>();
+    txtEmailCont.text = dummyStrDriverEmail;
     return Scaffold(
       backgroundColor: cgrey_200,
       body: SafeArea(
@@ -38,10 +52,7 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: h_20, right: h_20),
                   child: Card(
                     shape: rrbr_20,
-                    child: Padding(
-                        padding: EdgeInsets.only(left: h_20, right: h_20),
-                        child: incardWidget(
-                            context: context, validation: validation)),
+                    child: Padding(padding: EdgeInsets.only(left: h_20, right: h_20), child: incardWidget(context: context, validation: validation)),
                   ),
                 ),
               ],
@@ -53,8 +64,7 @@ class LoginScreen extends StatelessWidget {
   }
 
 // card child widgets
-  Widget incardWidget(
-      {required BuildContext context, required Validations validation}) {
+  Widget incardWidget({required BuildContext context, required Validations validation}) {
     return Column(
       children: [
         sbh_20w_0,
@@ -83,8 +93,7 @@ class LoginScreen extends StatelessWidget {
   }
 
 // email textformfield
-  Widget email(
-      {required BuildContext context, required Validations validation}) {
+  Widget email({required BuildContext context, required Validations validation}) {
     return Comtextfield(
       obscureText: false,
       prefixIcon: Icon(Icons.person),
@@ -97,8 +106,7 @@ class LoginScreen extends StatelessWidget {
   }
 
 // password textformfield
-  Widget pass(
-      {required BuildContext context, required Validations validation}) {
+  Widget pass({required BuildContext context, required Validations validation}) {
     return Comtextfield(
       obscureText: true,
       prefixIcon: Icon(Icons.lock),
@@ -109,19 +117,21 @@ class LoginScreen extends StatelessWidget {
   }
 
 // login button
-  Widget login(
-      {required BuildContext context, required Validations validation}) {
+  Widget login({required BuildContext context, required Validations validation}) {
     return CommonButton(
-        color: Colors.deepOrange,
+        color: appColor,
         strBtnText: strLoginTitle,
         textStyle: grfwbsn_14wh,
         dWidth: hinf,
-        onPressed: () {
-          if (validation.submit(
-              strEmail: txtEmailCont.text, context: context)) {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => LaunchScreen()),
-                (Route<dynamic> route) => false);
+        onPressed: () async {
+          // oauth.setWebViewScreenSizeFromMedia(MediaQuery.of(context));
+          // oauth.login();
+          // var accessToken = await oauth.getAccessToken();
+          // print(accessToken);
+          if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LaunchScreen()), (Route<dynamic> route) => false);
+            await ChatApi().loginQB();
+            await ChatApi().connect();
           }
         }
         // () => Navigator.of(context).pushAndRemoveUntil(
@@ -133,13 +143,12 @@ class LoginScreen extends StatelessWidget {
 //Signup Button
   Widget signup({required BuildContext context}) {
     return CommonButton(
-      color: Colors.deepOrange,
+      color: Colors.blue.shade900,
       strBtnText: strSignup,
       textStyle: grfwbsn_14wh,
       dWidth: hinf,
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignupScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
       },
     );
   }

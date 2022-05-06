@@ -1,4 +1,3 @@
-
 import 'package:dmggo/arch/commonUI/com_listtile.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
@@ -12,6 +11,7 @@ class DailyVehicleInspectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: h_0,
         centerTitle: false,
         title: Text(
           strDVI,

@@ -27,6 +27,7 @@ Color cgrey_200 = Colors.grey.shade200;
 Color cgrey_300 = Colors.grey.shade300;
 Color cgrey_400 = Colors.grey.shade400;
 Color cgrey_500 = Colors.grey.shade500;
+Color cgrey_600 = Colors.grey.shade600;
 Color cgrey_900 = Colors.grey.shade900;
 
 Color cgreen = Colors.green;
@@ -34,12 +35,12 @@ Color cgreen_500 = Colors.green.shade500;
 
 Color cblue_700 = Colors.blue.shade700;
 Color cblue_300 = Colors.blue.shade300;
+Color cblue = Colors.blue;
+Color cblue_200 = Colors.blue.shade200;
 
 Color cteal_300 = Colors.teal.shade300;
 
 Color cred = Colors.red;
-
-Color cblue = Colors.blue;
 
 Color cblack = Colors.black;
 Color cblack38 = Colors.black38;

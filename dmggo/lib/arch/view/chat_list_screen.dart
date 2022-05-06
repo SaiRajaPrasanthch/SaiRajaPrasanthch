@@ -1,30 +1,40 @@
+import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
+// import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/commonUI/com_chat_listtile.dart';
-import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class ChatListScreen extends StatelessWidget {
   ChatListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ChatListProvider d = Provider.of<ChatListProvider>(
+      context,
+      //  listen: false
+    );
+    Future.delayed(Duration(seconds: 2), () {
+      d.chatListData();
+    });
+    print('loop');
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
+          elevation: h_0,
           title: Text(
             'Chat',
             style: grfwbsn_18wh,
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-            chatPopupMenu()
-          ],
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
         ),
         body: ListView.builder(
-            itemCount: listChatList.length,
+            itemCount: d.dialogs.length,
             itemBuilder: (context, index) {
-              return CommonChatListTile(value: listChatList[index]);
+              return CommonChatListTile(value: d.dialogs[index]!);
             }));
   }
 

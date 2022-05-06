@@ -9,14 +9,7 @@ class CommonButton extends StatelessWidget {
   final TextStyle? textStyle;
   final VoidCallback? onPressed;
   final double dWidth;
-  CommonButton(
-      {Key? key,
-      required this.color,
-      this.strBtnText,
-      this.textStyle,
-      this.onPressed,
-      required this.dWidth})
-      : super(key: key);
+  CommonButton({Key? key, required this.color, this.strBtnText, this.textStyle, this.onPressed, required this.dWidth}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +17,10 @@ class CommonButton extends StatelessWidget {
       width: dWidth,
       height: h_40,
       child: ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(color),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(rrbr_5)),
+        style:
+            ButtonStyle(elevation: MaterialStateProperty.all<double>(h_0), backgroundColor: MaterialStateProperty.all<Color>(color), shape: MaterialStateProperty.all<RoundedRectangleBorder>(rrbr_5)),
         child: Text(
-          strBtnText ?? "",
+          strBtnText!.toUpperCase(),
           style: textStyle ?? grfwbsn_14wh,
           textAlign: TextAlign.center,
         ),

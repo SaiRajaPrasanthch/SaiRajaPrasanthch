@@ -8,6 +8,8 @@ BorderRadius brCir_20 = BorderRadius.circular(h_20);
 BorderRadius brCir_10 = BorderRadius.circular(h_10);
 BorderRadius brCir_5 = BorderRadius.circular(h_5);
 
+Radius rCir_5 = Radius.circular(h_10);
+
 // oibr_30 outlineInput border radius with 30 (refer code.dart for more codes).
 
 OutlineInputBorder oibr_5 = OutlineInputBorder(

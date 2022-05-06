@@ -16,6 +16,7 @@ class OdometerReadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: h_0,
         centerTitle: false,
         title: Text(
           'Odometer',
@@ -47,10 +48,7 @@ class OdometerReadingScreen extends StatelessWidget {
                 strHintText: 'Ex: 92,39,191',
               ),
               CommonButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PreTripInspection())),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PreTripInspection())),
                 color: appColor,
                 dWidth: hinf,
                 strBtnText: 'Start Inspection',

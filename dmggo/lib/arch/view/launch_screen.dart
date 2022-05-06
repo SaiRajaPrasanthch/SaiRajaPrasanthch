@@ -10,7 +10,7 @@ class LaunchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarProvider>(context);
+    BottomNavigationBarProvider provider = Provider.of<BottomNavigationBarProvider>(context); 
     return Scaffold(
       body: currentTab[provider.currentBar],
       bottomNavigationBar: CommonTabbar(),

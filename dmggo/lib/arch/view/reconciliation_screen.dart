@@ -18,6 +18,7 @@ class Reconciliation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: h_0,
         centerTitle: false,
         title: Text(
           strTitle,
@@ -185,10 +186,8 @@ class Reconciliation extends StatelessWidget {
               child: DropdownButtonFormField(
                 onTap: () {},
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ctransparent)),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: h_1, horizontal: h_5),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ctransparent)),
+                  contentPadding: EdgeInsets.symmetric(vertical: h_1, horizontal: h_5),
                 ),
                 value: listDispute[i_0],
                 style: grfwnsn_10b,
@@ -219,7 +218,7 @@ class Reconciliation extends StatelessWidget {
           return AlertDialog(
             shape: rrbr_10,
             title: Text(
-             strWriteAboutDispute,
+              strWriteAboutDispute,
               style: grfwbsn_16b,
             ),
             content: Comtextfield(
@@ -256,13 +255,11 @@ class Reconciliation extends StatelessWidget {
           return AlertDialog(
             shape: rrbr_10,
             title: Text(
-             strDiscussionAboutTheDispute,
+              strDiscussionAboutTheDispute,
               style: grfwbsn_16b,
             ),
             content: Comtextfield(
-              controller: TextEditingController(
-                  text:
-                     dummyStrReportedDispute ),
+              controller: TextEditingController(text: dummyStrReportedDispute),
               strHintText: strAllAboutTheDispute,
               strLabelText: strAllAboutTheDispute,
               iMaxLines: i_3,
