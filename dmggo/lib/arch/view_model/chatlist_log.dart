@@ -3,17 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:quickblox_sdk/models/qb_dialog.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
 
-class ChatListProvider with ChangeNotifier {
-  List<QBDialog?> dialogs = [];
-  // get currentdialogs => dialogs;
+class ChatListViewModel with ChangeNotifier {
+  List<QBDialog?> _dialogs = [];
 
-  chatListData() async {
-    dialogs = await QB.chat.getDialogs();
-    // dialogsData = await QB.chat.getDialogs();
+  List<QBDialog?> get dialogs => _dialogs;
+
+  setDialogs(List<QBDialog?> dialogs) {
+    _dialogs = dialogs;
+    notifyListeners();
   }
 
-  // set dialogsData(List<QBDialog?> dialog) {
-  //   dialogs = dialog;
-  //   notifyListeners();
-  // }
+  //constructor
+  ChatListViewModel() {
+    chatListData();
+  }
+
+  chatListData() async {
+    _dialogs = await QB.chat.getDialogs();
+    notifyListeners();
+  }
 }

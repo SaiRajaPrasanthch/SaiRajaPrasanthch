@@ -13,7 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android
-    statusBarBrightness: Brightness.light, // Dark == white status bar -- for IOS.
+    statusBarBrightness:
+        Brightness.light, // Dark == white status bar -- for IOS.
   ));
   ChatApi().initialzeChat();
   runApp(MultiProvider(
@@ -28,7 +29,7 @@ void main() async {
         create: (_) => ProfileLogic(),
       ),
       ChangeNotifierProvider(
-        create: (_) => ChatListProvider(),
+        create: (_) => ChatListViewModel(),
       ),
       ChangeNotifierProvider(
         create: (_) => ChatMsgListProvider(),

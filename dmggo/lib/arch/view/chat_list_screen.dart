@@ -13,9 +13,6 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(Duration(seconds: 2), () {
-    // d.chatListData();
-    // });
     print('loop');
     return Scaffold(
         appBar: AppBar(
@@ -25,15 +22,18 @@ class ChatListScreen extends StatelessWidget {
             'Chat',
             style: grfwbsn_18wh,
           ),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+            chatPopupMenu()
+          ],
         ),
-        body: listDialogs(context: context));
+        body: Container(
+          child: listDialogs(context: context),
+        ));
   }
 
-  Widget listDialogs({required BuildContext context}) {
-    ChatListProvider d = context.watch<ChatListProvider>();
-    d.chatListData();
-
+  listDialogs({required BuildContext context}) {
+    ChatListViewModel d = context.watch<ChatListViewModel>();
     return ListView.builder(
         itemCount: d.dialogs.length,
         itemBuilder: (context, index) {
