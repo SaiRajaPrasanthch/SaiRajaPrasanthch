@@ -6,16 +6,17 @@ import 'package:dmggo/arch/commonUI/com_chat_listtile.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
+// import 'package:provider/provider.dart';
 class ChatListScreen extends StatefulWidget {
-  ChatListScreen({Key? key}) : super(key: key);
+  const ChatListScreen({Key? key}) : super(key: key);
 
   @override
   State<ChatListScreen> createState() => _ChatListScreenState();
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+  var d;
   @override
   void initState() {
     ChatListViewModel chatNotifier =
@@ -42,21 +43,15 @@ class _ChatListScreenState extends State<ChatListScreen> {
           ],
         ),
         body: Container(
-          child: listDialogs(context: context),
+          child: d != null ? listDialogs(context: context) : Container(),
         ));
   }
 
   listDialogs({required BuildContext context}) {
-    ChatListViewModel d = context.watch<ChatListViewModel>();
-    if (d.someSubscription != null) {
-      d.someSubscription!.onData((data) {
-        print('hi');
-      });
-    }
     return ListView.builder(
-        itemCount: d.dialogs.length,
+        itemCount: d!.dialogs.length,
         itemBuilder: (context, index) {
-          return CommonChatListTile(value: d.dialogs[index]!);
+          return CommonChatListTile(value: d!.dialogs[index]!);
         });
   }
 

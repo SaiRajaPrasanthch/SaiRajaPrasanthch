@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickblox_sdk/models/qb_dialog.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
