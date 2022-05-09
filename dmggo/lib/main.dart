@@ -1,5 +1,6 @@
 import 'package:dmggo/arch/app.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
+import 'package:dmggo/arch/view/chat_list_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/chatmsglist_log.dart';
 import 'package:dmggo/arch/view_model/profile_log.dart';
@@ -30,6 +31,7 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => ChatListViewModel(),
+      
       ),
       ChangeNotifierProvider(
         create: (_) => ChatMsgListProvider(),

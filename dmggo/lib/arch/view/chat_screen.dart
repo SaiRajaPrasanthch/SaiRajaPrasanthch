@@ -46,14 +46,7 @@ class ChatScreen extends StatelessWidget {
           ),
           body: SafeArea(
             child: Column(
-              children: [
-                // Expanded(
-                //     child: listMsg(
-                //   context: context,
-                //   // chatlog: chatlog.messages
-                // )),
-                textfield(context: context)
-              ],
+              children: [Expanded(child: listMsg(context: context, chatlog: chatlog.messages)), textfield(context: context)],
             ),
           )),
     );

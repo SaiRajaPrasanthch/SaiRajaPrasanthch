@@ -6,10 +6,26 @@ import 'package:dmggo/arch/commonUI/com_chat_listtile.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
-class ChatListScreen extends StatelessWidget {
-  ChatListScreen({Key? key}) : super(key: key);
+// import 'package:provider/provider.dart';
+class ChatListScreen extends StatefulWidget {
+  const ChatListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatListScreen> createState() => _ChatListScreenState();
+}
+
+class _ChatListScreenState extends State<ChatListScreen> {
+  var d;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      d = Provider.of<ChatListViewModel>(context, listen: false);
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +40,15 @@ class ChatListScreen extends StatelessWidget {
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
         ),
         body: Container(
-          child: listDialogs(context: context),
+          child: d != null ? listDialogs(context: context) : Container(),
         ));
   }
 
   listDialogs({required BuildContext context}) {
-    ChatListViewModel d = context.watch<ChatListViewModel>();
-    if (d.someSubscription != null) {
-      d.someSubscription!.onData((data) {
-        print('hi');
-      });
-    }
     return ListView.builder(
-        itemCount: d.dialogs.length,
+        itemCount: d!.dialogs.length,
         itemBuilder: (context, index) {
-          return CommonChatListTile(value: d.dialogs[index]!);
+          return CommonChatListTile(value: d!.dialogs[index]!);
         });
   }
 
