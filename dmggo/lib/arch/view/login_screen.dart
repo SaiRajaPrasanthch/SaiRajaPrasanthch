@@ -130,8 +130,8 @@ class LoginScreen extends StatelessWidget {
           // print(accessToken);
           if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LaunchScreen()), (Route<dynamic> route) => false);
-            // await ChatApi().loginQB();
-            // await ChatApi().connect();
+            await ChatApi().loginQB();
+           
           }
         }
         // () => Navigator.of(context).pushAndRemoveUntil(

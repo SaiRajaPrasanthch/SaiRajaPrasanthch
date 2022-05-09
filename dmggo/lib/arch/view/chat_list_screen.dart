@@ -13,7 +13,6 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('loop');
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -22,10 +21,7 @@ class ChatListScreen extends StatelessWidget {
             'Chat',
             style: grfwbsn_18wh,
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-            chatPopupMenu()
-          ],
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
         ),
         body: Container(
           child: listDialogs(context: context),
@@ -34,6 +30,11 @@ class ChatListScreen extends StatelessWidget {
 
   listDialogs({required BuildContext context}) {
     ChatListViewModel d = context.watch<ChatListViewModel>();
+    if (d.someSubscription != null) {
+      d.someSubscription!.onData((data) {
+        print('hi');
+      });
+    }
     return ListView.builder(
         itemCount: d.dialogs.length,
         itemBuilder: (context, index) {

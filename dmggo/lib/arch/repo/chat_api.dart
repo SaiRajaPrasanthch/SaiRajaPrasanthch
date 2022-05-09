@@ -14,8 +14,8 @@ class ChatApi {
   void initialzeChat() async {
     try {
       await QB.settings.init(appId, authKey, authSecret, accountKey);
-      enableAutoReconnect();
-      enableCarbons();
+      // enableAutoReconnect();
+      // enableCarbons();
       initStreamManagement();
     } on PlatformException catch (e) {
       if (kDebugMode) {
@@ -62,6 +62,7 @@ class ChatApi {
       QBLoginResult result = await QB.auth.login(login, password);
       qbUser = result.qbUser;
       qbSession = result.qbSession;
+       await connect();
       if (kDebugMode) {
         print(qbUser);
         print(qbSession);
