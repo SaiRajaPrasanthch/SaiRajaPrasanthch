@@ -8,8 +8,23 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
-class ChatListScreen extends StatelessWidget {
+class ChatListScreen extends StatefulWidget {
   ChatListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatListScreen> createState() => _ChatListScreenState();
+}
+
+class _ChatListScreenState extends State<ChatListScreen> {
+  @override
+  void initState() {
+    ChatListViewModel chatNotifier =
+        Provider.of<ChatListViewModel>(context, listen: false);
+    chatNotifier.getChatListData();
+    chatNotifier.chatReadSubcriptions();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +36,10 @@ class ChatListScreen extends StatelessWidget {
             'Chat',
             style: grfwbsn_18wh,
           ),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+            chatPopupMenu()
+          ],
         ),
         body: Container(
           child: listDialogs(context: context),

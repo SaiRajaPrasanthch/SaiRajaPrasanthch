@@ -22,8 +22,8 @@ class ChatListViewModel with ChangeNotifier {
   //constructor
   ChatListViewModel() {
     someSubscription = null;
-    chatReadSubcriptions();
-    getChatListData();
+    // chatReadSubcriptions();
+    // getChatListData();
   }
 
   getChatListData() async {
@@ -34,7 +34,8 @@ class ChatListViewModel with ChangeNotifier {
 
   chatReadSubcriptions() async {
     try {
-      someSubscription = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+      someSubscription =
+          await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
         getChatListData();
       });
 
