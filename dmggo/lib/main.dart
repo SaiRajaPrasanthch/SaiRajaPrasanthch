@@ -8,14 +8,14 @@ import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:quickblox_sdk/models/qb_message.dart';
 import 'arch/view_model/bottombar_log.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android
-    statusBarBrightness:
-        Brightness.light, // Dark == white status bar -- for IOS.
+    statusBarBrightness: Brightness.light, // Dark == white status bar -- for IOS.
   ));
   ChatApi().initialzeChat();
   runApp(MultiProvider(
@@ -31,7 +31,6 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => ChatListViewModel(),
-      
       ),
       ChangeNotifierProvider(
         create: (_) => ChatMsgListProvider(),

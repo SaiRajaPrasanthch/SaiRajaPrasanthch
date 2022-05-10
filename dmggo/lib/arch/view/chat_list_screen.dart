@@ -16,13 +16,11 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
-  var d;
   @override
   void initState() {
-    ChatListViewModel chatNotifier =
-        Provider.of<ChatListViewModel>(context, listen: false);
-    chatNotifier.getChatListData();
-    chatNotifier.chatReadSubcriptions();
+    ChatListViewModel d = Provider.of<ChatListViewModel>(context, listen: false);
+    // d.chatReadSubcriptions();
+    d.getChatListData();
 
     super.initState();
   }
@@ -37,21 +35,20 @@ class _ChatListScreenState extends State<ChatListScreen> {
             'Chat',
             style: grfwbsn_18wh,
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-            chatPopupMenu()
-          ],
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), chatPopupMenu()],
         ),
         body: Container(
-          child: d != null ? listDialogs(context: context) : Container(),
+          child: listDialogs(context: context),
         ));
   }
 
   listDialogs({required BuildContext context}) {
+    ChatListViewModel d = context.watch<ChatListViewModel>();
+
     return ListView.builder(
-        itemCount: d!.dialogs.length,
+        itemCount: d.dialogs.length,
         itemBuilder: (context, index) {
-          return CommonChatListTile(value: d!.dialogs[index]!);
+          return CommonChatListTile(value: d.dialogs[index]!);
         });
   }
 

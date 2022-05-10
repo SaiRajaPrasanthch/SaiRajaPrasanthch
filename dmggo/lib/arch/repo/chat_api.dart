@@ -1,4 +1,5 @@
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quickblox_sdk/auth/module.dart';
@@ -62,7 +63,8 @@ class ChatApi {
       QBLoginResult result = await QB.auth.login(login, password);
       qbUser = result.qbUser;
       qbSession = result.qbSession;
-       await connect();
+      await connect();
+      ChatListViewModel().chatReadSubcriptions();
       if (kDebugMode) {
         print(qbUser);
         print(qbSession);
@@ -138,6 +140,4 @@ class ChatApi {
       // Some error occurred, look at the exception message for more details
     }
   }
-
-
 }

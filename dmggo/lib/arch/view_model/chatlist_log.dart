@@ -38,9 +38,9 @@ class ChatListViewModel with ChangeNotifier {
         getChatListData();
       });
 
-      someSubscription?.onData((data) {
-        getChatListData();
-      });
+      // someSubscription?.onData((data) {
+      //   getChatListData();
+      // });
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print(e);
