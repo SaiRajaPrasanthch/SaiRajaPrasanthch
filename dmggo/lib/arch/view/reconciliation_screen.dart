@@ -22,7 +22,7 @@ class Reconciliation extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strTitle,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       backgroundColor: cgrey_200,
@@ -53,7 +53,7 @@ class Reconciliation extends StatelessWidget {
             flex: i_2,
             child: Text(
               strTitle,
-              style: grfwbsn_16b,
+              style: tscwbsn_16b,
             ),
           ),
           isWeekAvail != null && isWeekAvail
@@ -62,7 +62,7 @@ class Reconciliation extends StatelessWidget {
                   child: CommonDropdown(
                     strSelectedValue: listWeek[i_0],
                     listdata: listWeek,
-                    textStyle: grfwnsn_14b,
+                    textStyle: tscwnsn_14b,
                   ))
               : sbh_5w_5,
           sbh_5w_5,
@@ -71,7 +71,7 @@ class Reconciliation extends StatelessWidget {
               child: CommonDropdown(
                 strSelectedValue: listYear[i_0],
                 listdata: listYear,
-                textStyle: grfwnsn_14b,
+                textStyle: tscwnsn_14b,
               ))
         ],
       ),
@@ -110,7 +110,7 @@ class Reconciliation extends StatelessWidget {
     return CommonButton(
       color: appColor,
       dWidth: screenWidth! / i_2,
-      textStyle: grfwbsn_14wh,
+      textStyle: tscwbsn_14wh,
       strBtnText: strVLI,
     );
   }
@@ -135,14 +135,14 @@ class Reconciliation extends StatelessWidget {
                       padding: EdgeInsets.all(h_15),
                       child: Text(
                         list[index].strImage,
-                        style: grfwbsn_14b,
+                        style: tscwbsn_14b,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(h_15),
                       child: Text(
                         list[index].strDescription,
-                        style: grfwnsn_14b,
+                        style: tscwnsn_14b,
                       ),
                     ),
                   ],
@@ -174,7 +174,7 @@ class Reconciliation extends StatelessWidget {
                 padding: EdgeInsets.all(h_15),
                 child: Text(
                   strReportedDispute,
-                  style: grfwbsndul_14blu,
+                  style: tscwbsndul_14blu,
                 ),
               ),
             ),
@@ -190,7 +190,7 @@ class Reconciliation extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(vertical: h_1, horizontal: h_5),
                 ),
                 value: listDispute[i_0],
-                style: grfwnsn_10b,
+                style: tscwnsn_10b,
                 isExpanded: true,
                 items: listDispute
                     .map((value) => DropdownMenuItem(
@@ -219,7 +219,7 @@ class Reconciliation extends StatelessWidget {
             shape: rrbr_10,
             title: Text(
               strWriteAboutDispute,
-              style: grfwbsn_16b,
+              style: tscwbsn_16b,
             ),
             content: Comtextfield(
               strHintText: strTellUsMoreAboutTheDispute,
@@ -256,7 +256,7 @@ class Reconciliation extends StatelessWidget {
             shape: rrbr_10,
             title: Text(
               strDiscussionAboutTheDispute,
-              style: grfwbsn_16b,
+              style: tscwbsn_16b,
             ),
             content: Comtextfield(
               controller: TextEditingController(text: dummyStrReportedDispute),
@@ -269,7 +269,7 @@ class Reconciliation extends StatelessWidget {
                 color: cwhite,
                 dWidth: h_100,
                 strBtnText: strCancel.toLowerCase(),
-                textStyle: grfwbsn_14b,
+                textStyle: tscwbsn_14b,
                 onPressed: () {
                   Navigator.pop(conDialog);
                 },

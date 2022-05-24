@@ -65,7 +65,7 @@ class CommonMessageThread extends StatelessWidget {
             //               padding: EdgeInsets.all(h_5),
             //               child: Text(
             //                 strMessage,
-            //                 style: grfwnsn_16b,
+            //                 style: tscwnsn_16b,
             //                 textAlign: TextAlign.justify,
             //               ),
             //             ),
@@ -73,7 +73,7 @@ class CommonMessageThread extends StatelessWidget {
             //               padding: EdgeInsets.only(right: !isMsgReceived ? h_20 : h_2, left: h_5),
             //               child: Text(
             //                 d12,
-            //                 style: grfwnsn_12gy,
+            //                 style: tscwnsn_12gy,
             //                 textAlign: TextAlign.right,
             //               ),
             //             )
@@ -112,7 +112,7 @@ class CommonMessageThread extends StatelessWidget {
               child: Text(
                 message!.body!,
                 softWrap: true,
-                style: grfwnsn_14b,
+                style: tscwnsn_14b,
               ),
             ),
           );

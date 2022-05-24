@@ -21,7 +21,7 @@ class PreTripInspection extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strPreTI,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: SafeArea(
@@ -46,12 +46,12 @@ class PreTripInspection extends StatelessWidget {
           ),
           Text(
             dStrCarrier,
-            style: grfwbsn_18b,
+            style: tscwbsn_18b,
             textAlign: TextAlign.center,
           ),
           Text(
             '- ' + dStrRoute,
-            style: grfwnsn_16b,
+            style: tscwnsn_16b,
             textAlign: TextAlign.center,
           ),
         ],
@@ -87,14 +87,14 @@ class PreTripInspection extends StatelessWidget {
                     padding: EdgeInsets.only(left: h_15),
                     child: Text(
                       strVehicle,
-                      style: grfwnsn_18b,
+                      style: tscwnsn_18b,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: h_15),
                     child: Text(
                       strVNo,
-                      style: grfwbsn_18b,
+                      style: tscwbsn_18b,
                     ),
                   ),
                 ],
@@ -104,11 +104,11 @@ class PreTripInspection extends StatelessWidget {
                 children: [
                   Text(
                     strOdometer,
-                    style: grfwnsn_18do,
+                    style: tscwnsn_18do,
                   ),
                   Text(
                     strOdNo,
-                    style: grfwbsn_18do,
+                    style: tscwbsn_18do,
                   ),
                 ],
               )
@@ -154,7 +154,7 @@ class PreTripInspection extends StatelessWidget {
                 children: [
                   Text(
                     "New Damage",
-                    style: grfwbsn_18b,
+                    style: tscwbsn_18b,
                   ),
                 ],
               ),

@@ -5,11 +5,13 @@ import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 
 class CommonButton extends StatelessWidget {
   final Color color;
-  final String? strBtnText;
+  final String strBtnText;
   final TextStyle? textStyle;
   final VoidCallback? onPressed;
   final double dWidth;
-  CommonButton({Key? key, required this.color, this.strBtnText, this.textStyle, this.onPressed, required this.dWidth}) : super(key: key);
+  final bool? isImage;
+  final String? strImage;
+  CommonButton({Key? key, required this.color, required this.strBtnText, this.textStyle, this.onPressed, required this.dWidth, this.isImage = false, this.strImage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,21 @@ class CommonButton extends StatelessWidget {
       child: ElevatedButton(
         style:
             ButtonStyle(elevation: MaterialStateProperty.all<double>(h_0), backgroundColor: MaterialStateProperty.all<Color>(color), shape: MaterialStateProperty.all<RoundedRectangleBorder>(rrbr_5)),
-        child: Text(
-          strBtnText!.toUpperCase(),
-          style: textStyle ?? grfwbsn_14wh,
-          textAlign: TextAlign.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (isImage!)
+              Image.asset(
+                strImage!,
+                height: 25,
+              ),
+            Text(
+              strBtnText.toUpperCase(),
+              style: textStyle ?? tscwbsn_14wh,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
         onPressed: onPressed,
       ),

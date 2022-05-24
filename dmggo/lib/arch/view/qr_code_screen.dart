@@ -58,7 +58,7 @@ class QRCodeScreen extends StatelessWidget {
                         padding: EdgeInsets.all(h_10),
                         child: Text(
                           'Please place the QR code in the box',
-                          style: grfwbsn_14wh,
+                          style: tscwbsn_14wh,
                         ),
                       )
                     ],
@@ -72,7 +72,7 @@ class QRCodeScreen extends StatelessWidget {
                         alignment: Alignment.bottomCenter,
                         child: Text(
                           'Scan the QR Code on the Vehicle',
-                          style: grfwbsn_14wh,
+                          style: tscwbsn_14wh,
                         ))),
                 Positioned(
                     left: 1,
@@ -105,7 +105,7 @@ class QRCodeScreen extends StatelessWidget {
                       padding: EdgeInsets.all(h_10),
                       child: Text(
                         'Or',
-                        style: grfwbsn_16b,
+                        style: tscwbsn_16b,
                       ),
                     ),
                     Comtextfield(
@@ -113,10 +113,7 @@ class QRCodeScreen extends StatelessWidget {
                       strHintText: 'Enter vehicle no manually.....',
                     ),
                     CommonButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OdometerReadingScreen())),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OdometerReadingScreen())),
                       color: appColor,
                       dWidth: hinf,
                       strBtnText: "Next",

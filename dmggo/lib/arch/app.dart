@@ -1,6 +1,16 @@
 import 'package:dmggo/arch/repo/chat_api.dart';
-import 'package:flutter/material.dart';
+import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:dmggo/arch/view/chat_list_screen.dart';
+import 'package:dmggo/arch/view/launch_loading_screen.dart';
+import 'package:dmggo/arch/view/launch_screen.dart';
 import 'package:dmggo/arch/view/login_screen.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:dmggo/arch/view_model/login_log.dart';
+import 'package:dmggo/main.dart';
+import 'package:flutter/material.dart';
+import 'package:quickblox_sdk/quickblox_sdk.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -23,20 +33,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        ChatApi().connect();
-        break;
-      case AppLifecycleState.paused:
-        ChatApi().disConnect();
-        break;
-      case AppLifecycleState.inactive:
-        ChatApi().disConnect();
-        break;
-      case AppLifecycleState.detached:
-        ChatApi().disConnect();
-        break;
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (accessToken != null && strLoginExist != null) {
+      switch (state) {
+        case AppLifecycleState.resumed:
+          await ChatApi().initialzeChat();
+          await LoginLogic().callQBServices();
+          await ChatListViewModel().getChatListData();
+          subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+            ChatListViewModel().getChatListData();
+          });
+          break;
+        case AppLifecycleState.paused:
+          // subscriptionReceiveMsg?.cancel();
+          await ChatApi().disConnect();
+          break;
+        case AppLifecycleState.inactive:
+          //   subscriptionReceiveMsg?.cancel();
+          //   await ChatApi().disConnect();
+          break;
+        case AppLifecycleState.detached:
+          //   subscriptionReceiveMsg?.cancel();
+          //   await ChatApi().disConnect();
+          break;
+      }
     }
   }
 
@@ -52,12 +72,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);
         final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);
+        screenWidth ??= mediaQueryData.size.width;
+        screenHeight ??= mediaQueryData.size.height;
+
         return MediaQuery(
           child: child!,
           data: mediaQueryData.copyWith(textScaleFactor: scale),
         );
       },
-      home: LoginScreen(),
+      home: accessToken == null && strLoginExist == null ? LoginScreen() : LaunchScreen(), //LaunchScreen
+      // home: accessToken == null ? LaunchLoadingScreen() : LaunchLoadingScreen(), //LaunchScreen
     );
   }
 }

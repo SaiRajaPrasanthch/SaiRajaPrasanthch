@@ -20,7 +20,7 @@ class OdometerReadingScreen extends StatelessWidget {
         centerTitle: false,
         title: Text(
           'Odometer',
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: SafeArea(
@@ -39,7 +39,7 @@ class OdometerReadingScreen extends StatelessWidget {
               ),
               Text(
                 strOdometerTitle,
-                style: grfwnsn_16b,
+                style: tscwnsn_16b,
                 textAlign: TextAlign.center,
               ),
               sbh_50w_0,

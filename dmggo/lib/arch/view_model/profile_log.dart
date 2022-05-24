@@ -1,9 +1,12 @@
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view/driver_home_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
+import 'package:dmggo/arch/view_model/bottombar_log.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileLogic extends ChangeNotifier {
   bool isNotifiable = false;
@@ -28,6 +31,14 @@ class ProfileLogic extends ChangeNotifier {
       }
     }
 
+    notifyListeners();
+  }
+
+  logout({required BuildContext con}) async {
+    await oauth.logout();
+    Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
+    prefs.then((value) => value.clear());
+    launchLoginScreen(con);
     notifyListeners();
   }
 }

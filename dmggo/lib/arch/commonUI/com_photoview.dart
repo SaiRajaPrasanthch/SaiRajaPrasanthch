@@ -65,7 +65,7 @@ class CommonPhotoview extends StatelessWidget {
             children: [
               // Text(
               //   strHeaderBS,
-              //   style: grfwbsn_12wh,
+              //   style: tscwbsn_12wh,
               // ),
               // Padding(
               //   padding: EdgeInsets.all(h_5),
@@ -106,14 +106,7 @@ class CommonPhotoview extends StatelessWidget {
                         child: listPTIP.length != index
                             ? Container(
                                 width: screenWidth! / h_5,
-                                decoration: BoxDecoration(
-                                    borderRadius: brCir_10,
-                                    border: Border.all(
-                                        width: h_4,
-                                        color: strIamgeName ==
-                                                listPTIP[index].strImage
-                                            ? cblue
-                                            : ctransparent)),
+                                decoration: BoxDecoration(borderRadius: brCir_10, border: Border.all(width: h_4, color: strIamgeName == listPTIP[index].strImage ? cblue : ctransparent)),
                                 child: Image.asset(
                                   listPTIP[index].strImage,
                                   width: screenWidth! / h_5,
@@ -122,17 +115,11 @@ class CommonPhotoview extends StatelessWidget {
                               )
                             : InkWell(
                                 onTap: () {
-                                  showCupertinoModalPopup(
-                                      context: context,
-                                      builder: (context) =>
-                                          CommonCameraBottomSheet());
+                                  showCupertinoModalPopup(context: context, builder: (context) => CommonCameraBottomSheet());
                                 },
                                 child: Container(
                                   width: screenWidth! / h_5,
-                                  decoration: BoxDecoration(
-                                      borderRadius: brCir_10,
-                                      border: Border.all(
-                                          width: h_4, color: cwhite)),
+                                  decoration: BoxDecoration(borderRadius: brCir_10, border: Border.all(width: h_4, color: cwhite)),
                                   child: Icon(
                                     Icons.add_photo_alternate_outlined,
                                     color: cwhite,
@@ -175,8 +162,7 @@ class CommonPhotoview extends StatelessWidget {
                     ),
                     sbh_5w_5,
                     sbh_5w_5,
-                    Icon(Icons.attach_file,
-                        size: h_30, color: Theme.of(context).hintColor),
+                    Icon(Icons.attach_file, size: h_30, color: Theme.of(context).hintColor),
                     sbh_5w_5,
                   ],
                 ),

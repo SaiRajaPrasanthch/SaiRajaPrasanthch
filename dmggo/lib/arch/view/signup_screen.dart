@@ -36,10 +36,7 @@ class SignupScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: h_20, right: h_20),
                   child: Card(
                     shape: rrbr_20,
-                    child: Padding(
-                        padding: EdgeInsets.only(left: h_20, right: h_20),
-                        child: incardWidget(
-                            context: context, validation: validation)),
+                    child: Padding(padding: EdgeInsets.only(left: h_20, right: h_20), child: incardWidget(context: context, validation: validation)),
                   ),
                 ),
               ],
@@ -51,14 +48,13 @@ class SignupScreen extends StatelessWidget {
   }
 
 // card child widgets
-  Widget incardWidget(
-      {required BuildContext context, required Validations validation}) {
+  Widget incardWidget({required BuildContext context, required Validations validation}) {
     return Column(
       children: [
         sbh_20w_0,
         Text(
           strCYLTiile,
-          style: grfwbsn_20b,
+          style: tscwbsn_20b,
         ),
         sbh_30w_0,
         email(context: context, validation: validation),
@@ -71,8 +67,7 @@ class SignupScreen extends StatelessWidget {
   }
 
 // email textformfield
-  Widget email(
-      {required BuildContext context, required Validations validation}) {
+  Widget email({required BuildContext context, required Validations validation}) {
     return Comtextfield(
       obscureText: false,
       prefixIcon: Icon(Icons.person),
@@ -84,8 +79,7 @@ class SignupScreen extends StatelessWidget {
   }
 
 // password textformfield
-  Widget pass(
-      {required BuildContext context, required Validations validation}) {
+  Widget pass({required BuildContext context, required Validations validation}) {
     return Comtextfield(
       obscureText: true,
       prefixIcon: Icon(Icons.lock),
@@ -96,8 +90,7 @@ class SignupScreen extends StatelessWidget {
   }
 
   // re-enter password textformfield
-  Widget repass(
-      {required BuildContext context, required Validations validation}) {
+  Widget repass({required BuildContext context, required Validations validation}) {
     return Comtextfield(
       obscureText: true,
       prefixIcon: Icon(Icons.lock),
@@ -108,18 +101,15 @@ class SignupScreen extends StatelessWidget {
   }
 
 // submit button
-  Widget submit(
-      {required BuildContext context, required Validations validation}) {
+  Widget submit({required BuildContext context, required Validations validation}) {
     return CommonButton(
         color: appColor,
         strBtnText: strSubmit,
-        textStyle: grfwbsn_14wh,
+        textStyle: tscwbsn_14wh,
         dWidth: hinf,
         onPressed: () {
-          if (validation.submit(
-              strEmail: txtEmailCont.text, context: context)) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => OTPScreen()));
+          if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => OTPScreen()));
           }
         });
   }

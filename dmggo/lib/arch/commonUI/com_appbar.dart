@@ -10,7 +10,7 @@ class CommonAppBar extends StatelessWidget {
     return AppBar(
       title: Text(
         strTitle,
-        style: grfwbsn_18wh,
+        style: tscwbsn_18wh,
       ),
     );
   }

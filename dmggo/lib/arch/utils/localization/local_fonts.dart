@@ -1,57 +1,60 @@
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 
-// grfwnsn_12b - google font with weight normal , style normal, size h_12, color black (refer code.dart for more codes).
+// tscwnsn_12b - google font with weight normal , style normal, size h_12, color black (refer code.dart for more codes).
 
-TextStyle grfwnsn_8b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_8, color: cblack);
+TextStyle tscwnsn_8b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_8, color: cblack, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_10b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cblack);
-TextStyle grfwnsn_12b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: cblack);
-TextStyle grfwnsn_14b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cblack);
-TextStyle grfwnsn_16b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack);
-TextStyle grfwnsn_18b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack);
-TextStyle grfwnsn_20b = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack);
+TextStyle tscwnsn_12b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_10b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_14b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_16b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_18b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_20b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwnsn_25b = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_25, color: cblack, fontFamily: 'Calibri');
 
-TextStyle grfwbsn_14b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cblack);
-TextStyle grfwbsn_16b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack);
-TextStyle grfwbsn_18b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack);
-TextStyle grfwbsn_20b = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack);
+TextStyle tscwbsn_14b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwbsn_16b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwbsn_18b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack, fontFamily: 'Calibri');
+TextStyle tscwbsn_20b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_12wh = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: Colors.white);
-TextStyle grfwnsn_14wh = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: Colors.white);
-TextStyle grfwnsn_16wh = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: Colors.white);
-TextStyle grfwnsn_18wh = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white);
-TextStyle grfwnsn_20wh = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white);
+TextStyle tscwnsn_12wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwnsn_14wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwnsn_16wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwnsn_18wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwnsn_20wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white, fontFamily: 'Calibri');
 
-TextStyle grfwbsn_12wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_12, color: Colors.white);
-TextStyle grfwbsn_14wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: Colors.white);
-TextStyle grfwbsn_16wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: Colors.white);
-TextStyle grfwbsn_18wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white);
-TextStyle grfwbsn_20wh = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white);
+TextStyle tscwbsn_12wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_12, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwbsn_14wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwbsn_16wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwbsn_18wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white, fontFamily: 'Calibri');
+TextStyle tscwbsn_20wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_18gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cgrey_500);
+TextStyle tscwnsn_18gy500 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cgrey_500, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_16gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: cgrey_500);
+TextStyle tscwnsn_16gy500 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: cgrey_500, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_14gy500 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500);
+TextStyle tscwnsn_14gy500 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500, fontFamily: 'Calibri');
 
-TextStyle grfwbsn_14gy500 = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500);
-TextStyle grfwnsn_10gy600 = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cgrey_600);
+TextStyle tscwbsn_14gy500 = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500, fontFamily: 'Calibri');
+TextStyle tscwnsn_10gy600 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cgrey_600, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_14gy = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey);
+TextStyle tscwnsn_14gy = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_12gy = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: cgrey);
+TextStyle tscwnsn_12gy = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: cgrey, fontFamily: 'Calibri');
 
-TextStyle grfwnsn_18do = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor);
-TextStyle grfwnsn_16do = GoogleFonts.raleway(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: appColor);
+TextStyle tscwnsn_18do = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor, fontFamily: 'Calibri');
+TextStyle tscwnsn_16do = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_16, color: appColor, fontFamily: 'Calibri');
 
-TextStyle grfwbsn_18do = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor);
+TextStyle tscwbsn_18do = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: appColor, fontFamily: 'Calibri');
+
+TextStyle tscwnsn_18bl700 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cblue_700, fontFamily: 'Calibri');
+
 //with letter spacing
 
-TextStyle grfwbsn_16bls20 = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, letterSpacing: h_20);
+TextStyle tscwbsn_16bLs20 = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, letterSpacing: h_20, fontFamily: 'Calibri');
 
-TextStyle grfwbsn_14r = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cred);
+TextStyle tscwbsn_14r = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cred, fontFamily: 'Calibri');
 
-TextStyle grfwbsndul_14blu = GoogleFonts.raleway(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, decoration: TextDecoration.underline, color: cblue);
+TextStyle tscwbsndul_14blu = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, decoration: TextDecoration.underline, color: cblue, fontFamily: 'Calibri');

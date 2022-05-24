@@ -1,5 +1,5 @@
+import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 
@@ -17,7 +17,7 @@ class Comtextfield extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final int? iMaxLines;
-
+  final ValueChanged<String>? onChanged;
   Comtextfield(
       {Key? key,
       this.prefixIcon,
@@ -32,33 +32,46 @@ class Comtextfield extends StatelessWidget {
       this.textAlign,
       this.controller,
       this.keyboardType,
-      this.iMaxLines})
+      this.iMaxLines,
+      this.onChanged})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      textAlign: textAlign ?? TextAlign.start,
-      style: textStyle ?? grfwnsn_12b,
-      obscureText: obscureText ?? false,
-      maxLines: iMaxLines??1,
-      decoration: InputDecoration(
-        filled: filled ?? true,
-        fillColor: fillColor ?? cgrey_50,
-        prefixIcon: prefixIcon,
-        hintText: strHintText ?? "",
-        hintStyle: textStyle ?? grfwnsn_12b,
-        border: border ?? oibr_5,
-        labelText: strLabelText ?? "",
-        alignLabelWithHint: true,
-        errorText: strErrorText ?? "",
-        focusedBorder: border ?? oibr_5,
+    return Theme(
+      data: ThemeData(primaryColor: cgrey, hintColor: cgrey),
+      child: TextField(
+        controller: controller,
+        textAlign: textAlign ?? TextAlign.start,
+        style: textStyle ?? tscwnsn_12b,
+        obscureText: obscureText ?? false,
+        maxLines: iMaxLines ?? 1,
+        decoration: InputDecoration(
+          filled: filled ?? true,
+          fillColor: fillColor ?? cgrey_50,
+          prefixIcon: prefixIcon,
+          hintText: strHintText ?? "",
+          hintStyle: textStyle ?? tscwnsn_12b,
+          // border: border,
+          labelText: strLabelText ?? "",
+          alignLabelWithHint: true,
+          errorText: strErrorText ?? "",
+          // focusedBorder: border,
+          // enabledBorder: border,
+
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: h_2),
+            borderRadius: BorderRadius.circular(h_5),
+          ),
+
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: cgrey),
+            borderRadius: BorderRadius.circular(h_5),
+          ),
+        ),
+        keyboardType: keyboardType,
+        onChanged: onChanged,
       ),
-      keyboardType: keyboardType,
-      // onChanged: (String value) {
-      //   // validation.changePhoneNumber(value);
-      // },
     );
   }
 }

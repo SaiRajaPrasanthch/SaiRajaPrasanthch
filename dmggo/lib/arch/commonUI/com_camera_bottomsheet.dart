@@ -10,25 +10,25 @@ class CommonCameraBottomSheet extends StatelessWidget {
     return CupertinoActionSheet(
       title: Text(
         strSelectPhoto,
-        style: grfwbsn_18b,
+        style: tscwbsn_18b,
       ),
       message: Text(
         strSelectPhotoDesc,
-        style: grfwnsn_14b,
+        style: tscwnsn_14b,
       ),
       actions: [
         // CupertinoActionSheetAction(
         //   onPressed: () {},
         //   child: Text(
         //     strGallery,
-        //     style: grfwbsn_14b,
+        //     style: tscwbsn_14b,
         //   ),
         // ),
         CupertinoActionSheetAction(
           onPressed: () {},
           child: Text(
             strCamera,
-            style: grfwbsn_14b,
+            style: tscwbsn_14b,
           ),
         ),
       ],
@@ -36,7 +36,7 @@ class CommonCameraBottomSheet extends StatelessWidget {
         onPressed: () {},
         child: Text(
           strCancel,
-          style: grfwbsn_14r,
+          style: tscwbsn_14r,
         ),
       ),
     );

@@ -15,12 +15,7 @@ class CommonListTile extends StatelessWidget {
   final String? strTitle;
   final int? intCount;
   final bool bTileOnComplete;
-  CommonListTile(
-      {Key? key,
-      required this.strTitle,
-      required this.bTileOnComplete,
-      this.intCount})
-      : super(key: key);
+  CommonListTile({Key? key, required this.strTitle, required this.bTileOnComplete, this.intCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +23,9 @@ class CommonListTile extends StatelessWidget {
       children: [
         ListTile(
           onTap: () => strTitle == strDVI
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DailyVehicleInspectionScreen()))
+              ? Navigator.push(context, MaterialPageRoute(builder: (context) => DailyVehicleInspectionScreen()))
               : strTitle == strPreTI
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => QRCodeScreen()))
+                  ? Navigator.push(context, MaterialPageRoute(builder: (context) => QRCodeScreen()))
                   : strTitle == strReconcilation
                       ? Navigator.push(
                           context,
@@ -44,20 +33,19 @@ class CommonListTile extends StatelessWidget {
                               builder: (context) => Reconciliation(
                                     strTitle: strTitle!,
                                   )))
-                      : 
-                      strTitle == strMyClockPunches
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DrvierClockPunch(
-                                    strTitle: strTitle!,
-                                  )))
-                      : Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CommonComingSoon(
-                                    strTitle: strTitle!,
-                                  ))),
+                      : strTitle == strMyClockPunches
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DrvierClockPunch(
+                                        strTitle: strTitle!,
+                                      )))
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CommonComingSoon(
+                                        strTitle: strTitle!,
+                                      ))),
           selected: bTileOnComplete,
           selectedTileColor: cgrey_100,
           title: Row(
@@ -65,7 +53,7 @@ class CommonListTile extends StatelessWidget {
             children: [
               Text(
                 strTitle ?? "",
-                style: bTileOnComplete ? grfwnsn_16gy500 : grfwnsn_16b,
+                style: bTileOnComplete ? tscwnsn_16gy500 : tscwnsn_16b,
               ),
               intCount == null
                   ? sbh_5w_0
@@ -75,7 +63,7 @@ class CommonListTile extends StatelessWidget {
                       elevation: h_0,
                       badgeContent: Text(
                         intCount.toString(),
-                        style: grfwnsn_16wh,
+                        style: tscwnsn_16wh,
                       ),
                     ),
             ],

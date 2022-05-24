@@ -8,9 +8,12 @@ String strRePassword = 'RE-ENTER PASSWORD';
 
 String strForPass = 'Forgot password?';
 
-String strNewDMGgo = 'New to DMGGO?';
+String strLoginWithDMGgo1 = 'Login using DmgGo.com';
+String strLoginWithDMGgo2 = 'or';
+String strLoginWithDMGgo3 = 'Deliverymg.com email id';
 
 String strSignup = 'SIGN UP';
+String strSignInMicrosoft = 'Sign In with Microsoft';
 
 String strSubmit = 'SUBMIT';
 
@@ -230,4 +233,14 @@ String strReportedDispute = 'Reported Dispute';
 
 String strDiscussionAboutTheDispute = 'Discussion about the dispute';
 
-String strAllAboutTheDispute='All about the dispute.';
+String strAllAboutTheDispute = 'All about the dispute.';
+
+String strNext = 'Next';
+
+// shared prefresnce
+String strQBLogin = 'login';
+String strQBPass = 'password';
+String strQBEmail = 'email';
+String strQBFullName = 'fullName';
+String intQBId = 'QBid';
+String intUserId = 'UserId';

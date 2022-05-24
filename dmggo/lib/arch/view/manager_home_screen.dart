@@ -24,7 +24,7 @@ class ManagerHomeScreen extends StatelessWidget {
             ),
             Text(
               strLHome,
-              style: grfwbsn_18wh,
+              style: tscwbsn_18wh,
             ),
           ],
         ),
@@ -56,7 +56,7 @@ class ManagerHomeScreen extends StatelessWidget {
                 child: CommonDropdown(
                   strSelectedValue: listCarrier[0],
                   listdata: listCarrier,
-                  textStyle: grfwbsn_14b,
+                  textStyle: tscwbsn_14b,
                 )),
             SizedBox(
               width: h_10,
@@ -66,7 +66,7 @@ class ManagerHomeScreen extends StatelessWidget {
                 child: CommonDropdown(
                   strSelectedValue: listRoute[0],
                   listdata: listRoute,
-                  textStyle: grfwnsn_14b,
+                  textStyle: tscwnsn_14b,
                 ))
           ],
         ),

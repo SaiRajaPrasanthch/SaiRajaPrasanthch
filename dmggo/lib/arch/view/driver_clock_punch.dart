@@ -17,7 +17,7 @@ class DrvierClockPunch extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strTitle,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: SafeArea(
@@ -37,12 +37,12 @@ class DrvierClockPunch extends StatelessWidget {
                     children: [
                       Text(
                         '28-03-2022',
-                        style: grfwbsn_16b,
+                        style: tscwbsn_16b,
                       ),
                       sbh_5w_5,
                       Text(
                         '(TH - 4hrs)',
-                        style: grfwbsn_14gy500,
+                        style: tscwbsn_14gy500,
                       ),
                     ],
                   ),
@@ -81,7 +81,7 @@ class DrvierClockPunch extends StatelessWidget {
                                   child: Text(
                                     'IN',
                                     textAlign: TextAlign.center,
-                                    style: grfwbsn_18b,
+                                    style: tscwbsn_18b,
                                   ),
                                 ),
                               ],
@@ -112,7 +112,7 @@ class DrvierClockPunch extends StatelessWidget {
                     sbh_5w_10,
                     Text(
                       '09:00',
-                      style: grfwbsn_18b,
+                      style: tscwbsn_18b,
                     ),
                   ],
                 ),
@@ -145,7 +145,7 @@ class DrvierClockPunch extends StatelessWidget {
                                   child: Text(
                                     'IN',
                                     textAlign: TextAlign.center,
-                                    style: grfwbsn_18b,
+                                    style: tscwbsn_18b,
                                   ),
                                 ),
                               ],
@@ -176,7 +176,7 @@ class DrvierClockPunch extends StatelessWidget {
                     sbh_5w_10,
                     Text(
                       '00:00',
-                      style: grfwbsn_18b,
+                      style: tscwbsn_18b,
                     ),
                   ],
                 ),
@@ -209,7 +209,7 @@ class DrvierClockPunch extends StatelessWidget {
                                   child: Text(
                                     'OUT',
                                     textAlign: TextAlign.center,
-                                    style: grfwbsn_18b,
+                                    style: tscwbsn_18b,
                                   ),
                                 ),
                               ],
@@ -235,7 +235,7 @@ class DrvierClockPunch extends StatelessWidget {
                     sbh_5w_10,
                     Text(
                       '00:00',
-                      style: grfwbsn_18b,
+                      style: tscwbsn_18b,
                     ),
                   ],
                 ),
@@ -268,7 +268,7 @@ class DrvierClockPunch extends StatelessWidget {
                                   child: Text(
                                     'OUT',
                                     textAlign: TextAlign.center,
-                                    style: grfwbsn_18b,
+                                    style: tscwbsn_18b,
                                   ),
                                 ),
                               ],
@@ -294,7 +294,7 @@ class DrvierClockPunch extends StatelessWidget {
                     sbh_5w_10,
                     Text(
                       '00:00',
-                      style: grfwbsn_18b,
+                      style: tscwbsn_18b,
                     ),
                   ],
                 ),

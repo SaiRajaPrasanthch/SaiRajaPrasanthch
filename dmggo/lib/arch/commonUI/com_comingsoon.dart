@@ -15,7 +15,7 @@ class CommonComingSoon extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strTitle,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: Center(
@@ -24,11 +24,11 @@ class CommonComingSoon extends StatelessWidget {
           children: [
             Text(
               strTitle,
-              style: grfwbsn_18b,
+              style: tscwbsn_18b,
             ),
             Text(
               strCommingSoon,
-              style: grfwnsn_18b,
+              style: tscwnsn_18b,
             ),
           ],
         ),

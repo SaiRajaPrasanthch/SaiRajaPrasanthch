@@ -9,15 +9,12 @@ class ResendOTP extends StatefulWidget {
   final Callback? callback;
   final String? strMobile;
 
-
-
   ResendOTP({Key? key, this.callback, this.strMobile}) : super(key: key);
   @override
   _ResendOTPState createState() => _ResendOTPState();
 }
 
-class _ResendOTPState extends State<ResendOTP>
-    with SingleTickerProviderStateMixin {
+class _ResendOTPState extends State<ResendOTP> with SingleTickerProviderStateMixin {
   int timer = 30; // getUserByPhonenumber;
 
   bool loader = false;
@@ -77,7 +74,7 @@ class _ResendOTPState extends State<ResendOTP>
                 : null,
             child: Text(
               strResend,
-              style: grfwnsn_14b,
+              style: tscwnsn_14b,
             ),
           )
         : Center(

@@ -42,13 +42,13 @@ class CommonPreTripListTile extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.all(h_5),
-                      child: Text(strTitle, style: grfwbsn_18b),
+                      child: Text(strTitle, style: tscwbsn_18b),
                     ),
                     Padding(
                       padding: EdgeInsets.all(h_5),
                       child: Text(
                         strSubTitle!,
-                        style: grfwnsn_16b,
+                        style: tscwnsn_16b,
                         maxLines: i_1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -61,7 +61,7 @@ class CommonPreTripListTile extends StatelessWidget {
                 child: Column(
                   children: [
                     speedDialWidget(context),
-                    Text(strStatus!, style: grfwnsn_10b),
+                    Text(strStatus!, style: tscwnsn_10b),
                   ],
                 ),
               )
@@ -96,7 +96,6 @@ class CommonPreTripListTile extends StatelessWidget {
       spacing: h_4,
       elevation: h_0,
       childrenButtonSize: Size(h_40, h_40),
-   
       direction: SpeedDialDirection.up,
       children: [
         SpeedDialChild(
@@ -157,7 +156,6 @@ class CommonPreTripListTile extends StatelessWidget {
                 Expanded(
                   flex: i_8,
                   child: sbh_5w_5,
-                 
                 ),
                 Expanded(
                   flex: 2,
@@ -212,7 +210,7 @@ class CommonPreTripListTile extends StatelessWidget {
                   flex: i_8,
                   child: Text(
                     strAddImage,
-                    style: grfwnsn_14gy500,
+                    style: tscwnsn_14gy500,
                   ),
                 ),
                 Expanded(

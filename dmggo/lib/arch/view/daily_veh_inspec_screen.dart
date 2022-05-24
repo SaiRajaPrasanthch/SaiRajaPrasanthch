@@ -15,7 +15,7 @@ class DailyVehicleInspectionScreen extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strDVI,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: Column(

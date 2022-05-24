@@ -1,10 +1,13 @@
+import 'package:dmggo/arch/commonUI/com_button.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
+import 'package:dmggo/arch/view_model/profile_log.dart';
 // import 'package:dmggo/arch/view_model/profile_log.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,15 +15,13 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ProfileLogic profileLogic = Provider.of<ProfileLogic>(context);
-
     return Scaffold(
         appBar: AppBar(
           elevation: h_0,
           centerTitle: false,
           title: Text(
             strLProfile,
-            style: grfwbsn_18wh,
+            style: tscwbsn_18wh,
           ),
         ),
         body: SingleChildScrollView(
@@ -40,14 +41,14 @@ class ProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.all(h_5),
                       child: Text(
                         'Frank McGuire',
-                        style: grfwbsn_16b,
+                        style: tscwbsn_16b,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(h_5),
                       child: Text(
                         'Frank.mc@dmggo-owner.com',
-                        style: grfwnsn_16b,
+                        style: tscwnsn_16b,
                       ),
                     ),
                     Padding(
@@ -57,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Owner',
-                            style: grfwnsn_16do,
+                            style: tscwnsn_16do,
                           ),
                           ColoredBox(
                             color: appColor,
@@ -65,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           Text(
                             '1234567890',
-                            style: grfwnsn_16do,
+                            style: tscwnsn_16do,
                           ),
                         ],
                       ),
@@ -87,14 +88,14 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: h_15, top: h_10),
                           child: Text(
                             'Full Name',
-                            style: grfwnsn_16gy500,
+                            style: tscwnsn_16gy500,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
                             'Frank McGuire',
-                            style: grfwbsn_16b,
+                            style: tscwbsn_16b,
                           ),
                         ),
                         Padding(
@@ -108,14 +109,14 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: h_15, top: h_10),
                           child: Text(
                             'Date Of Birth',
-                            style: grfwnsn_16gy500,
+                            style: tscwnsn_16gy500,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
                             '11/04/1981',
-                            style: grfwbsn_16b,
+                            style: tscwbsn_16b,
                           ),
                         ),
                         Padding(
@@ -129,14 +130,14 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: h_15, top: h_10),
                           child: Text(
                             'Email',
-                            style: grfwnsn_16gy500,
+                            style: tscwnsn_16gy500,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
                             'Frank.mc@dmggo-owner.com',
-                            style: grfwbsn_16b,
+                            style: tscwbsn_16b,
                           ),
                         ),
                         Padding(
@@ -150,14 +151,14 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: h_15, top: h_10),
                           child: Text(
                             'Mobile #',
-                            style: grfwnsn_16gy500,
+                            style: tscwnsn_16gy500,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
                             '123-456-7890',
-                            style: grfwbsn_16b,
+                            style: tscwbsn_16b,
                           ),
                         ),
                         Padding(
@@ -171,14 +172,14 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: h_15, top: h_10),
                           child: Text(
                             'Driving License #',
-                            style: grfwnsn_16gy500,
+                            style: tscwnsn_16gy500,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_30),
                           child: Text(
                             's230-123-456-7890',
-                            style: grfwbsn_16b,
+                            style: tscwbsn_16b,
                           ),
                         ),
                       ],
@@ -196,9 +197,25 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            btnLogOut(context: context)
           ]),
         ));
+  }
+
+  Widget btnLogOut({required BuildContext context}) {
+    return Padding(
+      padding: EdgeInsets.all(h_12),
+      child: CommonButton(
+        color: appColor,
+        strBtnText: strLogout,
+        dWidth: screenWidth!,
+        onPressed: () {
+          Provider.of<ProfileLogic>(context, listen: false).logout(con: context);
+         
+        },
+      ),
+    );
   }
 }
 
@@ -236,8 +253,8 @@ class ProfileScreen extends StatelessWidget {
 //                         Text(
 //                           profileLogic.strSwitch,
 //                           style: profileLogic.isNotifiable
-//                               ? grfwnsn_16gy500
-//                               : grfwnsn_16b,
+//                               ? tscwnsn_16gy500
+//                               : tscwnsn_16b,
 //                         )
 //                       ],
 //                     ),
@@ -265,8 +282,8 @@ class ProfileScreen extends StatelessWidget {
 //                         Text(
 //                           strDriver,
 //                           style: profileLogic.isNotifiable
-//                               ? grfwnsn_16b
-//                               : grfwnsn_16gy500,
+//                               ? tscwnsn_16b
+//                               : tscwnsn_16gy500,
 //                         )
 //                       ],
 //                     ),
@@ -284,7 +301,7 @@ class ProfileScreen extends StatelessWidget {
 //               color: appColor,
 //               dWidth: screenWidth!,
 //               strBtnText: strLogout,
-//               textStyle: grfwbsn_18wh,
+//               textStyle: tscwbsn_18wh,
 //             )
 //           ],
 //         ),

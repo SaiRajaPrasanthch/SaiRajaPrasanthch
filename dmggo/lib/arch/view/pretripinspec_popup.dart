@@ -13,15 +13,14 @@ import 'package:flutter/material.dart';
 class CommonPreTripInspectPopup extends StatelessWidget {
   final String strTitle;
 
-  CommonPreTripInspectPopup({Key? key, required this.strTitle})
-      : super(key: key);
+  CommonPreTripInspectPopup({Key? key, required this.strTitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
         strTitle,
-        style: grfwbsn_16b,
+        style: tscwbsn_16b,
       ),
       shape: rrbr_10,
       content: SingleChildScrollView(
@@ -30,13 +29,12 @@ class CommonPreTripInspectPopup extends StatelessWidget {
           children: [
             Text(
               strPTIPSubTitle,
-              style: grfwnsn_16b,
+              style: tscwnsn_16b,
             ),
             photoGridView(),
             TextFormField(
-              decoration:
-                  InputDecoration(labelText: strADHere, hintText: strADHere),
-              style: grfwnsn_12gy,
+              decoration: InputDecoration(labelText: strADHere, hintText: strADHere),
+              style: tscwnsn_12gy,
             )
           ],
         ),
@@ -84,9 +82,7 @@ class CommonPreTripInspectPopup extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return index == listPTIP.length
               ? GestureDetector(
-                  onTap: () => showCupertinoModalPopup(
-                      context: context,
-                      builder: (context) => CommonCameraBottomSheet()),
+                  onTap: () => showCupertinoModalPopup(context: context, builder: (context) => CommonCameraBottomSheet()),
                   child: Card(
                     child: Icon(Icons.camera_alt_outlined),
                   ),
@@ -95,11 +91,7 @@ class CommonPreTripInspectPopup extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CommonPhotoview(
-                                  strIamgeName: listPTIP[index].strImage))),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CommonPhotoview(strIamgeName: listPTIP[index].strImage))),
                       child: photoCardView(index),
                     ),
                     Positioned(
@@ -135,7 +127,7 @@ class CommonPreTripInspectPopup extends StatelessWidget {
             ),
             Text(
               listPTIP[index].strDescription,
-              style: grfwnsn_8b,
+              style: tscwnsn_8b,
             )
           ],
         ),

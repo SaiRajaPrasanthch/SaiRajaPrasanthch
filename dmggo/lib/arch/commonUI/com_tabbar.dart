@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -16,14 +17,14 @@ class CommonTabbar extends StatelessWidget {
     return BottomNavigationBar(
       backgroundColor: cgrey_200,
       unselectedItemColor: cgrey_900,
-      selectedLabelStyle: grfwnsn_14b,
-      unselectedLabelStyle: grfwnsn_12b,
+      selectedLabelStyle: tscwnsn_14b,
+      unselectedLabelStyle: tscwnsn_12b,
       currentIndex: provider.currentBar,
       onTap: (index) {
         provider.current = index;
       },
       iconSize: h_25,
-      items: <BottomNavigationBarItem>[
+      items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: strCHome,
@@ -33,7 +34,7 @@ class CommonTabbar extends StatelessWidget {
           label: strCProfile,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message_rounded),
+          icon: Badge(child: Icon(Icons.message_rounded), elevation: h_0, position: BadgePosition(top: -h_1, end: -h_3)),
           label: strCom,
         ),
       ],

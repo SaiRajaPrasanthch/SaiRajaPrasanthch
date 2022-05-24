@@ -1,13 +1,21 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
+import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
 import 'package:quickblox_sdk/chat/constants.dart';
 import 'package:quickblox_sdk/models/qb_session.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 double hinf = double.infinity;
+double h_300 = 300.0;
 double h_200 = 200.0;
 
 double h_120 = 120.0;
@@ -36,6 +44,8 @@ double h_1 = 1.0;
 double h_05 = 0.5;
 double h_01 = 0.1;
 double h_0 = 0.0;
+
+int i_200 = 200;
 int i_10 = 10;
 int i_8 = 8;
 int i_6 = 6;
@@ -44,6 +54,7 @@ int i_3 = 3;
 int i_2 = 2;
 int i_1 = 1;
 int i_0 = 0;
+
 double? screenWidth;
 double? screenHeight;
 
@@ -54,13 +65,39 @@ QBUser? qbUser;
 QBSession? qbSession;
 String qbEventConnected = QBChatEvents.CONNECTED;
 String qbEventReceiveNewMessage = QBChatEvents.RECEIVED_NEW_MESSAGE;
+String qbEventSystemMessage = QBChatEvents.RECEIVED_SYSTEM_MESSAGE;
 
 String appId = "96229";
 String authKey = "GcVHtt-UkZZ84bS";
 String authSecret = "sq8wzzpvET-zzq3";
 String accountKey = "pasWx-r41pLAkL8gZF4D";
 
+final Config config = Config(
+  tenant: '647119b9-2120-453d-ab27-e02884c15a1b',
+  clientId: 'fe3d0d8a-0f41-4783-8766-44cee5ef23d6',
+  scope: 'openid profile offline_access',
+  redirectUri: Platform.isIOS ? 'msauth.com.seanergydigital.dmggo://auth' : 'msauth://com.seanergydigital.dmggo/VzSiQcXRmi2kyjzcA%2BmYLEtbGVs%3D',
+);
 
+const gStrChars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random rnd = Random();
+
+final dataView = ChatListScreen(key: viewKey);
+final AadOAuth oauth = AadOAuth(config);
+String? accessToken;
+final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+Map<String, String>? strHeaders = {'Accept': 'application/json','Content-type': 'application/json',};
+// error codes
+
+const successResponse = 200;
+const invalidResponse = 100;
+const noInternet = 101;
+const timeOut = 408;
+const socketError = 504;
+const invalidFormate = 102;
+const unknownError = 500;
+const platformException = 400;
 
 //list Driver on boarding Steps
 List<DrOBS> listDrOBS = [
@@ -110,6 +147,7 @@ List<DrOBS> listDVI = [
 ];
 
 var currentTab = [
+  ManagerHomeScreen(),
   ProfileScreen(),
   ChatListScreen(),
 ];

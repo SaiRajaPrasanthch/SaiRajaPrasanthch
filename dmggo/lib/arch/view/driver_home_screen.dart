@@ -17,7 +17,7 @@ class DriverHomeScreen extends StatelessWidget {
           children: [
             Text(
               strMainMenu,
-              style: grfwbsn_18wh,
+              style: tscwbsn_18wh,
             ),
           ],
         ),

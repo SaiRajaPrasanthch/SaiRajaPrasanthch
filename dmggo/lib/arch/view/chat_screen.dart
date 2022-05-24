@@ -1,5 +1,5 @@
-import 'package:dmggo/arch/view_model/chatmsglist_log.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:dmggo/arch/commonUI/com_msgthread.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -7,22 +7,90 @@ import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:provider/provider.dart';
+import 'package:dmggo/arch/view_model/chatmsglist_log.dart';
+import 'package:flutter/material.dart';
+import 'package:quickblox_sdk/mappers/qb_message_mapper.dart';
 import 'package:quickblox_sdk/models/qb_message.dart';
+import 'package:quickblox_sdk/quickblox_sdk.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   final String strName;
   final String? strProfileImg;
   final bool bIsGroup;
   final String strDialogId;
   ChatScreen({Key? key, required this.strName, this.strProfileImg, required this.bIsGroup, required this.strDialogId}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final ChatMsgListProvider _chatMsgListViewModel = ChatMsgListProvider();
+  Map<String, String> properties = {};
+  final ScrollController _scrollController = ScrollController();
+  StreamSubscription? subReceiveMsg;
+  @override
+  void initState() {
+    super.initState();
+    getUpdatedMessages();
+    getData();
+  }
+
+  getData() async {
+    await _chatMsgListViewModel.chatMessages(widget.strDialogId);
+    setState(() {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        if (_scrollController.hasClients) {
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        }
+      });
+    });
+  }
+
+  getUpdatedMessages() async {
+    subReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+      Map<dynamic, dynamic> map = Map<dynamic, dynamic>.from(data);
+      Map<dynamic, dynamic> payload = Map<dynamic, dynamic>.from(map["payload"]);
+
+      QBMessage? msg = QBMessageMapper.mapToQBMessage(payload);
+      // bool isMsgExist = false;
+      // for (var element in _chatMsgListViewModel.messages) {
+      //   if (element!.id == msg!.id) {
+      //     isMsgExist = true;
+      //     return;
+      //   }
+      // }
+      Iterable<QBMessage?> msgExist = _chatMsgListViewModel.messages.where((element) => element!.id == msg!.id);
+      if (!msgExist.isNotEmpty) {
+        _chatMsgListViewModel.messages.add(msg);
+      }
+
+      setState(() {
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          if (_scrollController.hasClients) {
+            _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          }
+        });
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    if (subReceiveMsg != null) {
+      subReceiveMsg!.cancel();
+      subReceiveMsg = null;
+    }
+    // viewKey.currentState?.getData();
+    // viewKey.currentState?.reDraw();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    ChatMsgListProvider chatlog = context.watch<ChatMsgListProvider>();
-    chatlog.chatMessages(strDialogId);
-    print('hi');
     return WillPopScope(
       onWillPop: () async {
+              // viewKey.currentState?.getData();
         return true;
       },
       child: Scaffold(
@@ -33,20 +101,20 @@ class ChatScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  child: Icon(bIsGroup ? Icons.groups_rounded : Icons.person),
+                  child: Icon(widget.bIsGroup ? Icons.groups_rounded : Icons.person),
                 ),
                 sbh_5w_5,
                 Text(
-                  strName,
-                  style: grfwbsn_18wh,
+                  widget.strName,
+                  style: tscwbsn_18wh,
                 ),
               ],
             ),
-            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), if (!bIsGroup) contactPopupMenu(), if (bIsGroup) groupPopupMenu()],
+            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)), if (!widget.bIsGroup) contactPopupMenu(), if (widget.bIsGroup) groupPopupMenu()],
           ),
           body: SafeArea(
             child: Column(
-              children: [Expanded(child: listMsg(context: context, chatlog: chatlog.messages)), textfield(context: context)],
+              children: [Expanded(child: listMsg(context: context, chatlog: _chatMsgListViewModel.messages)), textfield(context: context)],
             ),
           )),
     );
@@ -57,10 +125,6 @@ class ChatScreen extends StatelessWidget {
     required BuildContext context,
   }) {
     TextEditingController txtChat = TextEditingController();
-    ChatMsgListProvider chatlog = Provider.of<ChatMsgListProvider>(
-      context,
-      //  listen: false
-    );
 
     return Container(
       alignment: Alignment.bottomCenter,
@@ -102,9 +166,17 @@ class ChatScreen extends StatelessWidget {
             ),
             sbh_5w_5,
             GestureDetector(
-              onTap: () {
-                // chatlog.chatSendMSG(strDialogId: strDialogId, txtChatMsg: txtChat.text);
-                txtChat.clear();
+              onTap: () async {
+                if (txtChat.text.trim().isNotEmpty) {
+                  properties["sendername"] = qbUser!.fullName!;
+                  await QB.chat.sendMessage(
+                    widget.strDialogId,
+                    body: txtChat.text.trim(),
+                    saveToHistory: true,
+                    properties: properties,
+                  );
+                  txtChat.clear();
+                }
               },
               child: CircleAvatar(
                 child: Icon(Icons.send),
@@ -124,28 +196,28 @@ class ChatScreen extends StatelessWidget {
               PopupMenuItem(
                 child: Text(
                   strGroupInfo,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 1,
               ),
               PopupMenuItem(
                 child: Text(
                   strClearChat,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 2,
               ),
               PopupMenuItem(
                 child: Text(
                   strMuteNotify,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 3,
               ),
               PopupMenuItem(
                 child: Text(
                   strExitGroup,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 4,
               ),
@@ -160,28 +232,28 @@ class ChatScreen extends StatelessWidget {
               PopupMenuItem(
                 child: Text(
                   strContInfo,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 1,
               ),
               PopupMenuItem(
                 child: Text(
                   strClearChat,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 2,
               ),
               PopupMenuItem(
                 child: Text(
                   strMuteNotify,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 3,
               ),
               PopupMenuItem(
                 child: Text(
                   strBlock,
-                  style: grfwnsn_16b,
+                  style: tscwnsn_16b,
                 ),
                 value: 4,
               ),
@@ -191,6 +263,8 @@ class ChatScreen extends StatelessWidget {
 // list of message
   Widget listMsg({required BuildContext context, required List<QBMessage?> chatlog}) {
     return ListView.builder(
+        controller: _scrollController,
+        physics: AlwaysScrollableScrollPhysics(),
         itemCount: chatlog.length,
         itemBuilder: (context, index) {
           bool isSameId = false;
@@ -207,7 +281,7 @@ class ChatScreen extends StatelessWidget {
             }
           }
           return CommonMessageThread(
-            isGroup: bIsGroup,
+            isGroup: widget.bIsGroup,
             isSameId: isSameId,
             isSameDay: isSameDate,
             isMsgReceived: chatlog[index]!.senderId == qbUser!.id! ? false : true,

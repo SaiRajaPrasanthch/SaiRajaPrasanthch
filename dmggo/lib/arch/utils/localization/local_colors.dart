@@ -34,9 +34,10 @@ Color cgreen = Colors.green;
 Color cgreen_500 = Colors.green.shade500;
 
 Color cblue_700 = Colors.blue.shade700;
+Color cblue_400 = Colors.blue.shade400;
 Color cblue_300 = Colors.blue.shade300;
-Color cblue = Colors.blue;
 Color cblue_200 = Colors.blue.shade200;
+Color cblue = Colors.blue;
 
 Color cteal_300 = Colors.teal.shade300;
 

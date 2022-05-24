@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,10 +37,7 @@ class OTPScreen extends StatelessWidget {
                 sbh_20w_0,
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child:
-                          inWidgets(context: context, validation: validation)),
+                  child: Padding(padding: EdgeInsets.only(left: 20, right: 20), child: inWidgets(context: context, validation: validation)),
                 ),
               ],
             ),
@@ -50,18 +48,17 @@ class OTPScreen extends StatelessWidget {
   }
 
 // child widgets
-  Widget inWidgets(
-      {required BuildContext context, required Validations validation}) {
+  Widget inWidgets({required BuildContext context, required Validations validation}) {
     return Column(
       children: [
         sbh_20w_0,
         Text(
           strVerification,
-          style: grfwbsn_20b,
+          style: tscwbsn_20b,
         ),
         Text(
           strVerificationText,
-          style: grfwnsn_14b,
+          style: tscwnsn_14b,
         ),
         sbh_50w_0,
         otp(context: context, validation: validation),
@@ -78,23 +75,20 @@ class OTPScreen extends StatelessWidget {
     return Comtextfield(
       textAlign: TextAlign.center,
       obscureText: true,
-      textStyle: grfwbsn_16bls20,
+      textStyle: tscwbsn_16bLs20,
       strHintText: "......",
       strErrorText: validation.phoneNumber.error,
     );
   }
 
 // verify button
-  Widget verify(
-      {required BuildContext context, required Validations validation}) {
+  Widget verify({required BuildContext context, required Validations validation}) {
     return CommonButton(
-      color: Colors.deepOrange,
+      color: appColor,
       strBtnText: strVerifyText,
-      textStyle: grfwbsn_14wh,
+      textStyle: tscwbsn_14wh,
       dWidth: hinf,
-      onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LaunchScreen()),
-          (Route<dynamic> route) => false),
+      onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LaunchScreen()), (Route<dynamic> route) => false),
     );
   }
 
@@ -106,7 +100,7 @@ class OTPScreen extends StatelessWidget {
         Flexible(
           child: Text(
             strDROTP,
-            style: grfwnsn_14b,
+            style: tscwnsn_14b,
           ),
         ),
         Flexible(child: ResendOTP())

@@ -18,7 +18,7 @@ class DriverOnboardingScreen extends StatelessWidget {
         centerTitle: false,
         title: Text(
           strDrOBS,
-          style: grfwbsn_18wh,
+          style: tscwbsn_18wh,
         ),
       ),
       body: Column(
@@ -28,7 +28,7 @@ class DriverOnboardingScreen extends StatelessWidget {
             padding: EdgeInsets.all(h_10),
             child: Text(
               strWelcomeMSG,
-              style: grfwnsn_18b,
+              style: tscwnsn_18b,
               textAlign: TextAlign.center,
             ),
           ),
@@ -56,12 +56,12 @@ class DriverOnboardingScreen extends StatelessWidget {
           ),
           Text(
             dStrCarrier,
-            style: grfwbsn_18b,
+            style: tscwbsn_18b,
             textAlign: TextAlign.center,
           ),
           Text(
             '- ' + dStrRoute,
-            style: grfwnsn_16b,
+            style: tscwnsn_16b,
             textAlign: TextAlign.center,
           ),
         ],
