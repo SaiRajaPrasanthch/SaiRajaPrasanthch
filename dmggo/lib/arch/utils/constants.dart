@@ -66,11 +66,17 @@ QBSession? qbSession;
 String qbEventConnected = QBChatEvents.CONNECTED;
 String qbEventReceiveNewMessage = QBChatEvents.RECEIVED_NEW_MESSAGE;
 String qbEventSystemMessage = QBChatEvents.RECEIVED_SYSTEM_MESSAGE;
+//test
+// String appId = "96229";
+// String authKey = "GcVHtt-UkZZ84bS";
+// String authSecret = "sq8wzzpvET-zzq3";
+// String accountKey = "pasWx-r41pLAkL8gZF4D";
 
-String appId = "96229";
-String authKey = "GcVHtt-UkZZ84bS";
-String authSecret = "sq8wzzpvET-zzq3";
-String accountKey = "pasWx-r41pLAkL8gZF4D";
+//Prod
+String appId = "96677";
+String authKey = "9vCLsEnjJvYxCrk";
+String authSecret = "nMhVNHF67JGwUWw";
+String accountKey = "xGHxRqffg1o5BtRLnJEK";
 
 final Config config = Config(
   tenant: '647119b9-2120-453d-ab27-e02884c15a1b',
@@ -87,7 +93,13 @@ final AadOAuth oauth = AadOAuth(config);
 String? accessToken;
 final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
-Map<String, String>? strHeaders = {'Accept': 'application/json','Content-type': 'application/json',};
+// Headers
+
+Map<String, String>? strHeaders = {
+  'Accept': 'application/json',
+  'Content-type': 'application/json',
+};
+
 // error codes
 
 const successResponse = 200;

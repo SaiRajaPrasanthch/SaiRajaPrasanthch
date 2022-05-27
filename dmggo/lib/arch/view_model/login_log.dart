@@ -6,7 +6,6 @@ import 'package:dmggo/arch/repo/user_services.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/urls.dart';
-import 'package:quickblox_sdk/mappers/qb_user_mapper.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +14,7 @@ class LoginLogic {
   Future<bool> getUserInfo() async {
     Map<String, dynamic> userData = AuthMethods().parseJwt(accessToken!);
     // creates a valid microsoft user in our db for now and returns if user is created in Quick Blox
-    var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['name']}&lastName=${userData['name']}');
+    var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
     if (response is Success) {
       GetUserInfo userinfo = response.response as GetUserInfo;
       if (userinfo.qbId == null) {
@@ -32,10 +31,15 @@ class LoginLogic {
             callQBServices();
             return true;
           } else {
+            await oauth.logout();
+            prefs.then((value) => value.clear());
+
             return false;
           }
         } else {
-          
+          await oauth.logout();
+          prefs.then((value) => value.clear());
+
           return false;
         }
       } else {
@@ -49,6 +53,9 @@ class LoginLogic {
         return true;
       }
     }
+    await oauth.logout();
+    prefs.then((value) => value.clear());
+
     return false;
   }
 

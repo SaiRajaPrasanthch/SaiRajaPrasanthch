@@ -145,11 +145,6 @@
 //       };
 // }
 
-// To parse this JSON data, do
-//
-//     final getUserInfo = getUserInfoFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetUserInfo getUserInfoFromJson(String str) => GetUserInfo.fromJson(json.decode(str));
@@ -215,22 +210,4 @@ class GetUserInfo {
         "qbId": qbId,
       };
 }
- class QuickBloxModel
-{
-int QBId;
-int UserId;
-String login;
-String password;
-String Email;
-String? blobId;
-String? externalUserId;
-String? facebookId;
-String? twitterId;
-String? fullName;
-String? Phone;
-String? webSite;
-String? customData;
-String? tagList;
-String? status;
-QuickBloxModel({ required this.QBId, required this.UserId, required this.login,required this.password,required this.Email});
-}
+ 

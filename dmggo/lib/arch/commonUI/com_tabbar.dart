@@ -1,4 +1,6 @@
 import 'package:badges/badges.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:dmggo/arch/view_model/profile_log.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -12,16 +14,19 @@ class CommonTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BottomNavigationBarProvider provider = Provider.of<BottomNavigationBarProvider>(context, listen: true);
-
+    BottomNavigationBarProvider pro = Provider.of<BottomNavigationBarProvider>(context, listen: true);
+    Provider.of<ProfileLogic>(context, listen: false).setvalues();
+    print(pro.unReadCount);
+    int c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) => sum + element!.unreadMessagesCount!);
+    print(c);
     return BottomNavigationBar(
       backgroundColor: cgrey_200,
       unselectedItemColor: cgrey_900,
       selectedLabelStyle: tscwnsn_14b,
       unselectedLabelStyle: tscwnsn_12b,
-      currentIndex: provider.currentBar,
+      currentIndex: pro.currentBar,
       onTap: (index) {
-        provider.current = index;
+        pro.current = index;
       },
       iconSize: h_25,
       items: [
@@ -34,7 +39,21 @@ class CommonTabbar extends StatelessWidget {
           label: strCProfile,
         ),
         BottomNavigationBarItem(
-          icon: Badge(child: Icon(Icons.message_rounded), elevation: h_0, position: BadgePosition(top: -h_1, end: -h_3)),
+          icon: c > 0
+              ? Badge(
+                  toAnimate: false,
+                  badgeColor: cblue_700,
+                  alignment: Alignment.center,
+                  badgeContent: Text(
+                    c.toString(),
+                    style: tscwnsn_12wh,
+                    textAlign: TextAlign.center,
+                  ),
+                  child: Icon(Icons.message_rounded),
+                  elevation: h_0,
+                  // position: BadgePosition(top: -h_1, end: -h_3)
+                )
+              : Icon(Icons.message_rounded),
           label: strCom,
         ),
       ],

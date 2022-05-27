@@ -25,22 +25,29 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(h_5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: BackButton(
-                color: cblack,
-                onPressed: () => exitScreen(context),
-              ),
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: h_0,
+        iconTheme: IconThemeData(
+          color: cblack, //change your color here
+        ),
+        backgroundColor: cgrey_50,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Create Group',
+              style: tscwbsn_18b,
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -48,41 +55,40 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset('assets/images/Group Image.png'),
                 ),
-                Text("Please Give The Group Name."),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: txtGroupName(context: context),
                 )
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(h_5),
-            child: CommonButton(
-              onPressed: () async {
-                if (txtName.text.trim().isNotEmpty) {
-                  QBDialog createdDialog = await ChatApi().createDialog(listusers: listUsersSelected, strDialogName: txtName.text.trim(), intDialogType: QBChatDialogTypes.GROUP_CHAT);
-                  exitScreen(context);
-                  exitScreen(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                                bIsGroup: true,
-                                strName: createdDialog.name!,
-                                strDialogId: createdDialog.id!,
-                              )));
-                  listUsersSelected = [];
-                  return;
-                }
-              },
-              color: txtName.text.trim().isEmpty ? cgrey_300 : appColor,
-              dWidth: screenWidth!,
-              strBtnText: strNext,
-            ),
-          )
-        ],
-      )),
+            Padding(
+              padding: EdgeInsets.all(h_5),
+              child: CommonButton(
+                onPressed: () async {
+                  if (txtName.text.trim().isNotEmpty) {
+                    QBDialog createdDialog = await ChatApi().createDialog(listusers: listUsersSelected, strDialogName: txtName.text.trim(), intDialogType: QBChatDialogTypes.GROUP_CHAT);
+                    exitScreen(context);
+                    exitScreen(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatScreen(
+                                  bIsGroup: true,
+                                  strName: createdDialog.name!,
+                                  strDialogId: createdDialog.id!,
+                                )));
+                    listUsersSelected = [];
+                    return;
+                  }
+                },
+                color: txtName.text.trim().isEmpty ? cgrey_300 : appColor,
+                dWidth: screenWidth!,
+                strBtnText: strNext,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

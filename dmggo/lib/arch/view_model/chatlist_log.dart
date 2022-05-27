@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/view_model/bottombar_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quickblox_sdk/models/qb_dialog.dart';
@@ -9,15 +10,17 @@ import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 List<QBDialog?> _dialogs = [];
 List<QBUser?> userList = [];
-StreamSubscription?  subscriptionReceiveMsg;
-StreamSubscription?  subscriptionSystemMsg;
+StreamSubscription? subscriptionReceiveMsg;
+StreamSubscription? subscriptionSystemMsg;
+
 List<int> listUsersSelected = [];
 
-class ChatListViewModel {
+class ChatListViewModel with ChangeNotifier {
   List<QBDialog?> get dialogs => _dialogs;
 
   setDialogs(List<QBDialog?> dialogs) {
     _dialogs = dialogs;
+    notifyListeners();
   }
 
   //constructor
@@ -31,6 +34,11 @@ class ChatListViewModel {
     List<QBDialog?> _ldialogs = [];
     _ldialogs = await QB.chat.getDialogs();
     setDialogs(_ldialogs);
+    // Provider.of<BottomNavigationBarProvider>(context, listen: true)
+    BottomNavigationBarProvider barProvider = BottomNavigationBarProvider();
+    // int w = _ldialogs.fold(0, (sum, element) => sum + element!.unreadMessagesCount!);
+    // print(w);
+    barProvider.notifyListeners();
   }
 
   chatReadSubcriptions() async {

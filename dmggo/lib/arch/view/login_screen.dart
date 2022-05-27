@@ -1,8 +1,5 @@
 import 'package:aad_oauth/aad_oauth.dart';
-import 'package:dmggo/arch/repo/chat_api.dart';
-import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
-import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +12,6 @@ import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -25,10 +21,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    oauth.setWebViewScreenSizeFromMedia(MediaQuery.of(context));
-
     Validations validation = context.watch<Validations>();
-    txtEmailCont.text = dummyStrDriverEmail;
+    // txtEmailCont.text = dummyStrDriverEmail;
     return Scaffold(
       backgroundColor: cgrey_200,
       body: SafeArea(
@@ -131,13 +125,13 @@ class LoginScreen extends StatelessWidget {
         textStyle: tscwbsn_14wh,
         dWidth: hinf,
         onPressed: () async {
-          if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
-            await ChatApi().initialzeChat();
-            // await ChatApi().connect();
-            await ChatListViewModel().getChatListData();
-            subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {});
-            launchLoadingScreen(context);
-          }
+          // if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
+          //   await ChatApi().initialzeChat();
+          //   // await ChatApi().connect();
+          //   await ChatListViewModel().getChatListData();
+          //   subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {});
+          //   launchLoadingScreen(context);
+          // }
         }
         // () => Navigator.of(context).pushAndRemoveUntil(
         //     MaterialPageRoute(builder: (context) => LaunchScreen()),
@@ -155,12 +149,12 @@ class LoginScreen extends StatelessWidget {
       isImage: true,
       strImage: imgMicrosoftLogo,
       onPressed: () async {
-        await oauth.login();
+        // await oauth.login();
 
-        accessToken = await oauth.getAccessToken();
-        if (accessToken != null) {
-          launchLoadingScreen(context);
-        }
+        // accessToken = await oauth.getAccessToken();
+        // if (accessToken != null) {
+        launchLoadingScreen(context);
+        // }
 
         // Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
       },

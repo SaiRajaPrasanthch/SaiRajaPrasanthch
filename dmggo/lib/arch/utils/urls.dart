@@ -1,5 +1,8 @@
 // User services URL's
 
-String strGetUserInfoURL = 'http://192.168.10.49:90/userservice/api/User/GetUserInfo?';// get 
+// String strMain = 'http://182.72.162.182:8090';//global
+String strMain = 'http://192.168.10.49:90';//local
 
-String strCreateQuickBloxId = 'http://192.168.10.49:90/quickbloxservice/api/QuickBlox/CreateQuickBloxId';// post
+String strGetUserInfoURL = '$strMain/userservice/api/User/GetUserInfo?'; // get
+
+String strCreateQuickBloxId = '$strMain/quickbloxservice/api/QuickBlox/CreateQuickBloxId'; // post

@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProfileLogic log = Provider.of<ProfileLogic>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           elevation: h_0,
@@ -40,14 +41,16 @@ class ProfileScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(h_5),
                       child: Text(
-                        'Frank McGuire',
+                        log.userName,
+                        textAlign: TextAlign.center,
                         style: tscwbsn_16b,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(h_5),
                       child: Text(
-                        'Frank.mc@dmggo-owner.com',
+                        log.userEmail,
+                        textAlign: TextAlign.center,
                         style: tscwnsn_16b,
                       ),
                     ),
@@ -57,7 +60,8 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            'Owner',
+                            log.userRole,
+                            textAlign: TextAlign.center,
                             style: tscwnsn_16do,
                           ),
                           ColoredBox(
@@ -65,7 +69,8 @@ class ProfileScreen extends StatelessWidget {
                             child: sbh_15w_2,
                           ),
                           Text(
-                            '1234567890',
+                            log.userDMGgoId,
+                            textAlign: TextAlign.center,
                             style: tscwnsn_16do,
                           ),
                         ],
@@ -94,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
-                            'Frank McGuire',
+                            log.userName,
                             style: tscwbsn_16b,
                           ),
                         ),
@@ -115,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
-                            '11/04/1981',
+                            log.userDOB,
                             style: tscwbsn_16b,
                           ),
                         ),
@@ -136,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
-                            'Frank.mc@dmggo-owner.com',
+                            log.userEmail,
                             style: tscwbsn_16b,
                           ),
                         ),
@@ -157,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_10),
                           child: Text(
-                            '123-456-7890',
+                            log.userMobile,
                             style: tscwbsn_16b,
                           ),
                         ),
@@ -178,22 +183,22 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: h_20, top: h_10, bottom: h_30),
                           child: Text(
-                            's230-123-456-7890',
+                            log.userDrivingLicense,
                             style: tscwbsn_16b,
                           ),
                         ),
                       ],
                     ),
-                    Positioned(
-                        bottom: h_30,
-                        right: h_10,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.blue.shade600,
-                          child: Icon(
-                            Icons.edit,
-                            color: cwhite,
-                          ),
-                        ))
+                    // Positioned(
+                    //     bottom: h_30,
+                    //     right: h_10,
+                    //     child: CircleAvatar(
+                    //       backgroundColor: Colors.blue.shade600,
+                    //       child: Icon(
+                    //         Icons.edit,
+                    //         color: cwhite,
+                    //       ),
+                    //     ))
                   ],
                 ),
               ),
@@ -212,7 +217,6 @@ class ProfileScreen extends StatelessWidget {
         dWidth: screenWidth!,
         onPressed: () {
           Provider.of<ProfileLogic>(context, listen: false).logout(con: context);
-         
         },
       ),
     );

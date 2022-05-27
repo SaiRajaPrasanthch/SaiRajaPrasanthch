@@ -7,6 +7,7 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ChatUsersGroupSelection extends StatefulWidget {
   const ChatUsersGroupSelection({Key? key}) : super(key: key);
@@ -17,44 +18,75 @@ class ChatUsersGroupSelection extends StatefulWidget {
 
 class _ChatUsersGroupSelectionState extends State<ChatUsersGroupSelection> {
   @override
+  void initState() {
+    super.initState();
+    listUsersSelected.add(qbUser!.id!);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // centerTitle: false,
-        elevation: h_0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              '',
-              style: tscwbsn_18wh,
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: listUsers(context: context)),
-            Padding(
-              padding: EdgeInsets.all(h_5),
-              child: CommonButton(
-                onPressed: () {
-                  if (listUsersSelected.isEmpty) {
-                    return;
-                  }
-                  listUsersSelected.add(qbUser!.id!);
-                  openGroupCreation(context);
-                },
-                color: listUsersSelected.isNotEmpty ? appColor : cgrey_300,
-                dWidth: screenWidth!,
-                strBtnText: strNext,
+    return WillPopScope(
+      onWillPop: () async {
+        listUsersSelected.clear();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          elevation: h_0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Select the Users',
+                style: tscwbsn_18wh,
               ),
-            )
-          ],
+            ],
+          ),
+          // actions: [
+          // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+          // ],
+        ),
+        body: SafeArea(
+          child: userList.isNotEmpty
+              ? Column(
+                  children: [
+                    Expanded(child: listUsers(context: context)),
+                    Padding(
+                      padding: EdgeInsets.all(h_5),
+                      child: CommonButton(
+                        onPressed: () {
+                          setState(() {});
+                          if (listUsersSelected.isEmpty) {
+                            return;
+                          }
+
+                          if (listUsersSelected.length == i_2) {
+                            Fluttertoast.showToast(
+                                msg: "please select minimum two users. To create a group",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                            return;
+                          }
+                          openGroupCreation(context);
+                        },
+                        color: listUsersSelected.isNotEmpty ? appColor : cgrey_300,
+                        dWidth: screenWidth!,
+                        strBtnText: strNext,
+                      ),
+                    )
+                  ],
+                )
+              : Center(
+                  child: Text(
+                    'No User are Available to chat',
+                    style: tscwbsn_14gy500,
+                  ),
+                ),
         ),
       ),
     );
@@ -66,10 +98,9 @@ class _ChatUsersGroupSelectionState extends State<ChatUsersGroupSelection> {
         itemBuilder: (context, index) {
           bool isChecked = listUsersSelected.contains(userList[index]!.id!);
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                ChatListViewModel().selectUsersForGroupCreation(index: index);
-              });
+            onTap: () async {
+              await ChatListViewModel().selectUsersForGroupCreation(index: index);
+              setState(() {});
             },
             child: ChatUserTileCheckBtn(
               strUserName: userList[index]!.fullName!,

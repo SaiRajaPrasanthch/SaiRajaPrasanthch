@@ -1,5 +1,6 @@
 import 'package:dmggo/arch/commonUI/chatUI/left_chat_bubble.dart';
 import 'package:dmggo/arch/commonUI/chatUI/right_chat_bubble.dart';
+import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:intl/intl.dart';

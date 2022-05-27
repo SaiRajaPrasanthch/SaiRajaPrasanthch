@@ -1,16 +1,13 @@
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
-import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:dmggo/arch/view/chat_list_screen.dart';
-import 'package:dmggo/arch/view/launch_loading_screen.dart';
 import 'package:dmggo/arch/view/launch_screen.dart';
 import 'package:dmggo/arch/view/login_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:dmggo/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -23,6 +20,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
     WidgetsBinding.instance!.addObserver(this);
   }
 
@@ -80,7 +78,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           data: mediaQueryData.copyWith(textScaleFactor: scale),
         );
       },
-      home: accessToken == null && strLoginExist == null ? LoginScreen() : LaunchScreen(), //LaunchScreen
+      home: accessToken != null && strLoginExist != null ? LaunchScreen() : LoginScreen(), //LaunchScreen
       // home: accessToken == null ? LaunchLoadingScreen() : LaunchLoadingScreen(), //LaunchScreen
     );
   }

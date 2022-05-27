@@ -90,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-              // viewKey.currentState?.getData();
+        // viewKey.currentState?.getData();
         return true;
       },
       child: Scaffold(
@@ -104,9 +104,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Icon(widget.bIsGroup ? Icons.groups_rounded : Icons.person),
                 ),
                 sbh_5w_5,
-                Text(
-                  widget.strName,
-                  style: tscwbsn_18wh,
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    widget.strName,
+                    softWrap: true,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: tscwnsn_14wh,
+                  ),
                 ),
               ],
             ),
@@ -173,6 +179,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     widget.strDialogId,
                     body: txtChat.text.trim(),
                     saveToHistory: true,
+                    markable: true,
                     properties: properties,
                   );
                   txtChat.clear();
@@ -280,6 +287,8 @@ class _ChatScreenState extends State<ChatScreen> {
               isSameDate = true;
             }
           }
+          // 134859157- user
+
           return CommonMessageThread(
             isGroup: widget.bIsGroup,
             isSameId: isSameId,

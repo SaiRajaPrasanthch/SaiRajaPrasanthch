@@ -7,9 +7,66 @@ import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view_model/bottombar_log.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileLogic extends ChangeNotifier {
   bool isNotifiable = false;
+  String _userName = '- NA -';
+  String _userEmail = '- NA -';
+  String _userDOB = '- NA -';
+  String _userRole = '- NA -';
+  String _userDMGgoId = '- NA -';
+  String _userMobile = '- NA -';
+  String _userDrivingLicense = '- NA -';
+
+  get userEmail => _userEmail;
+  get userName => _userName;
+  get userDOB => _userDOB;
+  get userRole => _userRole;
+  get userDMGgoId => _userDMGgoId;
+  get userMobile => _userMobile;
+  get userDrivingLicense => _userDrivingLicense;
+
+  set setUserName(String value) {
+    _userName = value;
+  }
+
+  set setUserDOB(String value) {
+    _userDOB = value;
+  }
+
+  set setUserEmail(String value) {
+    _userEmail = value;
+  }
+
+  set setUserDMGgoId(String value) {
+    _userDMGgoId = value;
+  }
+
+  set setUserDL(String value) {
+    _userDrivingLicense = value;
+  }
+
+  set setUserMobile(String value) {
+    _userMobile = value;
+  }
+
+  set setUserRole(String value) {
+    _userRole = value;
+  }
+
+  setvalues() async {
+    SharedPreferences pre = await prefs;
+    setUserName = pre.getString(strQBFullName)!;
+    // setUserDOB = pre.getString("")!;
+    setUserEmail = pre.getString(strQBEmail)!;
+    // setUserDMGgoId = pre.getString("")!;
+    // setUserDL = pre.getString("")!;
+    // setUserMobile = pre.getString("")!;
+    // setUserRole = pre.getString("")!;
+    notifyListeners();
+  }
+
   String strSwitch = strEmail == dummyStrOwnerEmail ? strOwner : strManager;
   void toggleNotification({
     bool isNotifiable = true,

@@ -59,7 +59,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
     subscriptionReceiveMsg!.onData((data) {
       getData();
     });
-    setState(() {});
+    // setState(() {});
   }
 
   getSystemupdates() async {
@@ -77,7 +77,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
 
   getData() async {
     await _chatListViewModel.getChatListData();
-    setState(() {});
+    // setState(() {});
   }
 
   @override

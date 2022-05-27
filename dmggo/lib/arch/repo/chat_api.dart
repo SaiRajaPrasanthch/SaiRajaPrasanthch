@@ -12,8 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatApi {
-  String login = "MalayadriSeanergy";
-  String password = "Malayadri@123";
+  // String login = "MalayadriSeanergy";
+  // String password = "Malayadri@123";
   bool autoReconnect = true;
   int messageTimeout = 3;
 
