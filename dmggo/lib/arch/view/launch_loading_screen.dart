@@ -39,7 +39,7 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
         exitScreen(context);
       }
     } catch (e) {
-      // exitScreen(context);
+      exitScreen(context);
       Fluttertoast.showToast(msg: e.toString());
     }
   }
@@ -48,21 +48,21 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
     try {
            print('5');
       if (await LoginLogic().getUserInfo()) {
-        // await ChatListViewModel().getChatListData();
-        // subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
-        //   ChatListViewModel().getChatListData();
-        // });
-        // subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
-        //   ChatListViewModel().getChatListData();
-        // });
+        await ChatListViewModel().getChatListData();
+        subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+          ChatListViewModel().getChatListData();
+        });
+        subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+          ChatListViewModel().getChatListData();
+        });
         launchHomeScreen(context);
       } else {
-        // Fluttertoast.showToast(
-        //     msg: "Something went wrong..", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.CENTER, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
+        Fluttertoast.showToast(
+            msg: "Something went wrong..", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.CENTER, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
         exitScreen(context);
       }
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString());
 
     }
   }

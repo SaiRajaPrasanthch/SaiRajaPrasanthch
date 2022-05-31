@@ -39,18 +39,16 @@ print('13');
             var resCreateUser = await UserInfo().createUserInfo(strLUrl: strCreateQuickBloxId, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
             if (resCreateUser is Success) {
               await saveInStorage(user: resQB.response as QBUser, strPassword: strLPassword, intId: userinfo.userId);
-              // await callQBServices();
+              await callQBServices();
               return true;
             } else {
               await oauth.logout();
               prefs.then((value) => value.clear());
-
               return false;
             }
           } else {
             await oauth.logout();
             prefs.then((value) => value.clear());
-
             return false;
           }
         } else {
@@ -61,7 +59,7 @@ print('13');
           user.fullName = userinfo.firstName + " " + userinfo.lastName;
           user.login = userinfo.email;
           await saveInStorage(user: user, strPassword: userinfo.qbPassword, intId: userinfo.userId);
-          // await callQBServices();
+          await callQBServices();
           return true;
         }
       }
@@ -87,7 +85,7 @@ print('13');
 
   callQBServices() async {
     await ChatApi().enableAutoReconnect();
-    // await ChatApi().enableCarbons();
+    await ChatApi().enableCarbons();
     await ChatApi().initStreamManagement();
     await ChatApi().loginQB();
   }

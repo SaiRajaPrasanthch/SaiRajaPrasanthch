@@ -26,12 +26,15 @@ void main() async {
   SharedPreferences per = await prefs;
   strLoginExist = per.getString(strQBLogin);
   if (accessToken != null && strLoginExist != null) {
-    // await ChatApi().initialzeChat();
-    // await LoginLogic().callQBServices();
-    // await ChatListViewModel().getChatListData();
-    // subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
-    //   ChatListViewModel().getChatListData();
-    // });
+    await ChatApi().initialzeChat();
+    await LoginLogic().callQBServices();
+    await ChatListViewModel().getChatListData();
+    subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+      ChatListViewModel().getChatListData();
+    });
+     subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+          ChatListViewModel().getChatListData();
+        });
   }
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android

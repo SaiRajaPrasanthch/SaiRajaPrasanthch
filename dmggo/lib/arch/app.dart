@@ -41,6 +41,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
             ChatListViewModel().getChatListData();
           });
+           subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+          ChatListViewModel().getChatListData();
+        });
           break;
         case AppLifecycleState.paused:
           // subscriptionReceiveMsg?.cancel();

@@ -95,6 +95,7 @@ class ProfileLogic extends ChangeNotifier {
     await oauth.logout();
     Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
     prefs.then((value) => value.clear());
+    qbUser = null;
     launchLoginScreen(con);
     notifyListeners();
   }
