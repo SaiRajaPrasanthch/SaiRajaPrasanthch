@@ -10,6 +10,7 @@ import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,17 +21,17 @@ String? strLoginExist;
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
- 
+  // await oauth.logout();
   accessToken = await oauth.getAccessToken();
   SharedPreferences per = await prefs;
   strLoginExist = per.getString(strQBLogin);
   if (accessToken != null && strLoginExist != null) {
-    await ChatApi().initialzeChat();
-    await LoginLogic().callQBServices();
-    await ChatListViewModel().getChatListData();
-    subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
-      ChatListViewModel().getChatListData();
-    });
+    // await ChatApi().initialzeChat();
+    // await LoginLogic().callQBServices();
+    // await ChatListViewModel().getChatListData();
+    // subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+    //   ChatListViewModel().getChatListData();
+    // });
   }
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android

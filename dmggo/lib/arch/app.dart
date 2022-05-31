@@ -67,6 +67,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         brightness: Brightness.light,
         primarySwatch: Colors.deepOrange,
       ),
+      navigatorKey: navigatorKey,
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);
         final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);

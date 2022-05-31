@@ -7,7 +7,7 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 class ChatUsersGroupSelection extends StatefulWidget {
   const ChatUsersGroupSelection({Key? key}) : super(key: key);
@@ -62,14 +62,14 @@ class _ChatUsersGroupSelectionState extends State<ChatUsersGroupSelection> {
                           }
 
                           if (listUsersSelected.length == i_2) {
-                            Fluttertoast.showToast(
-                                msg: "please select minimum two users. To create a group",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
+                            // Fluttertoast.showToast(
+                            //     msg: "please select minimum two users. To create a group",
+                            //     toastLength: Toast.LENGTH_LONG,
+                            //     gravity: ToastGravity.CENTER,
+                            //     timeInSecForIosWeb: 1,
+                            //     backgroundColor: Colors.red,
+                            //     textColor: Colors.white,
+                            //     fontSize: 16.0);
                             return;
                           }
                           openGroupCreation(context);

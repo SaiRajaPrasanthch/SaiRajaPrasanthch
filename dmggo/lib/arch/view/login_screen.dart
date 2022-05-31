@@ -1,4 +1,4 @@
-import 'package:aad_oauth/aad_oauth.dart';
+
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController txtEmailCont = TextEditingController();
 
-  final AadOAuth oauth = AadOAuth(config);
 
   @override
   Widget build(BuildContext context) {

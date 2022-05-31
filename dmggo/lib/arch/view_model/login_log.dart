@@ -12,24 +12,41 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginLogic {
 //Validate whether User exist
   Future<bool> getUserInfo() async {
-    Map<String, dynamic> userData = AuthMethods().parseJwt(accessToken!);
-    // creates a valid microsoft user in our db for now and returns if user is created in Quick Blox
-    var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
-    if (response is Success) {
-      GetUserInfo userinfo = response.response as GetUserInfo;
-      if (userinfo.qbId == null) {
-        String strLPassword = AuthMethods().getRandomString(16);
+    try {
+           print('6');
+      Map<String, dynamic> userData = AuthMethods().parseJwt(accessToken!);
+      // creates a valid microsoft user in our db for now and returns if user is created in Quick Blox
+               print('7');
+      var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
+              print('8');
+      if (response is Success) {
+                 print('9');
+        GetUserInfo userinfo = response.response as GetUserInfo;
         // iinitalize chat here
+          print('10');
         await ChatApi().initialzeChat();
-        // Create User in Quick block
-        var resQB = await ChatApi().createUserInQB(strLEmail: userData['unique_name'], strLPass: strLPassword, strLName: userData['name']);
-        if (resQB is Success) {
-          // Create an user in Db with QB details
-          var resCreateUser = await UserInfo().createUserInfo(strLUrl: strCreateQuickBloxId, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.id);
-          if (resCreateUser is Success) {
-            await saveInStorage(user: resQB.response as QBUser, strPassword: strLPassword, intId: userinfo.id);
-            callQBServices();
-            return true;
+            print('11');
+        if (userinfo.qbId == null) {
+           print('12');
+          String strLPassword = AuthMethods().getRandomString(16);
+print('13');
+          // Create User in Quick block
+          var resQB = await ChatApi().createUserInQB(strLEmail: userData['unique_name'], strLPass: strLPassword, strLName: userData['name']);
+         print('14');
+          if (resQB is Success) {
+            // Create an user in Db with QB details
+            print('15');
+            var resCreateUser = await UserInfo().createUserInfo(strLUrl: strCreateQuickBloxId, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
+            if (resCreateUser is Success) {
+              await saveInStorage(user: resQB.response as QBUser, strPassword: strLPassword, intId: userinfo.userId);
+              // await callQBServices();
+              return true;
+            } else {
+              await oauth.logout();
+              prefs.then((value) => value.clear());
+
+              return false;
+            }
           } else {
             await oauth.logout();
             prefs.then((value) => value.clear());
@@ -37,26 +54,25 @@ class LoginLogic {
             return false;
           }
         } else {
-          await oauth.logout();
-          prefs.then((value) => value.clear());
-
-          return false;
+            print('20');
+          QBUser user = QBUser();
+          user.id = int.parse(userinfo.qbId!);
+          user.email = userinfo.email;
+          user.fullName = userinfo.firstName + " " + userinfo.lastName;
+          user.login = userinfo.email;
+          await saveInStorage(user: user, strPassword: userinfo.qbPassword, intId: userinfo.userId);
+          // await callQBServices();
+          return true;
         }
-      } else {
-        QBUser user = QBUser();
-        user.id = int.parse(userinfo.qbId!);
-        user.email = userinfo.email;
-        user.fullName = userinfo.firstName + " " + userinfo.lastName;
-        user.login = userinfo.email;
-        await saveInStorage(user: user, strPassword: userinfo.qbPassword, intId: userinfo.id);
-        callQBServices();
-        return true;
       }
-    }
-    await oauth.logout();
-    prefs.then((value) => value.clear());
+      await oauth.logout();
+      prefs.then((value) => value.clear());
 
-    return false;
+      return false;
+    } catch (e) {
+      // Fluttertoast.showToast(msg: e.toString());
+      return false;
+    }
   }
 
   saveInStorage({QBUser? user, int? intId, String? strPassword}) async {
@@ -71,7 +87,7 @@ class LoginLogic {
 
   callQBServices() async {
     await ChatApi().enableAutoReconnect();
-    await ChatApi().enableCarbons();
+    // await ChatApi().enableCarbons();
     await ChatApi().initStreamManagement();
     await ChatApi().loginQB();
   }

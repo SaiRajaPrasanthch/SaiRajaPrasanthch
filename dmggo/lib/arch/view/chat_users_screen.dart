@@ -24,19 +24,26 @@ class _ChatUsersScreenState extends State<ChatUsersScreen> {
         // centerTitle: false,
         elevation: h_0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '',
+              'Chat with',
               style: tscwbsn_18wh,
             ),
           ],
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-        ],
+        // actions: [
+          // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+        // ],
       ),
-      body: listUsers(context: context),
+      body: userList.isNotEmpty
+          ? listUsers(context: context)
+          : Center(
+              child: Text(
+                'No User are Available to chat',
+                style: tscwbsn_14gy500,
+              ),
+            ),
     );
   }
 

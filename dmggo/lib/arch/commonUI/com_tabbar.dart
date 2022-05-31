@@ -17,7 +17,15 @@ class CommonTabbar extends StatelessWidget {
     BottomNavigationBarProvider pro = Provider.of<BottomNavigationBarProvider>(context, listen: true);
     Provider.of<ProfileLogic>(context, listen: false).setvalues();
     print(pro.unReadCount);
-    int c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) => sum + element!.unreadMessagesCount!);
+    int c = 0;
+    c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) {
+      if (element!.unreadMessagesCount != null) {
+        sum + element.unreadMessagesCount!;
+      } else {
+        sum + 0;
+      }
+      return sum;
+    });
     print(c);
     return BottomNavigationBar(
       backgroundColor: cgrey_200,

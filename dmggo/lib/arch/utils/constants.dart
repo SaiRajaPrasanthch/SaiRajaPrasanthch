@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'dart:math';
-
-import 'package:aad_oauth/aad_oauth.dart';
-import 'package:aad_oauth/model/config.dart';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
+import 'package:dmggo/microsoftAuth/helper/mobile_oauth.dart';
+import 'package:dmggo/microsoftAuth/model/config.dart';
+import 'package:flutter/material.dart';
 import 'package:quickblox_sdk/chat/constants.dart';
 import 'package:quickblox_sdk/models/qb_session.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
@@ -74,22 +74,24 @@ String qbEventSystemMessage = QBChatEvents.RECEIVED_SYSTEM_MESSAGE;
 
 //Prod
 String appId = "96677";
-String authKey = "9vCLsEnjJvYxCrk";
-String authSecret = "nMhVNHF67JGwUWw";
-String accountKey = "xGHxRqffg1o5BtRLnJEK";
+String authKey = '9vCLsEnjJvYxCrk';
+String authSecret = 'nMhVNHF67JGwUWw';
+String accountKey = 'xGHxRqffg1o5BtRLnJEK';
+String apiEndPoint = "https://api.quickblox.com";
+String chatEndPoint = "chat.quickblox.com";
 
-final Config config = Config(
+final Config configMicrosoft = Config(
   tenant: '647119b9-2120-453d-ab27-e02884c15a1b',
   clientId: 'fe3d0d8a-0f41-4783-8766-44cee5ef23d6',
   scope: 'openid profile offline_access',
-  redirectUri: Platform.isIOS ? 'msauth.com.seanergydigital.dmggo://auth' : 'msauth://com.seanergydigital.dmggo/VzSiQcXRmi2kyjzcA%2BmYLEtbGVs%3D',
+  redirectUri: Platform.isIOS ? 'msauth.com.seanergydigital.dmggo://auth' : 'msauth://com.seanergydigital.dmggo/VzSiQcXRmi2kyjzcA%2BmYLEtbGVs%3D', navigatorKey:navigatorKey ,
 );
-
+  final navigatorKey = GlobalKey<NavigatorState>();
 const gStrChars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 Random rnd = Random();
 
 final dataView = ChatListScreen(key: viewKey);
-final AadOAuth oauth = AadOAuth(config);
+final MobileOAuth oauth = MobileOAuth(configMicrosoft);
 String? accessToken;
 final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
