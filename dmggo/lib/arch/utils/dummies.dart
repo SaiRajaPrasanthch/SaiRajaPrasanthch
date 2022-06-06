@@ -31,13 +31,13 @@ List<ChatList> listChatList = [
   ChatList(isGroup: false, isImage: true, strName: "Antonee Robinson"),
 ];
 
-String dummyStrDrFirstimEmail = 'driverfirsttime@gmail.com';
+String dummyStrDrFirstimEmail = 'driver1@gmail.com';
 
 String dummyStrDriverEmail = 'driver@gmail.com';
 
-String dummyStrOwnerEmail = 'owner@gmail.com';
+String dummyStrOwnerEmail = 'mikev@dmggo.com';
 
-String dummyStrManagerEmail = 'manager@gmail.com';
+String dummyStrManagerEmail = 'laurend@dmggo.com';
 
 enum status { await, read, delivered }
 List<Chat> listChat = [

@@ -7,6 +7,7 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
 class ChatUsersGroupSelection extends StatefulWidget {
@@ -61,20 +62,20 @@ class _ChatUsersGroupSelectionState extends State<ChatUsersGroupSelection> {
                             return;
                           }
 
-                          if (listUsersSelected.length == i_2) {
-                            // Fluttertoast.showToast(
-                            //     msg: "please select minimum two users. To create a group",
-                            //     toastLength: Toast.LENGTH_LONG,
-                            //     gravity: ToastGravity.CENTER,
-                            //     timeInSecForIosWeb: 1,
-                            //     backgroundColor: Colors.red,
-                            //     textColor: Colors.white,
-                            //     fontSize: 16.0);
+                          if (listUsersSelected.length <= i_2) {
+                            Fluttertoast.showToast(
+                                msg: "please select minimum two users. To create a group",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black,
+                                textColor: Colors.white,
+                                fontSize: h_12);
                             return;
                           }
                           openGroupCreation(context);
                         },
-                        color: listUsersSelected.isNotEmpty ? appColor : cgrey_300,
+                        color: listUsersSelected.length <= i_2 ? cgrey_300 : appColor,
                         dWidth: screenWidth!,
                         strBtnText: strNext,
                       ),
@@ -105,6 +106,10 @@ class _ChatUsersGroupSelectionState extends State<ChatUsersGroupSelection> {
             child: ChatUserTileCheckBtn(
               strUserName: userList[index]!.fullName!,
               isChecked: isChecked,
+              onChanged: (v) async {
+                await ChatListViewModel().selectUsersForGroupCreation(index: index);
+                setState(() {});
+              },
             ),
           );
         });

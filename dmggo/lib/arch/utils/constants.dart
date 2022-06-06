@@ -4,6 +4,8 @@ import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
+import 'package:dmggo/arch/view/driver_home_screen.dart';
+import 'package:dmggo/arch/view/driver_onboard_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
 import 'package:dmggo/microsoftAuth/helper/mobile_oauth.dart';
@@ -84,9 +86,10 @@ final Config configMicrosoft = Config(
   tenant: '647119b9-2120-453d-ab27-e02884c15a1b',
   clientId: 'fe3d0d8a-0f41-4783-8766-44cee5ef23d6',
   scope: 'openid profile offline_access',
-  redirectUri: Platform.isIOS ? 'msauth.com.seanergydigital.dmggo://auth' : 'msauth://com.seanergydigital.dmggo/VzSiQcXRmi2kyjzcA%2BmYLEtbGVs%3D', navigatorKey:navigatorKey ,
+  redirectUri: Platform.isIOS ? 'msauth.com.seanergydigital.dmggo://auth' : 'msauth://com.seanergydigital.dmggo/VzSiQcXRmi2kyjzcA%2BmYLEtbGVs%3D',
+  navigatorKey: navigatorKey,
 );
-  final navigatorKey = GlobalKey<NavigatorState>();
+final navigatorKey = GlobalKey<NavigatorState>();
 const gStrChars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 Random rnd = Random();
 
@@ -136,6 +139,7 @@ List<DrOBS> listMHS = [
   DrOBS(bStatus: false, strTitle: strRS),
   DrOBS(bStatus: false, strTitle: strACD),
   DrOBS(intCount: 1, bStatus: false, strTitle: strETD),
+  // DrOBS(bStatus: false, strTitle: strReconcilation),
   DrOBS(bStatus: false, strTitle: strPCR),
 ];
 
@@ -161,6 +165,8 @@ List<DrOBS> listDVI = [
 ];
 
 var currentTab = [
+  // DriverOnboardingScreen(),
+  // DriverHomeScreen(),
   ManagerHomeScreen(),
   ProfileScreen(),
   ChatListScreen(),

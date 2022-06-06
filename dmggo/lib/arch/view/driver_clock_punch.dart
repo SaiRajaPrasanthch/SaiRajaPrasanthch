@@ -143,7 +143,7 @@ class DrvierClockPunch extends StatelessWidget {
                                 Positioned(
                                   bottom: -4,
                                   child: Text(
-                                    'IN',
+                                    'OUT',
                                     textAlign: TextAlign.center,
                                     style: tscwbsn_18b,
                                   ),
@@ -207,7 +207,7 @@ class DrvierClockPunch extends StatelessWidget {
                                 Positioned(
                                   bottom: -4,
                                   child: Text(
-                                    'OUT',
+                                    'IN',
                                     textAlign: TextAlign.center,
                                     style: tscwbsn_18b,
                                   ),

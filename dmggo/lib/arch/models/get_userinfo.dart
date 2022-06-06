@@ -265,7 +265,7 @@ class GetUserInfo {
   final int age;
   final String gender;
   final String email;
-  final int userType;
+  final String? userType;
   final dynamic chat;
   final dynamic address;
   final dynamic city;
@@ -299,7 +299,7 @@ class GetUserInfo {
     required int age,
     required String gender,
     required String email,
-    required int userType,
+    required String  userType,
     dynamic chat,
     dynamic address,
     dynamic city,

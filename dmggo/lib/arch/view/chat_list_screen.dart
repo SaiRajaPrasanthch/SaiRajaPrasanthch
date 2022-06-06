@@ -1,5 +1,6 @@
 import 'package:dmggo/arch/commonUI/com_button.dart';
 import 'package:dmggo/arch/commonUI/com_chat_listtile.dart';
+import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_assets.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
@@ -59,11 +60,13 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
     subscriptionReceiveMsg!.onData((data) {
       getData();
     });
-    // setState(() {});
+    setState(() {});
   }
 
   getSystemupdates() async {
-   
+    subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+      getData();
+    });
     subscriptionSystemMsg!.onData((data) {
       getData();
     });
@@ -77,7 +80,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
 
   getData() async {
     await _chatListViewModel.getChatListData();
-    // setState(() {});
+    setState(() {});
   }
 
   @override
@@ -90,7 +93,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
             'Chat',
             style: tscwbsn_18wh,
           ),
-          actions: [IconButton(onPressed: () => openChatUserScreen(context), icon: Icon(Icons.search_rounded)), chatPopupMenu(context: context)],
+          actions: [IconButton(onPressed: () => openChatUserScreen(context), icon: Icon(Icons.search_rounded)), chatPopupMenu(context: context), sbh_5w_10],
         ),
         body: Container(
           child: _chatListViewModel.dialogs.isNotEmpty ? listDialogs(context: context) : noChatAvail(context: context),

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class ChatUserTileCheckBtn extends StatelessWidget {
   final String strUserName;
   final bool isChecked;
-  const ChatUserTileCheckBtn({Key? key, required this.strUserName, required this.isChecked}) : super(key: key);
+   final ValueChanged<bool?>? onChanged;
+   ChatUserTileCheckBtn({Key? key, required this.strUserName, required this.isChecked,required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ChatUserTileCheckBtn extends StatelessWidget {
           trailing: Checkbox(
             value: isChecked,
             activeColor: cgreen,
-            onChanged: (v) {},
+            onChanged:onChanged,
             shape: rrbr_10,
           ),
         ),

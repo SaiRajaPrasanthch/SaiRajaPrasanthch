@@ -7,6 +7,7 @@ import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/chatmsglist_log.dart';
 import 'package:flutter/material.dart';
 import 'package:quickblox_sdk/mappers/qb_message_mapper.dart';
@@ -28,7 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final ChatMsgListProvider _chatMsgListViewModel = ChatMsgListProvider();
   Map<String, String> properties = {};
   final ScrollController _scrollController = ScrollController();
-  StreamSubscription? subReceiveMsg;
+  // StreamSubscription? subReceiveMsg;
   @override
   void initState() {
     super.initState();
@@ -48,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   getUpdatedMessages() async {
-    subReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+    subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
       Map<dynamic, dynamic> map = Map<dynamic, dynamic>.from(data);
       Map<dynamic, dynamic> payload = Map<dynamic, dynamic>.from(map["payload"]);
 
@@ -77,9 +78,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-    if (subReceiveMsg != null) {
-      subReceiveMsg!.cancel();
-      subReceiveMsg = null;
+    if (subscriptionReceiveMsg != null) {
+      subscriptionReceiveMsg!.cancel();
+      subscriptionReceiveMsg = null;
     }
     // viewKey.currentState?.getData();
     // viewKey.currentState?.reDraw();
@@ -175,6 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onTap: () async {
                 if (txtChat.text.trim().isNotEmpty) {
                   properties["sendername"] = qbUser!.fullName!;
+                  
                   await QB.chat.sendMessage(
                     widget.strDialogId,
                     body: txtChat.text.trim(),

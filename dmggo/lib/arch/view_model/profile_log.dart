@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
@@ -93,9 +94,11 @@ class ProfileLogic extends ChangeNotifier {
 
   logout({required BuildContext con}) async {
     await oauth.logout();
+    await ChatApi().disConnect();
     Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
     prefs.then((value) => value.clear());
     qbUser = null;
+
     launchLoginScreen(con);
     notifyListeners();
   }

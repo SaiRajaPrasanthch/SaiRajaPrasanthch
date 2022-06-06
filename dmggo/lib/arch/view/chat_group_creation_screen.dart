@@ -22,6 +22,7 @@ class ChatGroupCreation extends StatefulWidget {
 
 class _ChatGroupCreationState extends State<ChatGroupCreation> {
   TextEditingController txtName = TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,49 +44,67 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/images/Group Image.png'),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset('assets/images/Group Image.png'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: txtGroupName(context: context),
+                    )
+                  ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: txtGroupName(context: context),
+                  padding: EdgeInsets.all(h_5),
+                  child: CommonButton(
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      if (txtName.text.trim().isNotEmpty) {
+                        QBDialog createdDialog = await ChatApi().createDialog(listusers: listUsersSelected, strDialogName: txtName.text.trim(), intDialogType: QBChatDialogTypes.GROUP_CHAT);
+
+                        setState(() {
+                          isLoading = false;
+                        });
+                        exitScreen(context);
+                        exitScreen(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChatScreen(
+                                      bIsGroup: true,
+                                      strName: createdDialog.name!,
+                                      strDialogId: createdDialog.id!,
+                                    )));
+                        listUsersSelected = [];
+                        return;
+                      }
+                    },
+                    color: txtName.text.trim().isEmpty ? cgrey_300 : appColor,
+                    dWidth: screenWidth!,
+                    strBtnText: strNext,
+                  ),
                 )
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(h_5),
-              child: CommonButton(
-                onPressed: () async {
-                  if (txtName.text.trim().isNotEmpty) {
-                    QBDialog createdDialog = await ChatApi().createDialog(listusers: listUsersSelected, strDialogName: txtName.text.trim(), intDialogType: QBChatDialogTypes.GROUP_CHAT);
-                    exitScreen(context);
-                    exitScreen(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChatScreen(
-                                  bIsGroup: true,
-                                  strName: createdDialog.name!,
-                                  strDialogId: createdDialog.id!,
-                                )));
-                    listUsersSelected = [];
-                    return;
-                  }
-                },
-                color: txtName.text.trim().isEmpty ? cgrey_300 : appColor,
-                dWidth: screenWidth!,
-                strBtnText: strNext,
+            if (isLoading)
+              Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: cgrey_100.withOpacity(0.5),
+                child: Center(child: CircularProgressIndicator()),
               ),
-            )
           ],
         ),
       ),
