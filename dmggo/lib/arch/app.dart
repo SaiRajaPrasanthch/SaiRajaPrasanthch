@@ -4,6 +4,7 @@ import 'package:dmggo/arch/view/launch_screen.dart';
 import 'package:dmggo/arch/view/login_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
+import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:dmggo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -17,11 +18,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  bool isLogin = false;
   @override
   void initState() {
     super.initState();
-    FlutterNativeSplash.remove();
+    loginCheck();
+
     WidgetsBinding.instance!.addObserver(this);
+  }
+
+  loginCheck() async {
+    isLogin = await Validations().islogin();
+    if (isLogin) {
+      await Validations().homeScreenAdding();
+    }
+
+    setState(() {});
+    FlutterNativeSplash.remove();
   }
 
   @override
@@ -32,7 +45,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (accessToken != null && strLoginExist != null) {
+    if (isLogin) {
+      // if (accessToken != null && strLoginExist != null) {
       switch (state) {
         case AppLifecycleState.resumed:
           await ChatApi().initialzeChat();
@@ -41,9 +55,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
             ChatListViewModel().getChatListData();
           });
-           subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
-          ChatListViewModel().getChatListData();
-        });
           break;
         case AppLifecycleState.paused:
           // subscriptionReceiveMsg?.cancel();
@@ -82,7 +93,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           data: mediaQueryData.copyWith(textScaleFactor: scale),
         );
       },
-      home: accessToken != null && strLoginExist != null ? LaunchScreen() : LoginScreen(), //LaunchScreen
+      // home: accessToken != null && strLoginExist != null ? LaunchScreen() : LoginScreen(), //LaunchScreen
+      home: isLogin ? LaunchScreen() : LoginScreen(), //LaunchScreen
       // home: accessToken == null ? LaunchLoadingScreen() : LaunchLoadingScreen(), //LaunchScreen
     );
   }

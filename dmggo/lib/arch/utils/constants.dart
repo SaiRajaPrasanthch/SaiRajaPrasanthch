@@ -98,6 +98,8 @@ final MobileOAuth oauth = MobileOAuth(configMicrosoft);
 String? accessToken;
 final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
+String? strLoginExist;
+
 // Headers
 
 Map<String, String>? strHeaders = {
@@ -167,7 +169,7 @@ List<DrOBS> listDVI = [
 var currentTab = [
   // DriverOnboardingScreen(),
   // DriverHomeScreen(),
-  ManagerHomeScreen(),
+  // ManagerHomeScreen(),
   ProfileScreen(),
   ChatListScreen(),
 ];

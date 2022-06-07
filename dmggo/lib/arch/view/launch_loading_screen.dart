@@ -1,6 +1,7 @@
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
+import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +33,9 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
       print('3');
 
       if (accessToken != null) {
-          print('4');
+        print('4');
         create();
-          // print('5');
+        // print('5');
       } else {
         exitScreen(context);
       }
@@ -46,8 +47,9 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
 
   create() async {
     try {
-           print('5');
+      print('5');
       if (await LoginLogic().getUserInfo()) {
+        currentTab.insert(0, ManagerHomeScreen());
         await ChatListViewModel().getChatListData();
         subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
           ChatListViewModel().getChatListData();
@@ -63,7 +65,6 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
-
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view/driver_home_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view_model/bottombar_log.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,9 +96,14 @@ class ProfileLogic extends ChangeNotifier {
   logout({required BuildContext con}) async {
     await oauth.logout();
     await ChatApi().disConnect();
-    Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
     prefs.then((value) => value.clear());
     qbUser = null;
+    currentTab.removeAt(0);
+    userList = [];
+    if (strEmail == dummyStrManagerEmail || strEmail == dummyStrOwnerEmail) {
+      listMHS.removeLast();
+    }
+    Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
 
     launchLoginScreen(con);
     notifyListeners();

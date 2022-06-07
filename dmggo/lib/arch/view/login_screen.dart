@@ -1,5 +1,7 @@
-
+import 'package:dmggo/arch/commonUI/com_loader.dart';
+import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
+import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,40 +14,45 @@ import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController txtEmailCont = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     Validations validation = context.watch<Validations>();
-    // txtEmailCont.text = dummyStrDriverEmail;
+    // txtEmailCont.text = dummyStrOwnerEmail;
     return Scaffold(
       backgroundColor: cgrey_200,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: h_30, right: h_30),
-                  child: Image.asset(imgLogoBanner),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: h_30, right: h_30),
+                      child: Image.asset(imgLogoBanner),
+                    ),
+                    sbh_20w_0,
+                    Padding(
+                      padding: EdgeInsets.only(left: h_20, right: h_20),
+                      child: Card(
+                        shape: rrbr_20,
+                        child: Padding(padding: EdgeInsets.only(left: h_20, right: h_20), child: incardWidget(context: context, validation: validation)),
+                      ),
+                    ),
+                  ],
                 ),
-                sbh_20w_0,
-                Padding(
-                  padding: EdgeInsets.only(left: h_20, right: h_20),
-                  child: Card(
-                    shape: rrbr_20,
-                    child: Padding(padding: EdgeInsets.only(left: h_20, right: h_20), child: incardWidget(context: context, validation: validation)),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+          if (validation.isLoading) ComLoader(),
+        ],
       ),
     );
   }
@@ -124,13 +131,9 @@ class LoginScreen extends StatelessWidget {
         textStyle: tscwbsn_14wh,
         dWidth: hinf,
         onPressed: () async {
-          // if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
-          //   await ChatApi().initialzeChat();
-          //   // await ChatApi().connect();
-          //   await ChatListViewModel().getChatListData();
-          //   subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {});
-          //   launchLoadingScreen(context);
-          // }
+          if (await validation.submit(strEmail: txtEmailCont.text, context: context)) {
+            launchHomeScreen(context);
+          }
         }
         // () => Navigator.of(context).pushAndRemoveUntil(
         //     MaterialPageRoute(builder: (context) => LaunchScreen()),

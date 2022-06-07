@@ -108,9 +108,9 @@ class SignupScreen extends StatelessWidget {
         textStyle: tscwbsn_14wh,
         dWidth: hinf,
         onPressed: () {
-          if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => OTPScreen()));
-          }
+          // if (validation.submit(strEmail: txtEmailCont.text, context: context)) {
+          //   Navigator.push(context, MaterialPageRoute(builder: (context) => OTPScreen()));
+          // }
         });
   }
 }
