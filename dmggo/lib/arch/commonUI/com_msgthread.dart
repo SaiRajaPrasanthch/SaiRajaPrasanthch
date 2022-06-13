@@ -12,6 +12,7 @@ class CommonMessageThread extends StatelessWidget {
   final bool isSameId;
   final bool isSameDay;
   final QBMessage? message;
+  final int intNoOfMembers;
   CommonMessageThread({
     Key? key,
     required this.message,
@@ -19,6 +20,7 @@ class CommonMessageThread extends StatelessWidget {
     required this.isSameId,
     required this.isSameDay,
     required this.isMsgReceived,
+    required this.intNoOfMembers,
   }) : super(key: key);
 
   @override
@@ -51,8 +53,15 @@ class CommonMessageThread extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (isMsgReceived) LeftChatBubble(message: message!.body!, widgetOf: decision(ctDecision: context), strMsgTime: d12),
-            if (!isMsgReceived) RightChatBubble(message: message!.body!, widgetOf: decision(ctDecision: context), strMsgTime: d12)
+            if (isMsgReceived) LeftChatBubble(message: message!, widgetOf: decision(ctDecision: context), strMsgTime: d12),
+            if (!isMsgReceived)
+              RightChatBubble(
+                message: message!,
+                widgetOf: decision(ctDecision: context),
+                strMsgTime: d12,
+                isGroup: isGroup,
+                intGroupCount: intNoOfMembers,
+              )
             // Container(
             //   constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width / hp_12),
             //   child: Stack(

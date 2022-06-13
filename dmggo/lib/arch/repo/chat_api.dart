@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:quickblox_sdk/auth/module.dart';
 import 'package:quickblox_sdk/models/qb_dialog.dart';
+import 'package:quickblox_sdk/models/qb_message.dart';
 import 'package:quickblox_sdk/models/qb_session.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
@@ -19,13 +20,17 @@ class ChatApi {
 
   Future<void> initialzeChat() async {
     try {
-       print('11');
-      await QB.settings.init(appId, authKey, authSecret, accountKey,);
-       print('12');
-  
+      print('11');
+      await QB.settings.init(
+        appId,
+        authKey,
+        authSecret,
+        accountKey,
+      );
+      print('12');
     } on PlatformException catch (e) {
       // if (kDebugMode) {
-        print(e);
+      print(e);
       // }
     }
   }
@@ -189,7 +194,7 @@ class ChatApi {
   }
 
   Future<QBDialog> createDialog({required List<int> listusers, required String strDialogName, required int intDialogType}) async {
-    QBDialog? createdDialog = await QB.chat.createDialog(listusers, strDialogName, dialogType: intDialogType);
+    QBDialog? createdDialog = await QB.chat.createDialog(listusers, dialogName: strDialogName, dialogType: intDialogType);
     if (createdDialog != null) {
       sendSystemMessage(listIds: createdDialog.occupantsIds!);
     }
@@ -200,5 +205,13 @@ class ChatApi {
     listIds.forEach((element) {
       QB.chat.sendSystemMessage(element);
     });
+  }
+
+  markDelivered(QBMessage m) async {
+    await QB.chat.markMessageDelivered(m);
+  }
+
+  markRead(QBMessage m) async {
+    await QB.chat.markMessageRead(m);
   }
 }

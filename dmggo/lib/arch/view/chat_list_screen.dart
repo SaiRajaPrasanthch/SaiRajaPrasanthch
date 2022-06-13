@@ -43,21 +43,13 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
     getData();
   }
 
-  // @override
-  // void didUpdateWidget(Widget oldWidget) {
-  //   // getData();
-  // }
-
-  // @override
-  // void deactivate() {
-  //   super.deactivate();
-  // }
-
+ 
   getupdates() async {
     subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
       getData();
     });
     subscriptionReceiveMsg!.onData((data) {
+      print(data);
       getData();
     });
     setState(() {});
@@ -90,7 +82,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
           centerTitle: false,
           elevation: h_0,
           title: Text(
-            'Chat',
+          strChat ,
             style: tscwbsn_18wh,
           ),
           actions: [IconButton(onPressed: () => openChatUserScreen(context), icon: Icon(Icons.search_rounded)), chatPopupMenu(context: context), sbh_5w_10],
@@ -114,18 +106,18 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
                 width: h_300,
               ),
               Text(
-                'No Messages, Yet',
+              strNoMessage ,
                 style: tscwnsn_25b,
               ),
               Text(
-                'No messages in your inbox yet!',
+                strNoMessSub,
                 style: tscwnsn_16b,
               ),
             ],
           ),
           CommonButton(
             color: ctransparent,
-            strBtnText: 'search',
+            strBtnText: strSearch,
             dWidth: h_200,
             textStyle: tscwnsn_18bl700,
             onPressed: () => openChatUserScreen(context),
@@ -150,6 +142,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
                             bIsGroup: value.occupantsIds!.length > i_2 ? true : false,
                             strName: value.name!,
                             strDialogId: value.id!,
+                            intNoOfMembers: value.occupantsIds!.length,
                           ))).then((value) => reDraw());
             },
           );

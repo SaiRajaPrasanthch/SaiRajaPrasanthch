@@ -35,7 +35,7 @@ dependencies:
   flutter_speed_dial: ^5.0.0+1
   google_fonts: ^2.2.0
   provider: ^6.0.2
-  quickblox_sdk: 0.6.5-beta
+  quickblox_sdk: 0.6.7-beta
   intl: ^0.17.0
   flutter_svg: ^1.0.3
   dashed_line: ^0.1.0

@@ -16,7 +16,7 @@ PODS:
     - QuickBlox (>= 2.7)
   - quickblox_sdk (0.0.1-alpha):
     - Flutter
-    - QuickBlox (~> 2.17.10)
+    - QuickBlox (~> 2.17.11)
     - Quickblox-WebRTC (~> 2.7.6)
   - shared_preferences_ios (0.0.1):
     - Flutter
@@ -70,7 +70,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   QuickBlox: 37d2eb7d791782469ba14fa40122633185944c01
   Quickblox-WebRTC: 162d2421d91cfb3d4f7e01f87e095633ca52bb1d
-  quickblox_sdk: 9ce8b6d99695835a8a3333dc7ac9acd49a44fb13
+  quickblox_sdk: 183b78fa64f4d1ba46b3ca4e5bc65dc9f572e5b9
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f

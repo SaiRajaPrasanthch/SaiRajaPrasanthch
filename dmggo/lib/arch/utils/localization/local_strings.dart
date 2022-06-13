@@ -237,6 +237,17 @@ String strAllAboutTheDispute = 'All about the dispute.';
 
 String strNext = 'Next';
 
+String strEnterGroupName = 'Enter Group Name';
+
+String strCreateGroup = 'Create Group';
+
+String strChat = 'Chat';
+
+String strNoMessage = 'No Messages, Yet';
+
+String strNoMessSub = 'No messages in your inbox yet!';
+
+String strSearch = 'search';
 // shared prefresnce
 String strQBLogin = 'login';
 String strQBPass = 'password';

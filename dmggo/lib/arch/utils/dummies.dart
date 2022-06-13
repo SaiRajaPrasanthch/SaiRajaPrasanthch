@@ -3,6 +3,7 @@
 import 'package:dmggo/arch/models/chat_model.dart';
 import 'package:dmggo/arch/models/chatlist_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspec_popup_model.dart';
+import 'package:dmggo/arch/utils/constants.dart';
 
 String dStrCarrier = 'ANGELL DSP PARCEL';
 
@@ -35,11 +36,11 @@ String dummyStrDrFirstimEmail = 'driver1@gmail.com';
 
 String dummyStrDriverEmail = 'driver@gmail.com';
 
+// String dummyStrOwnerEmail = 'driver4@gmail.com';
 String dummyStrOwnerEmail = 'mikev@dmggo.com';
 
 String dummyStrManagerEmail = 'laurend@dmggo.com';
 
-enum status { await, read, delivered }
 List<Chat> listChat = [
   Chat(stgMsg: 'Hello mike', isReceived: true, strTime: "12:24 AM"),
   Chat(stgMsg: 'How Are you?', isReceived: true, strTime: "12:30 AM"),

@@ -4,14 +4,23 @@ import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:quickblox_sdk/models/qb_message.dart';
 
 class RightChatBubble extends StatelessWidget {
-  final String message;
+  final QBMessage message;
   final String strMsgTime;
   final Widget? widgetOf;
-  final double r;
+  final bool isGroup;
+  final int? intGroupCount;
 
-  RightChatBubble({Key? key, required this.message, required this.strMsgTime, this.widgetOf, this.r = 4}) : super(key: key);
+  RightChatBubble({
+    Key? key,
+    required this.message,
+    required this.strMsgTime,
+    this.widgetOf,
+    this.intGroupCount,
+    required this.isGroup,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +28,14 @@ class RightChatBubble extends StatelessWidget {
       clipper: ClipRThread(h_2),
       child: ClipRRect(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(r),
+          topLeft: Radius.circular(h_4),
           topRight: rCir_5,
           bottomLeft: rCir_5,
           bottomRight: rCir_5,
         ),
         child: Container(
-          constraints: BoxConstraints.loose(MediaQuery.of(context).size * 0.8),
-          padding: EdgeInsets.fromLTRB(h_12 + h_2 * r, h_10, h_10, h_5),
+          constraints: BoxConstraints.loose(MediaQuery.of(context).size * h_07),
+          padding: EdgeInsets.fromLTRB(h_12 + h_2 * h_4, h_10, h_10, h_5),
           color: cblue_200,
           child: Transform(
             transform: Matrix4.diagonal3Values(-h_1, h_1, h_1),
@@ -38,7 +47,21 @@ class RightChatBubble extends StatelessWidget {
                   right: -h_5,
                   child: ChatTimeUI(
                     strMsgTime: strMsgTime,
-                    strStatus: '',
+                    strStatus: isGroup
+                        ? message.deliveredIds!.length == intGroupCount && message.readIds!.length == intGroupCount
+                            ? status.read
+                            : message.deliveredIds!.length == intGroupCount 
+                                ? status.delivered
+                                : message.deliveredIds!.length == i_1 && message.readIds!.length == i_1
+                                    ? status.sent
+                                    : status.await
+                        : message.deliveredIds!.length == i_1 && message.readIds!.length == i_1
+                            ? status.sent
+                            : message.deliveredIds!.length == i_2 && message.readIds!.length == i_1
+                                ? status.delivered
+                                : message.deliveredIds!.length == i_2 && message.readIds!.length == i_2
+                                    ? status.read
+                                    : status.await,
                   ),
                 )
               ],

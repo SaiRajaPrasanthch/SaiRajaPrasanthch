@@ -2,6 +2,7 @@ import 'package:dmggo/arch/commonUI/com_button.dart';
 import 'package:dmggo/arch/commonUI/com_textfield.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/utils/localization/local_assets.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
@@ -37,7 +38,7 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Create Group',
+              strCreateGroup,
               style: tscwbsn_18b,
             ),
           ],
@@ -56,7 +57,7 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.asset('assets/images/Group Image.png'),
+                      child: Image.asset(imgGroupChat ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -86,6 +87,7 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
                                       bIsGroup: true,
                                       strName: createdDialog.name!,
                                       strDialogId: createdDialog.id!,
+                                      intNoOfMembers: listUsersSelected.length,
                                     )));
                         listUsersSelected = [];
                         return;
@@ -121,8 +123,8 @@ class _ChatGroupCreationState extends State<ChatGroupCreation> {
       },
       textStyle: tscwnsn_16b,
       controller: txtName,
-      strHintText: 'Enter Group Name',
-      strLabelText: 'Enter Group Name',
+      strHintText: strEnterGroupName,
+      strLabelText: strEnterGroupName,
       border: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.grey,

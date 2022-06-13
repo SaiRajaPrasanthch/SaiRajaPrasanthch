@@ -33,7 +33,7 @@ class _ChatUsersScreenState extends State<ChatUsersScreen> {
           ],
         ),
         // actions: [
-          // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+        // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
         // ],
       ),
       body: userList.isNotEmpty
@@ -66,6 +66,7 @@ class _ChatUsersScreenState extends State<ChatUsersScreen> {
                             bIsGroup: false,
                             strName: createdDialog.name!,
                             strDialogId: createdDialog.id!,
+                            intNoOfMembers: listUsersSelected.length,
                           )));
               listUsersSelected = [];
             },

@@ -52,23 +52,13 @@ class Comtextfield extends StatelessWidget {
           prefixIcon: prefixIcon,
           hintText: strHintText ?? "",
           hintStyle: textStyle ?? tscwnsn_12b,
-          // border: border,
+          border: border,
           labelText: strLabelText ?? "",
           alignLabelWithHint: true,
-          errorText: strErrorText ?? "",
-          // focusedBorder: border,
-          // enabledBorder: border,
-
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: h_2),
-            borderRadius: BorderRadius.circular(h_5),
-          ),
-
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: cgrey),
-            borderRadius: BorderRadius.circular(h_5),
-          ),
-        ),
+          errorText: strErrorText,
+          focusedBorder: border,
+          enabledBorder: border 
+         ),
         keyboardType: keyboardType,
         onChanged: onChanged,
       ),

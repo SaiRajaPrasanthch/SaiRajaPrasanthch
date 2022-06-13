@@ -43,11 +43,13 @@ double h_3 = 3.0;
 double h_2 = 2.0;
 double hp_12 = 1.2;
 double h_1 = 1.0;
+double h_07 = 0.7;
 double h_05 = 0.5;
 double h_01 = 0.1;
 double h_0 = 0.0;
 
 int i_200 = 200;
+int i_40 = 40;
 int i_10 = 10;
 int i_8 = 8;
 int i_6 = 6;
@@ -68,6 +70,8 @@ QBSession? qbSession;
 String qbEventConnected = QBChatEvents.CONNECTED;
 String qbEventReceiveNewMessage = QBChatEvents.RECEIVED_NEW_MESSAGE;
 String qbEventSystemMessage = QBChatEvents.RECEIVED_SYSTEM_MESSAGE;
+String qbDeliveredMessage = QBChatEvents.MESSAGE_DELIVERED;
+String qbReadMessage = QBChatEvents.MESSAGE_READ;
 //test
 // String appId = "96229";
 // String authKey = "GcVHtt-UkZZ84bS";
@@ -106,6 +110,9 @@ Map<String, String>? strHeaders = {
   'Accept': 'application/json',
   'Content-type': 'application/json',
 };
+
+
+enum status { await,sent, read, delivered }
 
 // error codes
 
