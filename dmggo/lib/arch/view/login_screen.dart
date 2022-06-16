@@ -1,7 +1,5 @@
 import 'package:dmggo/arch/commonUI/com_loader.dart';
-import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
-import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +12,11 @@ import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController txtEmailCont = TextEditingController();
+  final TextEditingController txtPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +65,14 @@ class LoginScreen extends StatelessWidget {
           style: tscwbsn_20b,
         ),
         sbh_30w_0,
-        email(context: context, validation: validation),
-        pass(context: context, validation: validation),
+        Padding(
+          padding: EdgeInsets.only(bottom: h_10),
+          child: email(context: context, validation: validation),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: h_10),
+          child: pass(context: context, validation: validation),
+        ),
         login(context: context, validation: validation),
         sbh_5w_0,
         // forgetpass(context: context),
@@ -99,27 +103,36 @@ class LoginScreen extends StatelessWidget {
 
 // email textformfield
   Widget email({required BuildContext context, required Validations validation}) {
+    // txtEmailCont.text = 'prasanth.ch@seanergydigital.com';
     return Comtextfield(
       obscureText: false,
       prefixIcon: Icon(Icons.person),
-      strErrorText: validation.phoneNumber.error,
+      strErrorText: validation.validPhoneEmail.error,
       strLabelText: strEmailPhNum,
       strHintText: strEmailPhNum,
       controller: txtEmailCont,
       border: oibr_5,
+      errorBorder: oibr_5,
+      focusBorder: oibr_5,
       keyboardType: TextInputType.emailAddress,
+      // onChanged: (s) => validation.changePhoneNumber(s),
     );
   }
 
 // password textformfield
   Widget pass({required BuildContext context, required Validations validation}) {
+    // txtPass.text = '123456';
+
     return Comtextfield(
       obscureText: true,
       prefixIcon: Icon(Icons.lock),
-      // strErrorText: validation.phoneNumber.error,
+      strErrorText: validation.validPassword.error,
       strLabelText: strPassword,
       strHintText: strPassword,
       border: oibr_5,
+      controller: txtPass,
+      errorBorder: oibr_5,
+      focusBorder: oibr_5,
     );
   }
 
@@ -131,14 +144,10 @@ class LoginScreen extends StatelessWidget {
         textStyle: tscwbsn_14wh,
         dWidth: hinf,
         onPressed: () async {
-          if (await validation.submit(strEmail: txtEmailCont.text, context: context)) {
-            launchHomeScreen(context);
+          if (await validation.submit(strEmail: txtEmailCont.text, strPass: txtPass.text, context: context)) {
+            // launchHomeScreen(context);
           }
-        }
-        // () => Navigator.of(context).pushAndRemoveUntil(
-        //     MaterialPageRoute(builder: (context) => LaunchScreen()),
-        //     (Route<dynamic> route) => false),
-        );
+        });
   }
 
 //Signup Button

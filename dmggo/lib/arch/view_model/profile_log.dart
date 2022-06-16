@@ -60,12 +60,12 @@ class ProfileLogic extends ChangeNotifier {
   setvalues() async {
     SharedPreferences pre = await prefs;
     setUserName = pre.getString(strQBFullName)!;
-    // setUserDOB = pre.getString("")!;
+    setUserDOB = pre.getString(strDOB)!;
     setUserEmail = pre.getString(strQBEmail)!;
     // setUserDMGgoId = pre.getString("")!;
-    // setUserDL = pre.getString("")!;
-    // setUserMobile = pre.getString("")!;
-    // setUserRole = pre.getString("")!;
+    setUserDL = pre.getString(strDrivingLicense)!;
+    setUserMobile = pre.getString(strMobile)!;
+    setUserRole = pre.getString(strRole)!;
     notifyListeners();
   }
 
@@ -96,15 +96,15 @@ class ProfileLogic extends ChangeNotifier {
   logout({required BuildContext con}) async {
     await oauth.logout();
     await ChatApi().disConnect();
-    prefs.then((value) => value.clear());
+   
     qbUser = null;
     currentTab.removeAt(0);
     userList = [];
-    if (strEmail == dummyStrManagerEmail || strEmail == dummyStrOwnerEmail) {
+    if (_userRole == 'Super Admin' || _userRole == 'Owner' || _userRole == 'Admin') {
       listMHS.removeLast();
     }
     Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
-
+ prefs.then((value) => value.clear());
     launchLoginScreen(con);
     notifyListeners();
   }

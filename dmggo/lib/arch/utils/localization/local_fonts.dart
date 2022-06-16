@@ -18,6 +18,7 @@ TextStyle tscwbsn_14b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontSt
 TextStyle tscwbsn_16b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, fontFamily: 'Calibri');
 TextStyle tscwbsn_18b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: cblack, fontFamily: 'Calibri');
 TextStyle tscwbsn_20b = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: cblack, fontFamily: 'Calibri');
+TextStyle tscw400sn_25b = TextStyle(fontWeight: FontWeight.w600, fontStyle: FontStyle.normal, fontSize: h_25, color: cblack, fontFamily: 'Calibri');
 
 TextStyle tscwnsn_12wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_12, color: Colors.white, fontFamily: 'Calibri');
 TextStyle tscwnsn_14wh = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: Colors.white, fontFamily: 'Calibri');
@@ -30,6 +31,8 @@ TextStyle tscwbsn_14wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontS
 TextStyle tscwbsn_16wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: Colors.white, fontFamily: 'Calibri');
 TextStyle tscwbsn_18wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: Colors.white, fontFamily: 'Calibri');
 TextStyle tscwbsn_20wh = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_20, color: Colors.white, fontFamily: 'Calibri');
+
+TextStyle tscwbsn_16blu = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblue, fontFamily: 'Calibri');
 
 TextStyle tscwnsn_18gy500 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_18, color: cgrey_500, fontFamily: 'Calibri');
 

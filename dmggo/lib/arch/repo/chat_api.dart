@@ -21,12 +21,7 @@ class ChatApi {
   Future<void> initialzeChat() async {
     try {
       print('11');
-      await QB.settings.init(
-        appId,
-        authKey,
-        authSecret,
-        accountKey,
-      );
+      await QB.settings.init(appId, authKey, authSecret, accountKey, apiEndpoint: apiEndPoint, chatEndpoint: chatEndPoint);
       print('12');
     } on PlatformException catch (e) {
       // if (kDebugMode) {
@@ -170,14 +165,14 @@ class ChatApi {
     }
   }
 
-  Future<Object> createUserInQB({required String strLEmail, required String strLPass, required String strLName}) async {
+  Future<Object> createUserInQB({required String strLEmail, required String strLPass, required String strLName, String? strPhoneNumber}) async {
     try {
       QBUser? user = await QB.users.createUser(
-        strLEmail, //login
-        strLPass, //random generated 16 character password
-        email: strLEmail,
-        fullName: strLName,
-      );
+          strLEmail, //login
+          strLPass, //random generated 16 character password
+          email: strLEmail,
+          fullName: strLName,
+          phone: strPhoneNumber);
       if (user != null) {
         return Success(code: successResponse, response: user);
       }

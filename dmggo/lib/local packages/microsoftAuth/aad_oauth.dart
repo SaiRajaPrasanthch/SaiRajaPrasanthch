@@ -1,9 +1,10 @@
 library aad_oauth;
 
-import 'package:dmggo/microsoftAuth/helper/core_oauth.dart';
 
-import 'model/config.dart';
 import 'dart:async';
+
+import 'package:dmggo/local%20packages/microsoftAuth/helper/core_oauth.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
 
 /// Authenticates a user with Azure Active Directory using OAuth2.0.
 class AadOAuth {

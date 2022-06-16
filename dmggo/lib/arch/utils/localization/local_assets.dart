@@ -15,4 +15,7 @@ String imgNoChat = 'assets/images/Chat-Icon@2x.png';
 String imgChatSent = 'assets/images/Message Sent.svg';
 
 String imgChatDelivered = 'assets/images/Message Delivered.svg';
+
 String imgGroupChat = 'assets/images/Group Image.png';
+
+String imgChangePassword = 'assets/images/ChangePassword.png';

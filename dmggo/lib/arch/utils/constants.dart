@@ -4,12 +4,9 @@ import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
-import 'package:dmggo/arch/view/driver_home_screen.dart';
-import 'package:dmggo/arch/view/driver_onboard_screen.dart';
-import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
-import 'package:dmggo/microsoftAuth/helper/mobile_oauth.dart';
-import 'package:dmggo/microsoftAuth/model/config.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/helper/mobile_oauth.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
 import 'package:flutter/material.dart';
 import 'package:quickblox_sdk/chat/constants.dart';
 import 'package:quickblox_sdk/models/qb_session.dart';
@@ -53,6 +50,7 @@ int i_40 = 40;
 int i_10 = 10;
 int i_8 = 8;
 int i_6 = 6;
+int i_5 = 5;
 int i_4 = 4;
 int i_3 = 3;
 int i_2 = 2;
@@ -111,12 +109,13 @@ Map<String, String>? strHeaders = {
   'Content-type': 'application/json',
 };
 
-
-enum status { await,sent, read, delivered }
+enum status { await, sent, read, delivered }
 
 // error codes
 
 const successResponse = 200;
+const newUserResponse = 201;
+const invalidCredintials = 401;
 const invalidResponse = 100;
 const noInternet = 101;
 const timeOut = 408;
@@ -172,11 +171,10 @@ List<DrOBS> listDVI = [
   DrOBS(bStatus: false, strTitle: strPreTI),
   DrOBS(bStatus: false, strTitle: strPostTI),
 ];
-
+// DriverOnboardingScreen(),
+// DriverHomeScreen(),
+// ManagerHomeScreen(),
 var currentTab = [
-  // DriverOnboardingScreen(),
-  // DriverHomeScreen(),
-  // ManagerHomeScreen(),
   ProfileScreen(),
   ChatListScreen(),
 ];

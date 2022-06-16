@@ -1,7 +1,7 @@
 
-import 'package:dmggo/microsoftAuth/helper/core_oauth.dart';
-import 'package:dmggo/microsoftAuth/model/config.dart';
-import 'package:dmggo/microsoftAuth/model/token.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/helper/core_oauth.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../request_code.dart';

@@ -71,7 +71,7 @@ class SignupScreen extends StatelessWidget {
     return Comtextfield(
       obscureText: false,
       prefixIcon: Icon(Icons.person),
-      strErrorText: validation.phoneNumber.error,
+      strErrorText: validation.validPhoneEmail.error,
       strHintText: strEmailPhNum,
       strLabelText: strEmailPhNum,
       controller: txtEmailCont,

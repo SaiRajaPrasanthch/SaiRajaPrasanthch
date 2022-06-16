@@ -13,6 +13,8 @@ class Comtextfield extends StatelessWidget {
   final TextStyle? textStyle;
   final Color? fillColor;
   final InputBorder? border;
+  final InputBorder? focusBorder;
+  final InputBorder? errorBorder;
   final TextAlign? textAlign;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
@@ -33,6 +35,8 @@ class Comtextfield extends StatelessWidget {
       this.controller,
       this.keyboardType,
       this.iMaxLines,
+      this.errorBorder,
+      this.focusBorder,
       this.onChanged})
       : super(key: key);
 
@@ -42,23 +46,23 @@ class Comtextfield extends StatelessWidget {
       data: ThemeData(primaryColor: cgrey, hintColor: cgrey),
       child: TextField(
         controller: controller,
+        autocorrect: false,
         textAlign: textAlign ?? TextAlign.start,
         style: textStyle ?? tscwnsn_12b,
         obscureText: obscureText ?? false,
         maxLines: iMaxLines ?? 1,
         decoration: InputDecoration(
-          filled: filled ?? true,
-          fillColor: fillColor ?? cgrey_50,
-          prefixIcon: prefixIcon,
-          hintText: strHintText ?? "",
-          hintStyle: textStyle ?? tscwnsn_12b,
-          border: border,
-          labelText: strLabelText ?? "",
-          alignLabelWithHint: true,
-          errorText: strErrorText,
-          focusedBorder: border,
-          enabledBorder: border 
-         ),
+            filled: filled ?? true,
+            fillColor: fillColor ?? cgrey_50,
+            prefixIcon: prefixIcon,
+            hintText: strHintText ?? "",
+            hintStyle: textStyle ?? tscwnsn_12b,
+            border: border,
+            labelText: strLabelText ?? "",
+            alignLabelWithHint: true,
+            errorText: strErrorText,
+            focusedBorder: border,
+            enabledBorder: border),
         keyboardType: keyboardType,
         onChanged: onChanged,
       ),

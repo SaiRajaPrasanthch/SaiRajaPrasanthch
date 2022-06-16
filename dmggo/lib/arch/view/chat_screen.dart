@@ -68,11 +68,11 @@ class _ChatScreenState extends State<ChatScreen> {
       Iterable<QBMessage?> msgExist = _chatMsgListViewModel.messages.where((element) => element!.id == msg!.id && widget.strDialogId == msg.dialogId);
       if (!msgExist.isNotEmpty) {
         _chatMsgListViewModel.messages.add(msg);
-         ChatApi().markDelivered(msg!);
+        ChatApi().markDelivered(msg!);
 
-            Future.delayed(Duration(seconds: 1), () {
-              ChatApi().markRead(msg);
-            });
+        Future.delayed(Duration(seconds: 1), () {
+          ChatApi().markRead(msg);
+        });
         setState(() {});
       }
 
@@ -81,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
           if (_scrollController.hasClients) {
             _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
             // if (msgExist.isNotEmpty) {
-           
+
             // }
           }
         });
@@ -126,7 +126,7 @@ class _ChatScreenState extends State<ChatScreen> {
       m = msgExist.first!;
     }
 
-    if (strStatusType == 'MESSAGE_DELIVERED') {
+    if (strStatusType!.contains('MESSAGE_DELIVERED')) {
       // _chatMsgListViewModel.messages.where((element) {
       //   if (element!.id == strMessageId) {
       //     if (!element.deliveredIds!.contains(intUserId)) {
@@ -145,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
         _chatMsgListViewModel.messages.insert(index, m);
       }
     }
-    if (strStatusType == 'MESSAGE_READ') {
+    if (strStatusType.contains('MESSAGE_READ')) {
       // _chatMsgListViewModel.messages.where((element) {
       //   if (element!.id == strMessageId) {
       //     if (!element.readIds!.contains(intUserId)) {

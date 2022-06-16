@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:dmggo/microsoftAuth/model/token.dart';
 import 'dart:convert' show jsonEncode, jsonDecode;
+import 'package:dmggo/local%20packages/microsoftAuth/model/token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthStorage {

@@ -1,6 +1,7 @@
-import 'package:dmggo/microsoftAuth/helper/choose_oauth.dart';
-import 'package:dmggo/microsoftAuth/model/config.dart';
 
+
+import 'package:dmggo/local%20packages/microsoftAuth/helper/choose_oauth.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
 
 class CoreOAuth {
   CoreOAuth();

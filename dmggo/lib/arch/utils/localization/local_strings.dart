@@ -1,8 +1,18 @@
 String strLoginTitle = 'LOGIN';
 
+String strChangePassword = 'Change Password';
+
+String strSubChangePass = 'You can change your password here';
+
 String strEmailPhNum = 'EMAIL / PHONENUMBER';
 
 String strPassword = 'PASSWORD';
+
+String strOldPassword = 'OLD PASSWORD';
+
+String strNewPassword = 'NEW PASSWORD';
+
+String strConfirmPassword = 'CONFIRM PASSWORD';
 
 String strRePassword = 'RE-ENTER PASSWORD';
 
@@ -207,6 +217,8 @@ String strFront = 'front';
 
 String strBack = 'back';
 
+String strOK = 'ok';
+
 String strOdometerTitle = 'Please enter the current Odometer Reading of the vehicle';
 
 String strVerified = 'Verified';
@@ -254,4 +266,8 @@ String strQBPass = 'password';
 String strQBEmail = 'email';
 String strQBFullName = 'fullName';
 String intQBId = 'QBid';
+String strDOB = 'DOB';
+String strMobile = 'mobile';
+String strRole = 'role';
+String strDrivingLicense = 'drivingLicense';
 String intUserId = 'UserId';

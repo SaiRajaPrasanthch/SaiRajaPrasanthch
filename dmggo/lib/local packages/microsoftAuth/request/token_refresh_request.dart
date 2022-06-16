@@ -1,5 +1,4 @@
-
-import 'package:dmggo/microsoftAuth/model/config.dart';
+import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
 
 class TokenRefreshRequestDetails {
   final String url;

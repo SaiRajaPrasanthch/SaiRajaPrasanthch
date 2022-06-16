@@ -77,7 +77,7 @@ class OTPScreen extends StatelessWidget {
       obscureText: true,
       textStyle: tscwbsn_16bLs20,
       strHintText: "......",
-      strErrorText: validation.phoneNumber.error,
+      strErrorText: validation.validPhoneEmail.error,
     );
   }
 

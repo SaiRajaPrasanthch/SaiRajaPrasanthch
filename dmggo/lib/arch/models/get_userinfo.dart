@@ -263,7 +263,7 @@ class GetUserInfo {
   final String lastName;
   final String userName;
   final int age;
-  final String gender;
+  final int gender;
   final String email;
   final String? userType;
   final dynamic chat;
@@ -277,7 +277,7 @@ class GetUserInfo {
   final dynamic qbId;
   final dynamic dmgGoId;
   final String dob;
-  final String drivingLicense;
+  final String? drivingLicense;
   final dynamic accountName;
   final dynamic terminalName;
   final int accountId;
@@ -297,9 +297,9 @@ class GetUserInfo {
     required String lastName,
     required String userName,
     required int age,
-    required String gender,
+    required int gender,
     required String email,
-    required String  userType,
+    required String userType,
     dynamic chat,
     dynamic address,
     dynamic city,
