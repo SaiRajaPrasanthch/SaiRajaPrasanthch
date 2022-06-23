@@ -276,7 +276,7 @@ class GetUserInfo {
   final dynamic altPhone;
   final dynamic qbId;
   final dynamic dmgGoId;
-  final String dob;
+  final String? dob;
   final String? drivingLicense;
   final dynamic accountName;
   final dynamic terminalName;

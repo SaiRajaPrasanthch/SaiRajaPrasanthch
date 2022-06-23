@@ -17,6 +17,7 @@ String strConfirmPassword = 'CONFIRM PASSWORD';
 String strRePassword = 'RE-ENTER PASSWORD';
 
 String strForPass = 'Forgot password?';
+String strForPassSub = 'Please enter your email address to reset your password.';
 
 String strLoginWithDMGgo1 = 'Login using DmgGo.com';
 String strLoginWithDMGgo2 = 'or';
@@ -191,6 +192,10 @@ String strADHere = 'Add description here';
 
 String strCamera = 'Camera';
 
+String strFileDoc='Files & Documents';
+
+String strPhotoLib='Photo Library';
+
 String strGallery = 'Gallery';
 
 String strSelectPhoto = 'Photo';
@@ -216,6 +221,8 @@ String strRight = 'Passanger side';
 String strFront = 'front';
 
 String strBack = 'back';
+
+String strBackToLogin = 'back to login';
 
 String strOK = 'ok';
 

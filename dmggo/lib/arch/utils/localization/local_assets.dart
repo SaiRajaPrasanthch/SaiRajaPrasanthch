@@ -2,7 +2,7 @@
 
 String imgLogoBanner = 'assets/images/logo.png';
 
-String imgOtpBanner = 'assets/images/mobile@2x.png';
+String imgOtpBanner = 'assets/images/Otp.png';
 
 String imgCarrierLogo = 'assets/images/carrier-logo@2x.png';
 
@@ -19,3 +19,6 @@ String imgChatDelivered = 'assets/images/Message Delivered.svg';
 String imgGroupChat = 'assets/images/Group Image.png';
 
 String imgChangePassword = 'assets/images/ChangePassword.png';
+
+String imgForgetPassword = 'assets/images/ForgetPassword.png';
+String imgFile = 'assets/images/File.png';

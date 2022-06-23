@@ -1,9 +1,13 @@
 import 'package:dmggo/arch/commonUI/chatUI/left_chat_bubble.dart';
 import 'package:dmggo/arch/commonUI/chatUI/right_chat_bubble.dart';
+import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/utils/localization/local_assets.dart';
+import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quickblox_sdk/models/qb_message.dart';
 
 class CommonMessageThread extends StatelessWidget {
@@ -113,24 +117,71 @@ class CommonMessageThread extends StatelessWidget {
   }
 
   Widget decision({required BuildContext ctDecision}) {
-    return message!.attachments != null && message!.attachments![0]!.url != null
-        ? imageLoad(urlImage: message!.attachments![0]!.url!, ctImage: ctDecision)
-        : Padding(
-            padding: const EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 15),
-            child: Container(
-              constraints: BoxConstraints(minWidth: 60),
-              child: Text(
-                message!.body!,
-                softWrap: true,
-                style: tscwnsn_14b,
-              ),
-            ),
-          );
+    return message!.attachments != null && message!.attachments!.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [attchmentsHandle(ctattach: ctDecision), if (message!.body != null) textHandle(message!.body!)],
+          )
+        : textHandle(message!.body!);
   }
 
-  Widget imageLoad({String? urlImage, required BuildContext ctImage}) {
+  Widget textHandle(String strMessage) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 15),
+      child: Container(
+        constraints: BoxConstraints(minWidth: 60),
+        child: Text(
+          strMessage,
+          softWrap: true,
+          style: tscwnsn_14b,
+        ),
+      ),
+    );
+  }
+
+  Widget attchmentsHandle({required BuildContext ctattach}) {
+    return message!.attachments!.length > 2
+        ? GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, childAspectRatio: 2 / 2, crossAxisSpacing: 15, mainAxisSpacing: 5),
+            itemCount: message!.attachments!.length < 4 ? message!.attachments!.length : 4,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext ctx, index) {
+              return Stack(
+                children: [
+                  message!.attachments![index]!.type == 'Attachment'
+                      ? file(bottom: h_15, ctImage: ctattach, strFile: message!.attachments![index]!.contentType!.split('/')[1])
+                      : imageLoad(urlImage: message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15),
+                  if (message!.attachments!.length > 4 && index == 3)
+                    Container(
+                      color: cgrey_200.withOpacity(0.4),
+                      width: MediaQuery.of(ctattach).size.width * 0.60,
+                      height: MediaQuery.of(ctattach).size.height * 0.25,
+                      child: Center(
+                        child: Text(
+                          '+ ${message!.attachments!.length - 4}',
+                          style: tscw400sn_25b,
+                        ),
+                      ),
+                    )
+                ],
+              );
+            })
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: message!.attachments!.length,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return message!.attachments![index]!.type == 'Attachment'
+                  ? file(bottom: h_15, ctImage: ctattach, strFile: message!.attachments![index]!.contentType!.split('/')[1])
+                  : imageLoad(urlImage: message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15);
+            });
+  }
+
+  Widget imageLoad({String? urlImage, required BuildContext ctImage, double? bottom}) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: bottom!),
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -140,11 +191,57 @@ class CommonMessageThread extends StatelessWidget {
         ),
         child: Image.network(
           urlImage!,
+
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
+              ),
+            );
+          },
+          // CircularPercentIndicator(
+          //   radius: 30,
+          //   progressColor: cgreen,
+          //   backgroundColor: cgrey_100,
+          //   percent: loadingProgress!.cumulativeBytesLoaded / 100,
+          // ),
           width: MediaQuery.of(ctImage).size.width * 0.60,
-          height: MediaQuery.of(ctImage).size.width * 0.60,
+          height: MediaQuery.of(ctImage).size.height * 0.25,
           fit: BoxFit.cover,
         ),
       ),
+    );
+  }
+
+  Widget file({
+    double? bottom,
+    String? strFile,
+    required BuildContext ctImage,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: bottom!),
+      child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+          child: Container(
+            color: appColor.withOpacity(0.3),
+            width: MediaQuery.of(ctImage).size.width * 0.60,
+            height: MediaQuery.of(ctImage).size.width * 0.20,
+            child: Row(
+              children: [
+                Image.asset(imgFile),
+                Text(
+                  strFile!,
+                  style: tscwbsn_14b,
+                )
+              ],
+            ),
+          )),
     );
   }
 }

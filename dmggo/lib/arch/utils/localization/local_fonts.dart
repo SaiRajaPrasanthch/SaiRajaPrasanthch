@@ -59,5 +59,6 @@ TextStyle tscwnsn_18bl700 = TextStyle(fontWeight: FontWeight.normal, fontStyle: 
 TextStyle tscwbsn_16bLs20 = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_16, color: cblack, letterSpacing: h_20, fontFamily: 'Calibri');
 
 TextStyle tscwbsn_14r = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cred, fontFamily: 'Calibri');
+TextStyle tscwbsn_18r = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_18, color: cred, fontFamily: 'Calibri');
 
 TextStyle tscwbsndul_14blu = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, decoration: TextDecoration.underline, color: cblue, fontFamily: 'Calibri');

@@ -43,7 +43,6 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
     getData();
   }
 
- 
   getupdates() async {
     subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
       getData();
@@ -82,7 +81,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
           centerTitle: false,
           elevation: h_0,
           title: Text(
-          strChat ,
+            strChat,
             style: tscwbsn_18wh,
           ),
           actions: [IconButton(onPressed: () => openChatUserScreen(context), icon: Icon(Icons.search_rounded)), chatPopupMenu(context: context), sbh_5w_10],
@@ -106,7 +105,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
                 width: h_300,
               ),
               Text(
-              strNoMessage ,
+                strNoMessage,
                 style: tscwnsn_25b,
               ),
               Text(

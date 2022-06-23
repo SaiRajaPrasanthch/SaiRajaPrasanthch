@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
         ),
         login(context: context, validation: validation),
         sbh_5w_0,
-        // forgetpass(context: context),
+        forgetpass(context: context),
         sbh_5w_0,
         Divider(),
         sbh_5w_0,
@@ -181,7 +181,9 @@ class LoginScreen extends StatelessWidget {
           strForPass,
           style: tscwnsn_12b,
         ),
-        onPressed: () {},
+        onPressed: () {
+          launchForgetPasswordScreen(context);
+        },
       ),
     );
   }

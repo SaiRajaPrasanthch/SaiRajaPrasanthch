@@ -50,7 +50,7 @@ class RightChatBubble extends StatelessWidget {
                     strStatus: isGroup
                         ? message.deliveredIds!.length == intGroupCount && message.readIds!.length == intGroupCount
                             ? status.read
-                            : message.deliveredIds!.length == intGroupCount 
+                            : message.deliveredIds!.length == intGroupCount
                                 ? status.delivered
                                 : message.deliveredIds!.length == i_1 && message.readIds!.length == i_1
                                     ? status.sent

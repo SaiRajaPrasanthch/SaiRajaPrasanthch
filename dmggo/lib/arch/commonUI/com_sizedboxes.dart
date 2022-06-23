@@ -40,3 +40,7 @@ SizedBox sbh_5w_10 = SizedBox(
   height: h_5,
   width: h_10,
 );
+SizedBox sbh_5w_15 = SizedBox(
+  height: h_5,
+  width: h_15,
+);

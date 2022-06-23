@@ -16,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 double hinf = double.infinity;
 double h_300 = 300.0;
 double h_200 = 200.0;
-
+double h_150 = 150.0;
 double h_120 = 120.0;
 double h_100 = 100.0;
 double h_60 = 60.0;

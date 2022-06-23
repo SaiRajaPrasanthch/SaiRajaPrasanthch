@@ -197,9 +197,9 @@ class ChatApi {
   }
 
   sendSystemMessage({required List<int> listIds}) async {
-    listIds.forEach((element) {
+    for (var element in listIds) {
       QB.chat.sendSystemMessage(element);
-    });
+    }
   }
 
   markDelivered(QBMessage m) async {

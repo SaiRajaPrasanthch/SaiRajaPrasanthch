@@ -96,7 +96,7 @@ class ProfileLogic extends ChangeNotifier {
   logout({required BuildContext con}) async {
     await oauth.logout();
     await ChatApi().disConnect();
-   
+
     qbUser = null;
     currentTab.removeAt(0);
     userList = [];
@@ -104,7 +104,7 @@ class ProfileLogic extends ChangeNotifier {
       listMHS.removeLast();
     }
     Provider.of<BottomNavigationBarProvider>(con, listen: false).current = i_0;
- prefs.then((value) => value.clear());
+    prefs.then((value) => value.clear());
     launchLoginScreen(con);
     notifyListeners();
   }
