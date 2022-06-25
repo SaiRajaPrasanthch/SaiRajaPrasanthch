@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   loginCheck() async {
     isLogin = await Validations().islogin();
     if (isLogin) {
-      await Validations().homeScreenAdding();
+      await Validations().homeScreenAddingV2();
     }
 
     setState(() {});

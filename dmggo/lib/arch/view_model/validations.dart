@@ -134,26 +134,26 @@ class Validations extends ChangeNotifier {
     return true;
   }
 
-  homeScreenAdding() async {
-    SharedPreferences _pre = await prefs;
-    strEmail = _pre.getString(strQBEmail);
-    if (strEmail!.toLowerCase() == dummyStrDrFirstimEmail.toLowerCase()) {
-      currentTab.insert(i_0, DriverOnboardingScreen());
-    }
-    if (strEmail!.toLowerCase() == dummyStrDriverEmail.toLowerCase()) {
-      currentTab.insert(i_0, DriverHomeScreen());
-    }
-    if (strEmail!.toLowerCase() == dummyStrOwnerEmail.toLowerCase() || strEmail!.toLowerCase() == dummyStrManagerEmail.toLowerCase()) {
-      currentTab.insert(i_0, ManagerHomeScreen());
-      if (strEmail!.toLowerCase() == dummyStrOwnerEmail.toLowerCase()) {
-        if (!listMHS.contains(DrOBS(bStatus: false, strTitle: strReconcilation))) {
-          listMHS.add(
-            DrOBS(bStatus: false, strTitle: strReconcilation),
-          );
-        }
-      }
-    }
-  }
+  // homeScreenAdding() async {
+  //   SharedPreferences _pre = await prefs;
+  //   strEmail = _pre.getString(strQBEmail);
+  //   if (strEmail!.toLowerCase() == dummyStrDrFirstimEmail.toLowerCase()) {
+  //     currentTab.insert(i_0, DriverOnboardingScreen());
+  //   }
+  //   if (strEmail!.toLowerCase() == dummyStrDriverEmail.toLowerCase()) {
+  //     currentTab.insert(i_0, DriverHomeScreen());
+  //   }
+  //   if (strEmail!.toLowerCase() == dummyStrOwnerEmail.toLowerCase() || strEmail!.toLowerCase() == dummyStrManagerEmail.toLowerCase()) {
+  //     currentTab.insert(i_0, ManagerHomeScreen());
+  //     if (strEmail!.toLowerCase() == dummyStrOwnerEmail.toLowerCase()) {
+  //       if (!listMHS.contains(DrOBS(bStatus: false, strTitle: strReconcilation))) {
+  //         listMHS.add(
+  //           DrOBS(bStatus: false, strTitle: strReconcilation),
+  //         );
+  //       }
+  //     }
+  //   }
+  // }
 
   homeScreenAddingV2() async {
     SharedPreferences _pre = await prefs;
@@ -211,11 +211,11 @@ class Validations extends ChangeNotifier {
       if (resQB is Success) {
         var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: _getUserInfo!.userId);
         if (resCreateUser is Success) {
-          await save(user: resQB.response as QBUser);
+          await save(user: resQB.response as QBUser, passWord: strLPassword);
         } else {
           ComAlert().showFailureAlert(context, resCreateUser as Faliure);
           loading = false;
-        } 
+        }
       } else {
         ComAlert().showFailureAlert(context, resQB as Faliure);
         loading = false;
@@ -226,14 +226,15 @@ class Validations extends ChangeNotifier {
       user.email = _getUserInfo!.email;
       user.fullName = _getUserInfo!.firstName + " " + _getUserInfo!.lastName;
       user.login = _getUserInfo!.email;
-      await save(user: user);
+
+      await save(user: user, passWord: _getUserInfo!.qbPassword);
     }
   }
 
-  save({QBUser? user}) async {
+  save({QBUser? user, String? passWord}) async {
     await LoginLogic().saveInStorage(
         user: user,
-        strqbPassword: _getUserInfo!.qbPassword,
+        strqbPassword: passWord,
         intId: _getUserInfo!.userId,
         dOBirth: _getUserInfo!.dob,
         mobileNo: _getUserInfo!.phone,
@@ -242,39 +243,39 @@ class Validations extends ChangeNotifier {
     await LoginLogic().callQBServices();
   }
 
-// dummy login for testing
-  dummylogin({
-    required String email,
-    required String password,
-  }) async {
-    await ChatApi().initialzeChat();
-    await ChatApi().enableAutoReconnect();
-    await ChatApi().enableCarbons();
-    await ChatApi().initStreamManagement();
-    QBLoginResult result = await QB.auth.login(email, password);
-    qbUser = result.qbUser;
-    await dummySaveInStorage(user: qbUser, intId: qbUser!.id, strPassword: password);
-    await ChatApi().connect();
-    await ChatListViewModel().getChatListData();
-    subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
-      ChatListViewModel().getChatListData();
-    });
-    subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
-      ChatListViewModel().getChatListData();
-    });
-  }
+// // dummy login for testing
+//   dummylogin({
+//     required String email,
+//     required String password,
+//   }) async {
+//     await ChatApi().initialzeChat();
+//     await ChatApi().enableAutoReconnect();
+//     await ChatApi().enableCarbons();
+//     await ChatApi().initStreamManagement();
+//     QBLoginResult result = await QB.auth.login(email, password);
+//     qbUser = result.qbUser;
+//     await dummySaveInStorage(user: qbUser, intId: qbUser!.id, strPassword: password);
+//     await ChatApi().connect();
+//     await ChatListViewModel().getChatListData();
+//     subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+//       ChatListViewModel().getChatListData();
+//     });
+//     subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+//       ChatListViewModel().getChatListData();
+//     });
+//   }
 
-//Dummy storage of credentials..
+// //Dummy storage of credentials..
 
-  dummySaveInStorage({QBUser? user, int? intId, String? strPassword}) async {
-    SharedPreferences _pre = await prefs;
-    _pre.setString(strQBLogin, user!.login!);
-    _pre.setString(strQBPass, strPassword!);
-    _pre.setString(strQBEmail, user.email!);
-    _pre.setString(strQBFullName, user.fullName!);
-    _pre.setInt(intUserId, intId!);
-    _pre.setInt(intQBId, user.id!);
-  }
+//   dummySaveInStorage({QBUser? user, int? intId, String? strPassword}) async {
+//     SharedPreferences _pre = await prefs;
+//     _pre.setString(strQBLogin, user!.login!);
+//     _pre.setString(strQBPass, strPassword!);
+//     _pre.setString(strQBEmail, user.email!);
+//     _pre.setString(strQBFullName, user.fullName!);
+//     _pre.setInt(intUserId, intId!);
+//     _pre.setInt(intQBId, user.id!);
+//   }
 
   Future<bool> submit({required String strEmail, required String strPass, required BuildContext context}) async {
     bool isEmailPhone = await changePhoneNumber(strEmail);

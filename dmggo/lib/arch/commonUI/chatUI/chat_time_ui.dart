@@ -31,7 +31,7 @@ class ChatTimeUI extends StatelessWidget {
                       : strStatus == status.delivered || strStatus == status.read
                           ? imgChatDelivered
                           : imgChatSent,
-                  color: strStatus == status.read ? cblue : cgrey_600)
+                  color: strStatus == status.read ? cgreen : cgrey_600)
           ],
         ),
       ),

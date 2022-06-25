@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>DMGgo App need access camera to select files.</string>
-	<key>kTCCServiceMediaLibrary</key>
-	<string>DMGgo App need access Media to play music.</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>DMGgo App need access Media to play music.</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.seanergydigital.dmggo</string>
@@ -34,8 +28,12 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>DMGgo App need access Media to play music.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>DMGgo App need access camera to pick pictures.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>DMGgo App need access camera to select files.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -65,5 +63,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>DMGgo App need access Media to play music.</string>
 </dict>
 </plist>

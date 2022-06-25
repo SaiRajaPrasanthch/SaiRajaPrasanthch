@@ -26,21 +26,14 @@ void main() async {
   // await oauth.logout();
 
   if (await Validations().islogin()) {
-    await ChatApi().initialzeChat();
-    await LoginLogic().callQBServices();
-    await ChatListViewModel().getChatListData();
-    await Validations().homeScreenAddingV2();
-    subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
-      ChatListViewModel().getChatListData();
-    });
-    subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
-      ChatListViewModel().getChatListData();
-    });
+    // await Validations().homeScreenAddingV2();
+    initializeQB();
   }
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android
     statusBarBrightness: Brightness.light, // Dark == white status bar -- for IOS.
   ));
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -63,4 +56,17 @@ void main() async {
     ],
     child: MyApp(),
   ));
+}
+
+Future<void> initializeQB() async {
+  await ChatApi().initialzeChat();
+  await LoginLogic().callQBServices();
+  await ChatListViewModel().getChatListData();
+
+  subscriptionSystemMsg = await QB.chat.subscribeChatEvent(qbEventSystemMessage, (data) {
+    ChatListViewModel().getChatListData();
+  });
+  subscriptionReceiveMsg = await QB.chat.subscribeChatEvent(qbEventReceiveNewMessage, (data) {
+    ChatListViewModel().getChatListData();
+  });
 }

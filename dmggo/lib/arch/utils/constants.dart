@@ -19,6 +19,7 @@ double h_200 = 200.0;
 double h_150 = 150.0;
 double h_120 = 120.0;
 double h_100 = 100.0;
+double h_80 = 80.0;
 double h_60 = 60.0;
 double h_50 = 50.0;
 double h_45 = 45.0;

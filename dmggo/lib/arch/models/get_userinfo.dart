@@ -232,6 +232,7 @@ class GetUserInfo {
     required this.gender,
     required this.email,
     required this.userType,
+    required this.roleId,
     required this.chat,
     required this.address,
     required this.city,
@@ -266,6 +267,7 @@ class GetUserInfo {
   final int gender;
   final String email;
   final String? userType;
+  final int roleId;
   final dynamic chat;
   final dynamic address;
   final dynamic city;
@@ -300,6 +302,7 @@ class GetUserInfo {
     required int gender,
     required String email,
     required String userType,
+    required int roleId,
     dynamic chat,
     dynamic address,
     dynamic city,
@@ -334,6 +337,7 @@ class GetUserInfo {
         gender: gender,
         email: email,
         userType: userType,
+        roleId: roleId,
         chat: chat ?? this.chat,
         address: address ?? this.address,
         city: city ?? this.city,
@@ -369,6 +373,7 @@ class GetUserInfo {
         gender: json["gender"] ?? json["gender"],
         email: json["email"] ?? json["email"],
         userType: json["userType"] ?? json["userType"],
+        roleId: json["roleId"] ?? json["roleId"],
         chat: json["chat"],
         address: json["address"],
         city: json["city"],
@@ -404,6 +409,7 @@ class GetUserInfo {
         "gender": gender,
         "email": email,
         "userType": userType,
+        "roleId": roleId,
         "chat": chat,
         "address": address,
         "city": city,

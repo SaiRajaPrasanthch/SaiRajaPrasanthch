@@ -267,28 +267,26 @@ class _ChatScreenState extends State<ChatScreen> {
         ));
   }
 
+  TextEditingController txtChat = TextEditingController();
 // chat textfield with send button add attachment Icon
   Widget textfield({
     required BuildContext context,
   }) {
-    TextEditingController txtChat = TextEditingController();
-
     return Container(
       alignment: Alignment.bottomCenter,
       color: cgrey_200,
-      child: Column(
-        children: [
-          if (listFile.isNotEmpty) SizedBox(height: h_120, child: listFiles()),
-          Padding(
-            padding: EdgeInsets.all(h_5),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: brCir_20,
-                    child: Container(
-                      color: Colors.white,
-                      child: Row(
+      child: Padding(
+        padding: EdgeInsets.all(h_5),
+        child: Row(
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: brCir_20,
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Row(
                         children: <Widget>[
                           sbh_5w_5,
                           Icon(Icons.insert_emoticon, size: h_30, color: Theme.of(context).hintColor),
@@ -327,32 +325,37 @@ class _ChatScreenState extends State<ChatScreen> {
                           sbh_5w_5,
                         ],
                       ),
-                    ),
+                      if (listFile.isNotEmpty) SizedBox(height: h_80, child: listFiles()),
+                    ],
                   ),
                 ),
-                sbh_5w_5,
-                GestureDetector(
-                  onTap: () async {
-                    if (txtChat.text.trim().isNotEmpty) {
-                      properties["sendername"] = qbUser!.fullName!;
-
-                      await QB.chat.sendMessage(widget.strDialogId, body: txtChat.text.trim(), saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
-                      txtChat.clear();
-                    } else {
-                      await QB.chat.sendMessage(widget.strDialogId, saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
-                    }
-                    listFile = [];
-                    listProgress = [];
-                    attachmentsList = [];
-                  },
-                  child: CircleAvatar(
-                    child: Icon(Icons.send),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+            sbh_5w_5,
+            GestureDetector(
+              onTap: () async {
+                if (isUploadInProgress && listFile.isNotEmpty && listFile.length != attachmentsList.length) {
+                  Fluttertoast.showToast(msg: 'upload still in progress');
+                  return;
+                }
+                if (txtChat.text.trim().isNotEmpty) {
+                  properties["sendername"] = qbUser!.fullName!;
+
+                  await QB.chat.sendMessage(widget.strDialogId, body: txtChat.text.trim(), saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
+                  txtChat.clear();
+                } else {
+                  await QB.chat.sendMessage(widget.strDialogId, saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
+                }
+                listFile = [];
+                listProgress = [];
+                attachmentsList = [];
+              },
+              child: CircleAvatar(
+                child: Icon(Icons.send),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -481,7 +484,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget media() {
     return CupertinoActionSheet(
       message: Text(
-        'Please pick any file or image "< 25MB"',
+        'Please pick any file or image upto "25MB"',
         style: tscwnsn_14b,
       ),
       actions: [
@@ -604,10 +607,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   List<QBAttachment> attachmentsList = [];
   QBMessage message = QBMessage();
+  bool isUploadInProgress = false;
+
   uploadimage(String path) async {
     listFile.add(path);
     listProgress.insert(listFile.indexOf(path), 0);
-
+    isUploadInProgress = true;
     setState(() {});
     QB.content.subscribeUploadProgress(path, QBFileUploadProgress.FILE_UPLOAD_PROGRESS, (d) {
       Map<dynamic, dynamic> map = Map<dynamic, dynamic>.from(d);
@@ -634,9 +639,12 @@ class _ChatScreenState extends State<ChatScreen> {
         attachment.type = 'Attachment';
       }
       attachmentsList.add(attachment);
+      isUploadInProgress = false;
     } on PlatformException catch (e) {
       listProgress.removeAt(listFile.indexOf(path));
       listFile.remove(path);
+      isUploadInProgress = false;
+
       setState(() {});
       Fluttertoast.showToast(msg: e.code.toString());
       // Some error occurred, look at the exception message for more details
@@ -656,8 +664,8 @@ class _ChatScreenState extends State<ChatScreen> {
               Padding(
                 padding: EdgeInsets.all(h_10),
                 child: SizedBox(
-                  height: h_100,
-                  width: h_100,
+                  height: h_80,
+                  width: h_80,
                   child: listFile[index].contains('.jpg') || listFile[index].contains('.jpeg') || listFile[index].contains('.png')
                       ? Image.file(
                           File(listFile[index]),
