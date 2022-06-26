@@ -7,6 +7,8 @@ import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view/splash.dart';
 import 'package:dmggo/arch/view_model/changepass_log.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:dmggo/arch/view_model/chatlist_logv2.dart';
+import 'package:dmggo/arch/view_model/chatmsglist_logv2.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:dmggo/arch/view_model/profile_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
@@ -46,8 +48,12 @@ void main() async {
         create: (_) => ProfileLogic(),
       ),
       ChangeNotifierProvider(
-        create: (_) => ChatListViewModel(),
+        create: (_) => ChatListViewModelV2(),
       ),
+      ChangeNotifierProxyProvider<ChatListViewModelV2, ChatMsgListProviderV2>(
+        create: (_) => ChatMsgListProviderV2(),
+        update:  (_, validations, changePasswordLog) => changePasswordLog!..dialogDetails = validations.dialogDetails),
+     
       ChangeNotifierProvider(
         create: (_) => ChangePasswordLog(),
       ),

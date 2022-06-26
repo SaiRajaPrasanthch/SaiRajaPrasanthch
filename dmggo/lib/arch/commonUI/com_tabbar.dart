@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:dmggo/arch/view_model/chatlist_logv2.dart';
 import 'package:dmggo/arch/view_model/profile_log.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,18 +16,18 @@ class CommonTabbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BottomNavigationBarProvider pro = Provider.of<BottomNavigationBarProvider>(context, listen: true);
-    Provider.of<ProfileLogic>(context, listen: false).setvalues();
-    print(pro.unReadCount);
+
+    // print(pro.unReadCount);
     int c = 0;
-    c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) {
-      if (element!.unreadMessagesCount != null) {
-        sum + element.unreadMessagesCount!;
-      } else {
-        sum + 0;
-      }
-      return sum;
-    });
-    print(c);
+    // c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) {
+    //   if (element!.unreadMessagesCount != null) {
+    //     sum + element.unreadMessagesCount!;
+    //   } else {
+    //     sum + 0;
+    //   }
+    //   return sum;
+    // });
+    // print(c);
     return BottomNavigationBar(
       backgroundColor: cgrey_200,
       unselectedItemColor: cgrey_900,
@@ -35,6 +36,12 @@ class CommonTabbar extends StatelessWidget {
       currentIndex: pro.currentBar,
       onTap: (index) {
         pro.current = index;
+        if (index == i_1) {
+          context.read<ProfileLogic>().setvalues();
+        }
+        if (index == i_2) {
+          context.read<ChatListViewModelV2>().getChatListData();
+        }
       },
       iconSize: h_25,
       items: [

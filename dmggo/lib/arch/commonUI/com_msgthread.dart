@@ -194,9 +194,13 @@ class CommonMessageThread extends StatelessWidget {
 
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
+            return SizedBox(
+              width: MediaQuery.of(ctImage).size.width * 0.60,
+              height: MediaQuery.of(ctImage).size.height * 0.25,
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
+                ),
               ),
             );
           },

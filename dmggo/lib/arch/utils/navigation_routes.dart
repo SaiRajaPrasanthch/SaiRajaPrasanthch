@@ -1,5 +1,6 @@
 import 'package:dmggo/arch/view/change_password_screen.dart';
 import 'package:dmggo/arch/view/chat_group_creation_screen.dart';
+import 'package:dmggo/arch/view/chat_screenV2.dart';
 import 'package:dmggo/arch/view/chat_users_group_screen.dart';
 import 'package:dmggo/arch/view/chat_users_screen.dart';
 import 'package:dmggo/arch/view/forgetpassword_screen.dart';
@@ -35,6 +36,11 @@ launchLoginScreen(BuildContext context) {
 openChatUserScreen(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => ChatUsersScreen()));
 }
+
+Future<void> openChatScreenV2(BuildContext context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreenV2()));
+}
+
 
 openChangePasswordScreen(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));

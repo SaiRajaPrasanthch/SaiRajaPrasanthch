@@ -4,6 +4,7 @@ import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
+import 'package:dmggo/arch/view/chat_list_screenv2.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
 import 'package:dmggo/local%20packages/microsoftAuth/helper/mobile_oauth.dart';
 import 'package:dmggo/local%20packages/microsoftAuth/model/config.dart';
@@ -177,7 +178,7 @@ List<DrOBS> listDVI = [
 // ManagerHomeScreen(),
 var currentTab = [
   ProfileScreen(),
-  ChatListScreen(),
+  ChatListScreenV2(),
 ];
 
 List<PTI> listPTIS = [
