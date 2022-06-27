@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 class ChatUserTileCheckBtn extends StatelessWidget {
   final String strUserName;
   final bool isChecked;
-   final ValueChanged<bool?>? onChanged;
-   ChatUserTileCheckBtn({Key? key, required this.strUserName, required this.isChecked,required this.onChanged}) : super(key: key);
+  final ValueChanged<bool?>? onChanged;
+  ChatUserTileCheckBtn({Key? key, required this.strUserName, required this.isChecked, required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,17 @@ class ChatUserTileCheckBtn extends StatelessWidget {
       children: [
         ListTile(
           leading: CircleAvatar(
-            child: Icon(Icons.person),
+            backgroundColor: cgrey_200,
+            child: Icon(
+              Icons.person,
+              color: cgrey_500,
+            ),
           ),
           title: Text(strUserName),
           trailing: Checkbox(
             value: isChecked,
             activeColor: cgreen,
-            onChanged:onChanged,
+            onChanged: onChanged,
             shape: rrbr_10,
           ),
         ),

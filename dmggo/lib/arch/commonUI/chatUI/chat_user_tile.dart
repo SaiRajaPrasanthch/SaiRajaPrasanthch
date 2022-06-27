@@ -16,7 +16,8 @@ class ChatUserTile extends StatelessWidget {
       children: [
         ListTile(
           leading: CircleAvatar(
-            child: Icon(Icons.person),
+            backgroundColor:  cgrey_200,
+            child: Icon(Icons.person,  color: cgrey_500,),
           ),
           title: Text(strUserName),
         ),
