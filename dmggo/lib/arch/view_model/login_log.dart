@@ -38,7 +38,7 @@ class LoginLogic {
             print('15');
             var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
             if (resCreateUser is Success) {
-              await saveInStorage(user: resQB.response as QBUser, strqbPassword: strLPassword, intId: userinfo.userId);
+              // await saveInStorage(user: resQB.response as QBUser, strqbPassword: strLPassword, intId: userinfo.userId);
               await callQBServices();
               return true;
             } else {
@@ -58,7 +58,7 @@ class LoginLogic {
           user.email = userinfo.email;
           user.fullName = userinfo.firstName + " " + userinfo.lastName;
           user.login = userinfo.email;
-          await saveInStorage(user: user, strqbPassword: userinfo.qbPassword, intId: userinfo.userId);
+          // await saveInStorage(user: user, strqbPassword: userinfo.qbPassword, intId: userinfo.userId);
           await callQBServices();
           return true;
         }
@@ -80,7 +80,7 @@ class LoginLogic {
     String? drivingLic,
     String? mobileNo,
     String? dOBirth,
-    String? role
+    String? role,required int roleId,
   }) async {
     SharedPreferences _pre = await prefs;
     _pre.setString(strQBLogin, user!.login!);
@@ -89,6 +89,7 @@ class LoginLogic {
     _pre.setString(strQBFullName, user.fullName!);
     _pre.setInt(intUserId, intId!);
     _pre.setInt(intQBId, user.id!);
+    _pre.setInt(intRoleId, roleId);
     _pre.setString(strDrivingLicense, drivingLic??'- NA -');
     _pre.setString(strMobile, mobileNo??'- NA -');
     _pre.setString(strDOB, dOBirth??'- NA -');

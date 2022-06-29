@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 
@@ -11,7 +12,10 @@ BorderRadius brCir_5 = BorderRadius.circular(h_5);
 Radius rCir_5 = Radius.circular(h_10);
 
 // oibr_30 outlineInput border radius with 30 (refer code.dart for more codes).
-
+BoxDecoration bdgrey600brCir_5= BoxDecoration(
+  border: Border.all(color: cgrey_600),
+  borderRadius: brCir_5,
+);
 OutlineInputBorder oibr_5 = OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.grey,

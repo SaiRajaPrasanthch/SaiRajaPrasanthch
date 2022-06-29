@@ -42,6 +42,8 @@ TextStyle tscwnsn_14gy500 = TextStyle(fontWeight: FontWeight.normal, fontStyle: 
 
 TextStyle tscwbsn_14gy500 = TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey_500, fontFamily: 'Calibri');
 TextStyle tscwnsn_10gy600 = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cgrey_600, fontFamily: 'Calibri');
+TextStyle tscwnsn_10green = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cgreen, fontFamily: 'Calibri');
+TextStyle tscwnsn_10red = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_10, color: cred, fontFamily: 'Calibri');
 
 TextStyle tscwnsn_14gy = TextStyle(fontWeight: FontWeight.normal, fontStyle: FontStyle.normal, fontSize: h_14, color: cgrey, fontFamily: 'Calibri');
 

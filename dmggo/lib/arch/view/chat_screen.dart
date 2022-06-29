@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dmggo/arch/commonUI/com_msgthread.dart';
 import 'package:dmggo/arch/commonUI/com_sizedboxes.dart';
+import 'package:dmggo/arch/models/file_upload_model.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_assets.dart';
@@ -325,7 +326,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           sbh_5w_5,
                         ],
                       ),
-                      if (listFile.isNotEmpty) SizedBox(height: h_80, child: listFiles()),
+                      if (listFileUpload.isNotEmpty) listFiles(),
                     ],
                   ),
                 ),
@@ -334,21 +335,16 @@ class _ChatScreenState extends State<ChatScreen> {
             sbh_5w_5,
             GestureDetector(
               onTap: () async {
-                if (isUploadInProgress && listFile.isNotEmpty && listFile.length != attachmentsList.length) {
+                if (listFileUpload.isNotEmpty && listFileUpload.where((element) => element.strFileStatus == 'uploading...').isNotEmpty) {
                   Fluttertoast.showToast(msg: 'upload still in progress');
                   return;
                 }
-                if (txtChat.text.trim().isNotEmpty) {
-                  properties["sendername"] = qbUser!.fullName!;
-
-                  await QB.chat.sendMessage(widget.strDialogId, body: txtChat.text.trim(), saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
-                  txtChat.clear();
-                } else {
-                  await QB.chat.sendMessage(widget.strDialogId, saveToHistory: true, markable: true, properties: properties, attachments: attachmentsList);
-                }
-                listFile = [];
-                listProgress = [];
+                sendMessage(strMessage: txtChat.text, list: attachmentsList);
+                // listFile = [];
+                // listProgress = [];
                 attachmentsList = [];
+                listFileUpload = [];
+                txtChat.clear();
               },
               child: CircleAvatar(
                 child: Icon(Icons.send),
@@ -358,6 +354,17 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  sendMessage({String? strMessage, List<QBAttachment>? list}) async {
+         properties["sendername"] = qbUser!.fullName!;
+
+    if (strMessage!.trim().isNotEmpty) {
+
+      await QB.chat.sendMessage(widget.strDialogId, body: strMessage.trim(), saveToHistory: true, markable: true, properties: properties, attachments: list);
+    } else if (list!.isNotEmpty) {
+      await QB.chat.sendMessage(widget.strDialogId, body: 'Attachments', saveToHistory: true, markable: true, properties: properties, attachments: list);
+    }
   }
 
 // popup menu item for group category
@@ -608,21 +615,40 @@ class _ChatScreenState extends State<ChatScreen> {
   List<QBAttachment> attachmentsList = [];
   QBMessage message = QBMessage();
   bool isUploadInProgress = false;
-
+  List<FileUpload> listFileUpload = [];
   uploadimage(String path) async {
-    listFile.add(path);
-    listProgress.insert(listFile.indexOf(path), 0);
-    isUploadInProgress = true;
+    // if (listFileUpload.length == 5) {
+    //   Fluttertoast.showToast(msg: "Max 5 file at time");
+    //   return;
+    // }
+    List fileLen = path.split('/');
+    final file = File(path);
+    String strStatus;
+    int sizeInBytes = file.lengthSync();
+    double sizeInMb = sizeInBytes / (1024 * 1024);
+    if (sizeInMb < 25) {
+      strStatus = 'uploading...';
+    } else {
+      strStatus = 'file size >25 cannot upload';
+      listFileUpload.add(FileUpload(strFilePath: path, strFileName: fileLen[fileLen.length - 1], strFileStatus: strStatus, intProgress: i_0));
+      return;
+    }
+    listFileUpload.add(FileUpload(strFilePath: path, strFileName: fileLen[fileLen.length - 1], strFileStatus: strStatus, intProgress: i_0));
+
+    // listFile.add(path);
+    // listProgress.insert(listFile.indexOf(path), 0);
+    // isUploadInProgress = true;
     setState(() {});
     QB.content.subscribeUploadProgress(path, QBFileUploadProgress.FILE_UPLOAD_PROGRESS, (d) {
       Map<dynamic, dynamic> map = Map<dynamic, dynamic>.from(d);
       Map<dynamic, dynamic> payload = Map<dynamic, dynamic>.from(map["payload"]);
       setState(() {
-        listProgress[listFile.indexOf(payload['url'])] = payload['progress'];
-        print(listProgress);
+        // listProgress[listFile.indexOf(payload['url'])] = payload['progress'];
+        int p = listFileUpload.indexWhere((element) => element.strFilePath == payload['url']);
+        listFileUpload[p].intProgress = payload['progress'];
       });
     });
-    print(listFile.indexOf(path));
+    // print(listFile.indexOf(path));
     try {
       QBFile? file = await QB.content.upload(path, public: true);
       String? url = await QB.content.getPublicURL(file!.uid!);
@@ -632,67 +658,216 @@ class _ChatScreenState extends State<ChatScreen> {
       attachment.id = file.id.toString();
       attachment.contentType = file.contentType;
       attachment.url = url;
+      attachment.name = fileLen[fileLen.length - 1];
 
       if (file.contentType!.contains('jpg') || file.contentType!.contains('png') || file.contentType!.contains('jpeg')) {
         attachment.type = 'Photo';
       } else {
         attachment.type = 'Attachment';
       }
+      int p = listFileUpload.indexWhere((element) => element.strFilePath == path);
+      listFileUpload[p].attachment = attachment;
+      listFileUpload[p].strFileStatus = 'uploaded';
       attachmentsList.add(attachment);
-      isUploadInProgress = false;
+      // isUploadInProgress = false;
+      setState(() {});
     } on PlatformException catch (e) {
-      listProgress.removeAt(listFile.indexOf(path));
-      listFile.remove(path);
-      isUploadInProgress = false;
+      // listProgress.removeAt(listFile.indexOf(path));
+      // listFile.remove(path);
+      // isUploadInProgress = false;
+      int p = listFileUpload.indexWhere((element) => element.strFilePath == path);
 
+      listFileUpload[p].strFileStatus = 'retry';
       setState(() {});
       Fluttertoast.showToast(msg: e.code.toString());
       // Some error occurred, look at the exception message for more details
+    } on SocketException catch (e) {
+      int p = listFileUpload.indexWhere((element) => element.strFilePath == path);
+
+      listFileUpload[p].strFileStatus = 'retry';
+      setState(() {});
+      Fluttertoast.showToast(msg: e.message.toString());
     }
   }
 
   Widget listFiles() {
-    return ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: _scrollController,
-        physics: ClampingScrollPhysics(),
-        itemCount: listFile.length,
-        itemBuilder: (context, index) {
-          return Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(h_10),
-                child: SizedBox(
-                  height: h_80,
-                  width: h_80,
-                  child: listFile[index].contains('.jpg') || listFile[index].contains('.jpeg') || listFile[index].contains('.png')
-                      ? Image.file(
-                          File(listFile[index]),
-                          fit: BoxFit.fill,
-                        )
-                      : Image.asset(imgFile),
+    return Column(
+      children: listFileUpload.map((e) {
+        return Padding(
+          padding: EdgeInsets.all(h_3),
+          child: Container(
+            height: h_40,
+            // color: cgreen,
+            decoration: bdgrey600brCir_5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(h_5),
+                      child: SizedBox(
+                        height: h_40,
+                        width: h_40,
+                        child: e.strFileName!.contains('.jpg') || e.strFileName!.contains('.jpeg') || e.strFileName!.contains('.png')
+                            ? Image.file(
+                                File(e.strFilePath!),
+                                fit: BoxFit.fill,
+                              )
+                            : Image.asset(imgFile),
+                      ),
+                    ),
+                    if (e.intProgress! > 0)
+                      CircularPercentIndicator(
+                        radius: 30,
+                        progressColor: cgreen,
+                        percent: e.intProgress!.toDouble() / 100,
+                      ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // listFile.removeAt(index);
+                    //     // listProgress.removeAt(index);
+                    //     // attachmentsList.removeAt(index);
+                    //     listFileUpload.removeAt(index);
+                    //     setState(() {});
+                    //   },
+                    //   child: Card(
+                    //     child: Icon(Icons.delete_outline),
+                    //   ),
+                    // ),
+                  ],
                 ),
-              ),
-              // if (listProgress[index] > 0 && listProgress[index] < 100)
-              CircularPercentIndicator(
-                radius: 50,
-                progressColor: cgreen,
-                percent: listProgress[index].toDouble() / 100,
-              ),
-              GestureDetector(
-                onTap: () {
-                  listFile.removeAt(index);
-                  listProgress.removeAt(index);
-                  attachmentsList.removeAt(index);
-                  setState(() {});
-                },
-                child: Card(
-                  child: Icon(Icons.delete_outline),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: screenWidth! * 0.5,
+                      // constraints: BoxConstraints.loose(MediaQuery.of(context).size * h_05),
+                      child: Text(
+                        e.strFileName!,
+                        maxLines: 1,
+                        style: tscwnsn_14b,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      e.strFileStatus!,
+                      style: e.strFileStatus == 'uploading...'
+                          ? tscwnsn_10gy600
+                          : e.strFileStatus == 'uploaded'
+                              ? tscwnsn_10green
+                              : tscwnsn_10red,
+                    )
+                  ],
                 ),
-              ),
-            ],
-          );
-        });
+                if (e.strFileStatus == 'uploaded')
+                  IconButton(
+                      onPressed: () {
+                        int p = listFileUpload.indexWhere((element) => element.strFilePath == e.strFilePath);
+                        listFileUpload.removeAt(p);
+                        attachmentsList.removeAt(p);
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.delete_outline)),
+                if (e.strFileStatus == 'file size >25 cannot upload' || e.strFileStatus == 'retry')
+                  IconButton(
+                      onPressed: () {
+                        int p = listFileUpload.indexWhere((element) => element.strFilePath == e.strFilePath);
+                        listFileUpload.removeAt(p);
+
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.close))
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
+
+    // ListView.builder(
+    //     // scrollDirection: Axis.vertical,
+    //     // controller: _scrollController,
+    //     physics: ClampingScrollPhysics(),
+    //     // physics: NeverScrollableScrollPhysics(),
+    //     shrinkWrap: true,
+    //     itemCount: listFileUpload.length,
+    //     itemBuilder: (context, index) {
+    //       return Padding(
+    //         padding: EdgeInsets.all(h_5),
+    //         child: Container(
+    //           height: h_40,
+    //           // color: cgreen,
+    //           decoration: bdgrey600brCir_5,
+    //           child: Row(
+    //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: [
+    //               Stack(
+    //                 alignment: AlignmentDirectional.center,
+    //                 children: [
+    //                   Padding(
+    //                     padding: EdgeInsets.all(h_5),
+    //                     child: SizedBox(
+    //                       height: h_40,
+    //                       width: h_40,
+    //                       child: listFileUpload[index].strFileName!.contains('.jpg') || listFileUpload[index].strFileName!.contains('.jpeg') || listFileUpload[index].strFileName!.contains('.png')
+    //                           ? Image.file(
+    //                               File(listFileUpload[index].strFilePath!),
+    //                               fit: BoxFit.fill,
+    //                             )
+    //                           : Image.asset(imgFile),
+    //                     ),
+    //                   ),
+    //                   // if (listProgress[index] > 0 && listProgress[index] < 100)
+    //                   CircularPercentIndicator(
+    //                     radius: 30,
+    //                     progressColor: cgreen,
+    //                     percent: listFileUpload[index].intProgress!.toDouble() / 100,
+    //                   ),
+    //                   // GestureDetector(
+    //                   //   onTap: () {
+    //                   //     // listFile.removeAt(index);
+    //                   //     // listProgress.removeAt(index);
+    //                   //     // attachmentsList.removeAt(index);
+    //                   //     listFileUpload.removeAt(index);
+    //                   //     setState(() {});
+    //                   //   },
+    //                   //   child: Card(
+    //                   //     child: Icon(Icons.delete_outline),
+    //                   //   ),
+    //                   // ),
+    //                 ],
+    //               ),
+    //               Column(
+    //                 mainAxisAlignment: MainAxisAlignment.center,
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Container(
+    //                     constraints: BoxConstraints.loose(MediaQuery.of(context).size * h_05),
+    //                     child: Text(
+    //                       listFileUpload[index].strFileName!,
+    //                       maxLines: 1,
+    //                       overflow: TextOverflow.ellipsis,
+    //                     ),
+    //                   ),
+    //                   Text(listFileUpload[index].strFileStatus!)
+    //                 ],
+    //               ),
+    //               if (listFileUpload[index].intProgress == 100)
+    //                 IconButton(
+    //                     onPressed: () {
+    //                       listFileUpload.removeAt(index);
+    //                       setState(() {});
+    //                     },
+    //                     icon: Icon(Icons.delete_outline))
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     });
   }
 }

@@ -278,3 +278,4 @@ String strMobile = 'mobile';
 String strRole = 'role';
 String strDrivingLicense = 'drivingLicense';
 String intUserId = 'UserId';
+String intRoleId = 'RoleId';

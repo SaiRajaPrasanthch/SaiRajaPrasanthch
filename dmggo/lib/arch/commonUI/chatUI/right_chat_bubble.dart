@@ -34,7 +34,10 @@ class RightChatBubble extends StatelessWidget {
           bottomRight: rCir_5,
         ),
         child: Container(
-          constraints: BoxConstraints.loose(MediaQuery.of(context).size * h_07),
+          // constraints: BoxConstraints.loose(MediaQuery.of(context).size * h_07),
+          constraints: BoxConstraints.tightFor(
+            width: screenWidth! * 0.75,
+          ),
           padding: EdgeInsets.fromLTRB(h_12 + h_2 * h_4, h_10, h_10, h_5),
           color: cblue_200,
           child: Transform(

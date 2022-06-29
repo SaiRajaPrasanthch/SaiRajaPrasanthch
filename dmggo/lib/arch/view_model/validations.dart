@@ -157,16 +157,16 @@ class Validations extends ChangeNotifier {
 
   homeScreenAddingV2() async {
     SharedPreferences _pre = await prefs;
-    String? role = _pre.getString(strRole);
-    if (role == 'Driver' || role == 'Helper') {
+    int? role = _pre.getInt(intRoleId);
+    if (role == i_5 || role == i_6) {
       currentTab.insert(i_0, DriverHomeScreen());
     }
     // if (strEmail!.toLowerCase() == dummyStrDriverEmail.toLowerCase()) {
     //   currentTab.insert(i_0, DriverHomeScreen());
     // }
-    if (role == 'Super Admin' || role == 'Owner' || role == 'Admin' || role == 'Manager') {
+    if (role == i_1 || role == i_2 || role == i_3 || role == i_4) {
       currentTab.insert(i_0, ManagerHomeScreen());
-      if (role == 'Super Admin' || role == 'Owner' || role == 'Admin') {
+      if (role == i_1|| role == i_2 || role == i_3) {
         if (!listMHS.contains(DrOBS(bStatus: false, strTitle: strReconcilation))) {
           listMHS.add(
             DrOBS(bStatus: false, strTitle: strReconcilation),
@@ -211,7 +211,7 @@ class Validations extends ChangeNotifier {
       if (resQB is Success) {
         var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: _getUserInfo!.userId);
         if (resCreateUser is Success) {
-          await save(user: resQB.response as QBUser, passWord: strLPassword);
+          await save(user: resQB.response as QBUser, passWord: strLPassword,introleId: getUserInfo!.roleId);
         } else {
           ComAlert().showFailureAlert(context, resCreateUser as Faliure);
           loading = false;
@@ -227,11 +227,11 @@ class Validations extends ChangeNotifier {
       user.fullName = _getUserInfo!.firstName + " " + _getUserInfo!.lastName;
       user.login = _getUserInfo!.email;
 
-      await save(user: user, passWord: _getUserInfo!.qbPassword);
+      await save(user: user, passWord: _getUserInfo!.qbPassword,introleId: getUserInfo!.roleId);
     }
   }
 
-  save({QBUser? user, String? passWord}) async {
+  save({QBUser? user, String? passWord,required int introleId}) async {
     await LoginLogic().saveInStorage(
         user: user,
         strqbPassword: passWord,
@@ -239,7 +239,7 @@ class Validations extends ChangeNotifier {
         dOBirth: _getUserInfo!.dob,
         mobileNo: _getUserInfo!.phone,
         role: _getUserInfo!.userType,
-        drivingLic: _getUserInfo!.drivingLicense);
+        drivingLic: _getUserInfo!.drivingLicense,roleId: introleId);
     await LoginLogic().callQBServices();
   }
 

@@ -23,8 +23,8 @@ import 'arch/view_model/bottombar_log.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // await oauth.logout();
-
+  // await oauth.logout
+ 
   if (await Validations().islogin()) {
     // await Validations().homeScreenAddingV2();
     initializeQB();
