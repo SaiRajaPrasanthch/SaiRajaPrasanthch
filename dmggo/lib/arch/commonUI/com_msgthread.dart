@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dmggo/arch/repo/apis.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:dmggo/arch/commonUI/chatUI/left_chat_bubble.dart';
 import 'package:dmggo/arch/commonUI/chatUI/right_chat_bubble.dart';
@@ -14,7 +13,6 @@ import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quickblox_sdk/models/qb_message.dart';
-import 'package:quickblox_sdk/quickblox_sdk.dart';
 
 class CommonMessageThread extends StatefulWidget {
   final bool isMsgReceived;
@@ -132,7 +130,7 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
-            children: [attchmentsHandle(ctattach: ctDecision), if ( widget.message!.body != null) textHandle(widget.message!.body!)],
+            children: [attchmentsHandle(ctattach: ctDecision), if (widget.message!.body != null) textHandle(widget.message!.body!)],
           )
         : textHandle(widget.message!.body!);
   }
@@ -197,7 +195,7 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
                               : widget.message!.attachments![index]!.name!)
                       : imageLoad(urlImage: widget.message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15),
                   Positioned(
-                      right: 15,
+                      right: 1,
                       top: 1,
                       child: IconButton(
                         icon: Icon(Icons.download_rounded),
@@ -288,8 +286,11 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
 
   HttpClient httpClient = HttpClient();
   _downloadFile(String url, String filename, String id) async {
-    print(url);
-    print(filename);
+    if (kDebugMode) {
+      print(url);
+      print(filename);
+    }
+
     Directory directory = await getApplicationDocumentsDirectory();
     // Platform.isAndroid
     //     ? await getExternalStorageDirectory() //FOR ANDROID
@@ -322,7 +323,9 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
       try {
         var request = await Apis().getApi(strLUrl: url);
 
-        print(request);
+        if (kDebugMode) {
+          print(request);
+        }
         // HttpClientResponse response = await request.close();
         if (request.statusCode == 200) {
           // var bytes = await consolidateHttpClientResponseBytes(request.bodyBytes);
@@ -344,7 +347,9 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
           ScaffoldMessenger.of(context).showSnackBar(s2);
         }
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     }
     // return file;

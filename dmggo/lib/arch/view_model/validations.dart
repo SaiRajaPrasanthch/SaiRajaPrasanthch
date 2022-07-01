@@ -1,31 +1,22 @@
 import 'package:dmggo/arch/commonUI/com_alert.dart';
-import 'package:dmggo/arch/commonUI/com_button.dart';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/get_userinfo.dart';
 import 'package:dmggo/arch/repo/api_status.dart';
 import 'package:dmggo/arch/repo/auth_methods.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/repo/user_services.dart';
-import 'package:dmggo/arch/utils/localization/local_borders.dart';
-import 'package:dmggo/arch/utils/localization/local_colors.dart';
-import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/utils/urls.dart';
-import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/models/validation_model.dart';
 import 'package:dmggo/arch/utils/constants.dart';
-import 'package:dmggo/arch/utils/dummies.dart';
 import 'package:dmggo/arch/utils/localization/local_error_string.dart';
 import 'package:dmggo/arch/view/driver_home_screen.dart';
-import 'package:dmggo/arch/view/driver_onboard_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
-import 'package:quickblox_sdk/auth/module.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
-import 'package:quickblox_sdk/quickblox_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Validations extends ChangeNotifier {

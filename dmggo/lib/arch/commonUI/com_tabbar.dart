@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/profile_log.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -16,7 +17,9 @@ class CommonTabbar extends StatelessWidget {
   Widget build(BuildContext context) {
     BottomNavigationBarProvider pro = Provider.of<BottomNavigationBarProvider>(context, listen: true);
     Provider.of<ProfileLogic>(context, listen: false).setvalues();
-    print(pro.unReadCount);
+    if (kDebugMode) {
+      print(pro.unReadCount);
+    }
     int c = 0;
     c = Provider.of<ChatListViewModel>(context, listen: false).dialogs.fold(0, (sum, element) {
       if (element!.unreadMessagesCount != null) {
@@ -26,7 +29,9 @@ class CommonTabbar extends StatelessWidget {
       }
       return sum;
     });
-    print(c);
+    if (kDebugMode) {
+      print(c);
+    }
     return BottomNavigationBar(
       backgroundColor: cgrey_200,
       unselectedItemColor: cgrey_900,

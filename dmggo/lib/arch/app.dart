@@ -5,7 +5,6 @@ import 'package:dmggo/arch/view/login_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
-import 'package:dmggo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';

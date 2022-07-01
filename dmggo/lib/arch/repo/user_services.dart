@@ -6,6 +6,7 @@ import 'package:dmggo/arch/models/get_userinfo.dart';
 import 'package:dmggo/arch/repo/api_status.dart';
 import 'package:dmggo/arch/repo/apis.dart';
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:quickblox_sdk/models/qb_user.dart';
 
@@ -123,7 +124,9 @@ return Success(code: successResponse, response: 'Password Changed Successfully')
       };
       res = await _api.postApi(strLUrl: strLUrl, body: body).timeout(Duration(seconds: 40));
 
-      print(res);
+      if (kDebugMode) {
+        print(res);
+      }
       if (res.statusCode == i_200) {
         return Success(code: successResponse, response: res.body);
       }

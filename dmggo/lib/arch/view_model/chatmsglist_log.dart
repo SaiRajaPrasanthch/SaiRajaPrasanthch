@@ -34,9 +34,9 @@ class ChatMsgListProvider {
 
   makeReceipt() {
     List<QBMessage?> m = messages.where((element) => element!.readIds!.length >= i_1).toList();
-    m.forEach((element) {
+    for (var element in m) {
       ChatApi().markRead(element!);
-    });
+    }
   }
 
   chatSendMSG({required strDialogId, @required txtChatMsg}) async {

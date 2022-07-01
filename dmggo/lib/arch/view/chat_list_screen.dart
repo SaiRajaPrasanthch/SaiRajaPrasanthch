@@ -9,6 +9,7 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view/chat_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quickblox_sdk/models/qb_dialog.dart';
 import 'package:quickblox_sdk/quickblox_sdk.dart';
@@ -48,7 +49,9 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
       getData();
     });
     subscriptionReceiveMsg!.onData((data) {
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
       getData();
     });
     setState(() {});

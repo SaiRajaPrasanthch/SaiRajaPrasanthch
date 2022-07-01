@@ -1,4 +1,3 @@
-import 'package:dmggo/arch/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';

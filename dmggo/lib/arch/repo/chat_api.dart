@@ -20,13 +20,17 @@ class ChatApi {
 
   Future<void> initialzeChat() async {
     try {
-      print('11');
+      if (kDebugMode) {
+        print('11');
+      }
       await QB.settings.init(appId, authKey, authSecret, accountKey, apiEndpoint: apiEndPoint, chatEndpoint: chatEndPoint);
-      print('12');
+      if (kDebugMode) {
+        print('12');
+      }
     } on PlatformException catch (e) {
-      // if (kDebugMode) {
-      print(e);
-      // }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -105,6 +109,9 @@ class ChatApi {
       // setSessionQB(session);
       return await checkUserExist(strLEmail: strLEmail, strLToken: session!.token!);
     } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       return 403;
       // Some error occurred, look at the exception message for more details
     }

@@ -289,8 +289,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: [
                       Row(
                         children: <Widget>[
-                          sbh_5w_5,
-                          Icon(Icons.insert_emoticon, size: h_30, color: Theme.of(context).hintColor),
+                          // sbh_5w_5,
+                          // Icon(Icons.insert_emoticon, size: h_30, color: Theme.of(context).hintColor),
                           sbh_5w_5,
                           Expanded(
                             child: TextField(
@@ -357,10 +357,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   sendMessage({String? strMessage, List<QBAttachment>? list}) async {
-         properties["sendername"] = qbUser!.fullName!;
+    properties["sendername"] = qbUser!.fullName!;
 
     if (strMessage!.trim().isNotEmpty) {
-
       await QB.chat.sendMessage(widget.strDialogId, body: strMessage.trim(), saveToHistory: true, markable: true, properties: properties, attachments: list);
     } else if (list!.isNotEmpty) {
       await QB.chat.sendMessage(widget.strDialogId, body: 'Attachments', saveToHistory: true, markable: true, properties: properties, attachments: list);
@@ -441,7 +440,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
 // list of message
   Widget listMsg({required BuildContext context, required List<QBMessage?> chatlog}) {
-    print(chatlog);
+    if (kDebugMode) {
+      print(chatlog);
+    }
     return NotificationListener<ScrollEndNotification>(
       onNotification: (scrollEnd) {
         final metrics = scrollEnd.metrics;
@@ -505,7 +506,9 @@ class _ChatScreenState extends State<ChatScreen> {
               final ImagePicker _picker = ImagePicker();
 
               final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-              print(photo);
+              if (kDebugMode) {
+                print(photo);
+              }
               if (photo != null) {
                 uploadimage(photo.path);
               } else {
@@ -533,12 +536,16 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () async {
             PermissionStatus p = await Permission.photos.request();
             final ImagePicker _picker = ImagePicker();
-            print(p);
+            if (kDebugMode) {
+              print(p);
+            }
             if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
               await Permission.photos.request();
             } else {
               final List<XFile>? images = await _picker.pickMultiImage();
-              print(images);
+              if (kDebugMode) {
+                print(images);
+              }
               if (images != null) {
                 for (var element in images) {
                   uploadimage(element.path);
@@ -567,12 +574,16 @@ class _ChatScreenState extends State<ChatScreen> {
         CupertinoActionSheetAction(
           onPressed: () async {
             PermissionStatus p = await Permission.storage.request();
-            print(p);
+            if (kDebugMode) {
+              print(p);
+            }
             if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
               await Permission.photos.request();
             } else {
               FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true);
-              print(result);
+              if (kDebugMode) {
+                print(result);
+              }
               if (result != null) {
                 for (var element in result.files) {
                   uploadimage(element.path!);
@@ -652,8 +663,11 @@ class _ChatScreenState extends State<ChatScreen> {
     try {
       QBFile? file = await QB.content.upload(path, public: true);
       String? url = await QB.content.getPublicURL(file!.uid!);
-      print(file);
-      print(listProgress);
+      if (kDebugMode) {
+        print(file);
+        print(listProgress);
+      }
+
       QBAttachment attachment = QBAttachment();
       attachment.id = file.id.toString();
       attachment.contentType = file.contentType;

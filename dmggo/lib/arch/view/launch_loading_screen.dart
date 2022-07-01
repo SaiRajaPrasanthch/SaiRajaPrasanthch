@@ -4,6 +4,7 @@ import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
@@ -25,15 +26,23 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
 
   showMicrosoftLogin() async {
     try {
-      print('1');
+      if (kDebugMode) {
+        print('1');
+      }
       await oauth.login(refreshIfAvailable: true);
-      print('2');
+      if (kDebugMode) {
+        print('2');
+      }
 
       accessToken = await oauth.getAccessToken();
-      print('3');
+      if (kDebugMode) {
+        print('3');
+      }
 
       if (accessToken != null) {
-        print('4');
+        if (kDebugMode) {
+          print('4');
+        }
         create();
         // print('5');
       } else {
@@ -47,7 +56,9 @@ class _LaunchLoadingScreenState extends State<LaunchLoadingScreen> {
 
   create() async {
     try {
-      print('5');
+      if (kDebugMode) {
+        print('5');
+      }
       if (await LoginLogic().getUserInfo()) {
         currentTab.insert(0, ManagerHomeScreen());
         await ChatListViewModel().getChatListData();

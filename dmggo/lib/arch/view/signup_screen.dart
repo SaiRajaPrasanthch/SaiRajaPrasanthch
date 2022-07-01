@@ -9,7 +9,6 @@ import 'package:dmggo/arch/utils/localization/local_assets.dart';
 import 'package:dmggo/arch/utils/localization/local_borders.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:dmggo/arch/view/otp_screen.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 
 class SignupScreen extends StatelessWidget {

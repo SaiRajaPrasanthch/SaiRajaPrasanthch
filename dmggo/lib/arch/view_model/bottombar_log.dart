@@ -1,4 +1,3 @@
-import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarProvider with ChangeNotifier {

@@ -6,6 +6,7 @@ import 'package:dmggo/arch/repo/user_services.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/urls.dart';
+import 'package:flutter/foundation.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,29 +14,49 @@ class LoginLogic {
 //Validate whether User exist
   Future<bool> getUserInfo() async {
     try {
-      print('6');
+      if (kDebugMode) {
+        print('6');
+      }
       Map<String, dynamic> userData = AuthMethods().parseJwt(accessToken!);
       // creates a valid microsoft user in our db for now and returns if user is created in Quick Blox
-      print('7');
+      if (kDebugMode) {
+        print('7');
+      }
       var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
-      print('8');
+      if (kDebugMode) {
+        print('8');
+      }
       if (response is Success) {
-        print('9');
+        if (kDebugMode) {
+          print('9');
+        }
         GetUserInfo userinfo = response.response as GetUserInfo;
         // iinitalize chat here
-        print('10');
+        if (kDebugMode) {
+          print('10');
+        }
         await ChatApi().initialzeChat();
-        print('11');
+        if (kDebugMode) {
+          print('11');
+        }
         if (userinfo.qbId == null) {
-          print('12');
+          if (kDebugMode) {
+            print('12');
+          }
           String strLPassword = AuthMethods().getRandomString(16);
-          print('13');
+          if (kDebugMode) {
+            print('13');
+          }
           // Create User in Quick block
           var resQB = await ChatApi().createUserInQB(strLEmail: userData['unique_name'], strLPass: strLPassword, strLName: userData['name']);
-          print('14');
+          if (kDebugMode) {
+            print('14');
+          }
           if (resQB is Success) {
             // Create an user in Db with QB details
-            print('15');
+            if (kDebugMode) {
+              print('15');
+            }
             var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
             if (resCreateUser is Success) {
               // await saveInStorage(user: resQB.response as QBUser, strqbPassword: strLPassword, intId: userinfo.userId);
@@ -52,7 +73,9 @@ class LoginLogic {
             return false;
           }
         } else {
-          print('20');
+          if (kDebugMode) {
+            print('20');
+          }
           QBUser user = QBUser();
           user.id = int.parse(userinfo.qbId!);
           user.email = userinfo.email;
