@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/view/carrier_terminal_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/commonUI/com_dropdown.dart';
 import 'package:dmggo/arch/commonUI/com_listtile.dart';
@@ -13,33 +14,32 @@ class ManagerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: h_0,
-        centerTitle: false,
-        title: Row(
-          children: [
-            Icon(Icons.home),
-            SizedBox(
-              width: h_10,
-            ),
-            Text(
-              strLHome,
-              style: tscwbsn_18wh,
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          header(),
-          Divider(
-            height: h_05,
-            color: cgrey_500,
+        appBar: AppBar(
+          elevation: h_0,
+          centerTitle: false,
+          title: Row(
+            children: [
+              Icon(Icons.home),
+              SizedBox(
+                width: h_10,
+              ),
+              Text(
+                strLHome,
+                style: tscwbsn_18wh,
+              ),
+            ],
           ),
-          listActions(),
-        ],
-      ),
-    );
+        ),
+        body: Column(
+          children: [
+            CarrierTerminalSelections(),
+            Divider(
+              height: h_05,
+              color: cgrey_500,
+            ),
+            listActions(),
+          ],
+        ));
   }
 
 // header with route and carrier

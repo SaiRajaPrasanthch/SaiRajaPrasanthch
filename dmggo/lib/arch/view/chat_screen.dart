@@ -488,6 +488,20 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  checkUpload({required List<String> list}) {
+    for (var path in list) {
+      List<FileUpload> v = listFileUpload.where((element) => element.strFileName == path).toList();
+      if (v.isNotEmpty) {
+        Fluttertoast.showToast(msg: 'Same file is uploaded');
+        list.remove(path);
+
+      }
+    }
+    for (var element in list) {
+      uploadimage(element);
+    }
+  }
+
 //Media and storage
   Widget media() {
     return CupertinoActionSheet(
@@ -547,9 +561,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 print(images);
               }
               if (images != null) {
-                for (var element in images) {
-                  uploadimage(element.path);
-                }
+                checkUpload(list: images.map((e) => e.path).toList());
               } else {
                 Fluttertoast.showToast(msg: 'Nothing Picked');
               }
@@ -580,10 +592,11 @@ class _ChatScreenState extends State<ChatScreen> {
             if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
               await Permission.photos.request();
             } else {
-              FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true);
+              FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true,);
               if (kDebugMode) {
                 print(result);
               }
+
               if (result != null) {
                 for (var element in result.files) {
                   uploadimage(element.path!);

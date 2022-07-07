@@ -39,11 +39,12 @@ class UserInfo {
 
   Future<Object> postValidUser({required strLUrl, required emailOrPhone, required password}) async {
     try {
-      // var body = {"PhoneOREmailId": emailOrPhone, "Password": password};
+      var body = {"PhoneOREmailId": emailOrPhone, "Password": password};
 
       http.Response res = await _api
           .postApi(
-            strLUrl: strLUrl + 'PhoneOREmailId=$emailOrPhone&Password=$password',
+            strLUrl: strLUrl,
+            body: body
           )
           .timeout(Duration(seconds: 40));
 
@@ -72,9 +73,11 @@ class UserInfo {
 
   Future<Object> postChangePass({required strLUrl, required emailOrPhone, required password, required oldPassword}) async {
     try {
+      var body = {"OldPassword": oldPassword, "NewPassword": password, "emailId": emailOrPhone};
       http.Response res = await _api
           .postApi(
-            strLUrl: strLUrl + 'OldPassword=$oldPassword&NewPassword=$password&emailId=$emailOrPhone',
+            strLUrl: strLUrl ,
+            body: body,
           )
           .timeout(Duration(seconds: 40));
 
@@ -83,9 +86,8 @@ class UserInfo {
           return Success(code: newUserResponse, response: 'Invalid oldPassword');
         } else if (json.decode(res.body) == 'Invalid Credentials') {
           return Success(code: invalidCredintials, response: 'Invalid Credentials');
-        }
-        else if(json.decode(res.body) =='Password Changed Successfully'){
-return Success(code: successResponse, response: 'Password Changed Successfully');
+        } else if (json.decode(res.body) == 'Password Changed Successfully') {
+          return Success(code: successResponse, response: 'Password Changed Successfully');
         }
       }
       return Faliure(code: invalidResponse, errorResponse: 'Invalid Response');

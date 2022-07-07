@@ -21,15 +21,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    loginCheck();
+    loginCheck(context);
 
     WidgetsBinding.instance!.addObserver(this);
   }
 
-  loginCheck() async {
+  loginCheck(BuildContext context) async {
     isLogin = await Validations().islogin();
     if (isLogin) {
-      await Validations().homeScreenAddingV2();
+      await Validations().homeScreenAddingV2(context);
     }
 
     setState(() {});

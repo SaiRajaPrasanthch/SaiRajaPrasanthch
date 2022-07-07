@@ -8,6 +8,7 @@ import 'package:dmggo/arch/repo/user_services.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/navigation_routes.dart';
 import 'package:dmggo/arch/utils/urls.dart';
+import 'package:dmggo/arch/view_model/carrier_terminal_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/utils/localization/local_error_string.dart';
 import 'package:dmggo/arch/view/driver_home_screen.dart';
 import 'package:dmggo/arch/view/manager_home_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:quickblox_sdk/models/qb_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -146,7 +148,7 @@ class Validations extends ChangeNotifier {
   //   }
   // }
 
-  homeScreenAddingV2() async {
+  homeScreenAddingV2(BuildContext context) async {
     SharedPreferences _pre = await prefs;
     int? role = _pre.getInt(intRoleId);
     if (role == i_5 || role == i_6) {
@@ -156,8 +158,9 @@ class Validations extends ChangeNotifier {
     //   currentTab.insert(i_0, DriverHomeScreen());
     // }
     if (role == i_1 || role == i_2 || role == i_3 || role == i_4) {
+      context.read<CarrierTerminalLog>().getOps();
       currentTab.insert(i_0, ManagerHomeScreen());
-      if (role == i_1|| role == i_2 || role == i_3) {
+      if (role == i_1 || role == i_2 || role == i_3) {
         if (!listMHS.contains(DrOBS(bStatus: false, strTitle: strReconcilation))) {
           listMHS.add(
             DrOBS(bStatus: false, strTitle: strReconcilation),
@@ -183,7 +186,7 @@ class Validations extends ChangeNotifier {
         userInfo = res.response as GetUserInfo;
 
         await checkForQuickBlox(context);
-        await homeScreenAddingV2();
+        await homeScreenAddingV2(context);
         launchHomeScreen(context);
         loading = false;
       }
@@ -202,7 +205,7 @@ class Validations extends ChangeNotifier {
       if (resQB is Success) {
         var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: _getUserInfo!.userId);
         if (resCreateUser is Success) {
-          await save(user: resQB.response as QBUser, passWord: strLPassword,introleId: getUserInfo!.roleId);
+          await save(user: resQB.response as QBUser, passWord: strLPassword, introleId: getUserInfo!.roleId);
         } else {
           ComAlert().showFailureAlert(context, resCreateUser as Faliure);
           loading = false;
@@ -218,11 +221,11 @@ class Validations extends ChangeNotifier {
       user.fullName = _getUserInfo!.firstName + " " + _getUserInfo!.lastName;
       user.login = _getUserInfo!.email;
 
-      await save(user: user, passWord: _getUserInfo!.qbPassword,introleId: getUserInfo!.roleId);
+      await save(user: user, passWord: _getUserInfo!.qbPassword, introleId: getUserInfo!.roleId);
     }
   }
 
-  save({QBUser? user, String? passWord,required int introleId}) async {
+  save({QBUser? user, String? passWord, required int introleId}) async {
     await LoginLogic().saveInStorage(
         user: user,
         strqbPassword: passWord,
@@ -230,7 +233,8 @@ class Validations extends ChangeNotifier {
         dOBirth: _getUserInfo!.dob,
         mobileNo: _getUserInfo!.phone,
         role: _getUserInfo!.userType,
-        drivingLic: _getUserInfo!.drivingLicense,roleId: introleId);
+        drivingLic: _getUserInfo!.drivingLicense,
+        roleId: introleId);
     await LoginLogic().callQBServices();
   }
 

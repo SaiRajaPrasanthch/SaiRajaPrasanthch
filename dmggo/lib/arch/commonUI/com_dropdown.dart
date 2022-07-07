@@ -7,9 +7,8 @@ class CommonDropdown extends StatelessWidget {
   final List<String> listdata;
   final TextStyle? textStyle;
   final String? strSelectedValue;
-  CommonDropdown(
-      {Key? key, required this.listdata, this.textStyle, this.strSelectedValue})
-      : super(key: key);
+  
+  CommonDropdown({Key? key, required this.listdata, this.textStyle, this.strSelectedValue}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +24,14 @@ class CommonDropdown extends StatelessWidget {
           filled: true,
           contentPadding: EdgeInsets.symmetric(vertical: h_1, horizontal: h_10),
           fillColor: Colors.teal.shade50,
+          border: OutlineInputBorder(
+            borderRadius: brCir_5,
+            borderSide: BorderSide(color: cteal_300, width: h_1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: brCir_5,
+            borderSide: BorderSide(color: cteal_300, width: h_1),
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: brCir_5,
             borderSide: BorderSide(color: cteal_300, width: h_1),

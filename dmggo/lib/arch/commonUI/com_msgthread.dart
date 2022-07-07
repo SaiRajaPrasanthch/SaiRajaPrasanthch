@@ -12,6 +12,7 @@ import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:quickblox_sdk/models/qb_message.dart';
 
 class CommonMessageThread extends StatefulWidget {
@@ -193,7 +194,9 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
                           strFile: widget.message!.attachments![index]!.name == null
                               ? 'File.' + widget.message!.attachments![index]!.contentType!.split('/')[1]
                               : widget.message!.attachments![index]!.name!)
-                      : imageLoad(urlImage: widget.message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15),
+                      : widget.message!.attachments![index]!.url == null
+                          ? SizedBox()
+                          : imageLoad(urlImage: widget.message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15),
                   Positioned(
                       right: 1,
                       top: 1,
@@ -286,82 +289,87 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
 
   HttpClient httpClient = HttpClient();
   _downloadFile(String url, String filename, String id) async {
-    if (kDebugMode) {
-      print(url);
-      print(filename);
-    }
+    try {
+      if (kDebugMode) {
+        print(url);
+        print(filename);
+      }
+      
+// await getApplicationDocumentsDirectory();
+      Directory? directory = Platform.isAndroid? await getExternalStorageDirectory():await getApplicationDocumentsDirectory();
 
-    Directory directory = await getApplicationDocumentsDirectory();
-    // Platform.isAndroid
-    //     ? await getExternalStorageDirectory() //FOR ANDROID
-    //     : await getApplicationSupportDirectory();
-    Directory dir = Directory(directory.path + '/DMGgo');
-    String? folderName;
-    if (await dir.exists()) {
-      folderName = dir.path;
-    } else {
-      final Directory _appDocDirNewFolder = await dir.create(recursive: true);
-      folderName = _appDocDirNewFolder.path;
-    }
-    File file = File('$folderName/$filename');
-    if (await file.exists()) {
-      SnackBar s2 = SnackBar(
-        content: Text('Downloaded'),
-        action: SnackBarAction(
-          label: 'open',
-          onPressed: () {
-            OpenFile.open(file.path);
+      Directory dir = Platform.isAndroid? Directory(directory!.path.split('/Android/')[0] + '/DMGgo'):Directory(directory!.path+'/DMGgo');
+      String? folderName;
+
+      print(await dir.exists());
+      if (await dir.exists()) {
+        folderName = dir.path;
+      } else {
+        final Directory _appDocDirNewFolder = await dir.create(recursive: true);
+        folderName = _appDocDirNewFolder.path;
+      }
+      File file = File('$folderName/$filename');
+      if (await file.exists()) {
+        SnackBar s2 = SnackBar(
+          content: Text('Downloaded'),
+          action: SnackBarAction(
+            label: 'open',
+            onPressed: () {
+              OpenFile.open(file.path);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(s2);
+      } else {
+        SnackBar s = SnackBar(content: Text('Downloading file'));
+        ScaffoldMessenger.of(context).showSnackBar(s);
+        try {
+          var request = await Apis().getApi(strLUrl: url);
+
+          if (kDebugMode) {
+            print(request);
+          }
+          // HttpClientResponse response = await request.close();
+          if (request.statusCode == 200) {
+            // var bytes = await consolidateHttpClientResponseBytes(request.bodyBytes);
+
+            await file.writeAsBytes(request.bodyBytes);
+
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          },
-        ),
-      );
+            SnackBar s2 = SnackBar(
+              content: Text('Downloaded'),
+              action: SnackBarAction(
+                label: 'open',
+                onPressed: () {
+                  OpenFile.open(file.path);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            );
 
-      ScaffoldMessenger.of(context).showSnackBar(s2);
-    } else {
-      SnackBar s = SnackBar(content: Text('Downloading file'));
-      ScaffoldMessenger.of(context).showSnackBar(s);
-      try {
-        var request = await Apis().getApi(strLUrl: url);
-
-        if (kDebugMode) {
-          print(request);
-        }
-        // HttpClientResponse response = await request.close();
-        if (request.statusCode == 200) {
-          // var bytes = await consolidateHttpClientResponseBytes(request.bodyBytes);
-
-          await file.writeAsBytes(request.bodyBytes);
-
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          SnackBar s2 = SnackBar(
-            content: Text('Downloaded'),
-            action: SnackBarAction(
-              label: 'open',
-              onPressed: () {
-                OpenFile.open(file.path);
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              },
-            ),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(s2);
-        }
-      } catch (e) {
-        if (kDebugMode) {
-          print(e);
+            ScaffoldMessenger.of(context).showSnackBar(s2);
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print(e);
+          }
         }
       }
+      // return file;
+      // }).asStream();
+      // var r = request.asBroadcastStream();
+      // r.listen((event) {
+      //   print(event);
+      // });
+
+      // var response = await request.close();
+
+      // http.Response r = await http.get(Uri.parse(url), headers: {'Accept': 'text/plain'});
+      // print(r);
+    } catch (e) {
+      print(e);
     }
-    // return file;
-    // }).asStream();
-    // var r = request.asBroadcastStream();
-    // r.listen((event) {
-    //   print(event);
-    // });
-
-    // var response = await request.close();
-
-    // http.Response r = await http.get(Uri.parse(url), headers: {'Accept': 'text/plain'});
-    // print(r);
   }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:dmggo/arch/view/carrier_terminal_selection.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
 import 'package:dmggo/local%20packages/microsoftAuth/helper/mobile_oauth.dart';
@@ -177,6 +178,7 @@ List<DrOBS> listDVI = [
 // ManagerHomeScreen(),
 var currentTab = [
   ProfileScreen(),
+  // CarrierTerminalSelections(),
   ChatListScreen(),
 ];
 

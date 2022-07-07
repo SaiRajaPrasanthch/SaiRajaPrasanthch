@@ -1,6 +1,7 @@
 import 'package:dmggo/arch/app.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
+import 'package:dmggo/arch/view_model/carrier_terminal_log.dart';
 import 'package:dmggo/arch/view_model/changepass_log.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
@@ -18,7 +19,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // await oauth.logout
- 
+
   if (await Validations().islogin()) {
     // await Validations().homeScreenAddingV2();
     initializeQB();
@@ -44,6 +45,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => ChangePasswordLog(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => CarrierTerminalLog(),
       ),
       ChangeNotifierProxyProvider<Validations, ChangePasswordLog>(
           create: (_) => ChangePasswordLog(), update: (_, validations, changePasswordLog) => changePasswordLog!..emailOrPassword = validations.validPhoneEmail.value),
