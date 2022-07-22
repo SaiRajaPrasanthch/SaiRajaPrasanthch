@@ -1,3 +1,4 @@
+import 'package:dmggo/arch/view/camera_page.dart';
 import 'package:dmggo/arch/view/change_password_screen.dart';
 import 'package:dmggo/arch/view/chat_group_creation_screen.dart';
 import 'package:dmggo/arch/view/chat_users_group_screen.dart';
@@ -6,6 +7,7 @@ import 'package:dmggo/arch/view/forgetpassword_screen.dart';
 import 'package:dmggo/arch/view/launch_loading_screen.dart';
 import 'package:dmggo/arch/view/launch_screen.dart';
 import 'package:dmggo/arch/view/login_screen.dart';
+import 'package:dmggo/arch/view/pre_trip_inspection.dart';
 import 'package:flutter/material.dart';
 
 exitScreen(BuildContext context) {
@@ -39,6 +41,15 @@ openChatUserScreen(BuildContext context) {
 openChangePasswordScreen(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
 }
+
 launchForgetPasswordScreen(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+}
+
+launchInspectionScreen(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PreTripInspection()));
+}
+
+launchCamera(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPage()));
 }

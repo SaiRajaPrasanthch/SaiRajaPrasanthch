@@ -3,21 +3,16 @@
 class PTI {
   String strTitle;
   String? strSubTitle;
-  bool? isCheck;
-  Check check;
+  int? isCheck;
+  List<Condition> check;
   String? strStatus;
   String? strImage;
-  PTI(
-      {required this.strTitle,
-      this.strSubTitle,
-      this.isCheck,
-      this.strStatus,
-      this.strImage,
-      required this.check});
+  String? strDescription;
+  PTI({required this.strTitle, this.strSubTitle, this.isCheck, this.strStatus, this.strImage, required this.check,this.strDescription});
 }
 
-class Check {
+class Condition {
   String strPass;
-  String strFail;
-  Check({required this.strPass, required this.strFail});
+  int intId;
+  Condition({required this.strPass, required this.intId});
 }

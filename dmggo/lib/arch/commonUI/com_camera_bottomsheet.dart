@@ -1,6 +1,8 @@
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
+import 'package:dmggo/arch/view_model/inspection_log.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class CommonCameraBottomSheet extends StatelessWidget {
   CommonCameraBottomSheet({Key? key}) : super(key: key);
@@ -25,7 +27,9 @@ class CommonCameraBottomSheet extends StatelessWidget {
         //   ),
         // ),
         CupertinoActionSheetAction(
-          onPressed: () {},
+          onPressed: () {
+            context.read<InspectionLog>().openCamera(con: context);
+          },
           child: Text(
             strCamera,
             style: tscwbsn_14b,

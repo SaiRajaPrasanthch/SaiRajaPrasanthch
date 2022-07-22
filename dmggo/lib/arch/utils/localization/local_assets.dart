@@ -21,4 +21,7 @@ String imgGroupChat = 'assets/images/Group Image.png';
 String imgChangePassword = 'assets/images/ChangePassword.png';
 
 String imgForgetPassword = 'assets/images/ForgetPassword.png';
+
 String imgFile = 'assets/images/File.png';
+
+String imgQRCode = 'assets/images/qr_code.png';

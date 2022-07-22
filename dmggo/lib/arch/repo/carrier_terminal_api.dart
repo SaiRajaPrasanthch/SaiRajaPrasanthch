@@ -7,7 +7,6 @@ import 'package:dmggo/arch/utils/localization/local_strings.dart';
 import 'package:dmggo/arch/utils/urls.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:dmggo/arch/models/get_userinfo.dart';
 import 'package:dmggo/arch/repo/api_status.dart';
 import 'package:dmggo/arch/repo/apis.dart';
 import 'package:dmggo/arch/utils/constants.dart';
@@ -19,7 +18,7 @@ class CarrierTerminal {
     try {
       http.Response res = await _api
           .getApi(
-            strLUrl: URL_GET_OPERATION_TYPES ,
+            strLUrl: urlGetOperationsType ,
           )
           .timeout(Duration(seconds: 40));
 
@@ -47,7 +46,7 @@ class CarrierTerminal {
        SharedPreferences _pre = await prefs;
       http.Response res = await _api
           .getApi(
-            strLUrl: URL_GET_CARRIER_TERMINAL_BY_USERID_OPERATIONID + 'terminalId=&userId=${_pre.getInt(intUserId)}&opsType=$opsType',
+            strLUrl: urlGetCarrierTerminalByUserIdOperationId + 'terminalId=&userId=${_pre.getInt(intUserId)}&opsType=$opsType',
           )
           .timeout(Duration(seconds: 40));
 
@@ -74,7 +73,7 @@ class CarrierTerminal {
     try {
       http.Response res = await _api
           .getApi(
-            strLUrl: URL_GET_CARRIER_TERMINAL_BY_OPERATIONTYPE + '6',
+            strLUrl: urlGetCarrierTerminalByOperationType + '6',
           )
           .timeout(Duration(seconds: 40));
 

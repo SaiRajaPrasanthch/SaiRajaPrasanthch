@@ -52,19 +52,19 @@ class RightChatBubble extends StatelessWidget {
                     strMsgTime: strMsgTime,
                     strStatus: isGroup
                         ? message.deliveredIds!.length == intGroupCount && message.readIds!.length == intGroupCount
-                            ? status.read
+                            ? Status.read
                             : message.deliveredIds!.length == intGroupCount
-                                ? status.delivered
+                                ? Status.delivered
                                 : message.deliveredIds!.length == i_1 && message.readIds!.length == i_1
-                                    ? status.sent
-                                    : status.await
+                                    ? Status.sent
+                                    : Status.await
                         : message.deliveredIds!.length == i_1 && message.readIds!.length == i_1
-                            ? status.sent
+                            ? Status.sent
                             : message.deliveredIds!.length == i_2 && message.readIds!.length == i_1
-                                ? status.delivered
+                                ? Status.delivered
                                 : message.deliveredIds!.length == i_2 && message.readIds!.length == i_2
-                                    ? status.read
-                                    : status.await,
+                                    ? Status.read
+                                    : Status.await,
                   ),
                 )
               ],

@@ -6,125 +6,96 @@ import 'package:dmggo/arch/utils/localization/local_fonts.dart';
 import 'package:dmggo/arch/view/odo_read_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class QRCodeScreen extends StatelessWidget {
+class QRCodeScreen extends StatefulWidget {
   const QRCodeScreen({Key? key}) : super(key: key);
 
   @override
+  State<QRCodeScreen> createState() => _QRCodeScreenState();
+}
+class _QRCodeScreenState extends State<QRCodeScreen>{
+   String _scanBarcode = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
+        .listen((barcode) => print(barcode));
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                Image.asset(
-                  'assets/images/qr_code.png',
-                  height: screenHeight! * 0.75,
-                  width: screenWidth,
-                ),
-                Container(
-                  color: Colors.black26,
-                  height: screenHeight! * 0.75,
-                  width: screenWidth,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                          child: DottedBorder(
-                        color: appColor,
-                        borderType: BorderType.RRect,
-                        dashPattern: const [
-                          100,
-                          100,
-                          100,
-                          100,
-                          150,
-                          100,
-                          150,
-                          100,
-                        ],
-                        radius: Radius.circular(12),
-                        strokeWidth: 5,
-                        child: SizedBox(
-                          height: 250,
-                          width: 250,
-                        ),
-                      )),
-                      Padding(
-                        padding: EdgeInsets.all(h_10),
-                        child: Text(
-                          'Please place the QR code in the box',
-                          style: tscwbsn_14wh,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                    top: 100,
-                    left: 10,
-                    right: 10,
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          'Scan the QR Code on the Vehicle',
-                          style: tscwbsn_14wh,
-                        ))),
-                Positioned(
-                    left: 1,
-                    top: 40,
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.arrow_back_rounded),
-                      color: Colors.white,
-                    )),
-                Positioned(
-                    right: 1,
-                    top: 40,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.flash_auto),
-                      color: Colors.white,
-                    )),
-              ],
-            ),
-            Container(
-              height: screenHeight! * 0.25,
-              color: Colors.white,
-              width: screenWidth,
-              //  decoration: ,
-              child: Padding(
-                padding: EdgeInsets.all(h_10),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(h_10),
-                      child: Text(
-                        'Or',
-                        style: tscwbsn_16b,
-                      ),
-                    ),
-                    Comtextfield(
-                      strLabelText: 'Enter vehicle no manually.....',
-                      strHintText: 'Enter vehicle no manually.....',
-                    ),
-                    CommonButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OdometerReadingScreen())),
-                      color: appColor,
-                      dWidth: hinf,
-                      strBtnText: "Next",
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('Barcode scan')),
+            body: Builder(builder: (BuildContext context) {
+              return Container(
+                  alignment: Alignment.center,
+                  child: Flex(
+                      direction: Axis.vertical,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                            onPressed: () => scanBarcodeNormal(),
+                            child: Text('Start barcode scan')),
+                        ElevatedButton(
+                            onPressed: () => scanQR(),
+                            child: Text('Start QR scan')),
+                        ElevatedButton(
+                            onPressed: () => startBarcodeScanStream(),
+                            child: Text('Start barcode scan stream')),
+                        Text('Scan result : $_scanBarcode\n',
+                            style: TextStyle(fontSize: 20))
+                      ]));
+            })));
   }
 }

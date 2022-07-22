@@ -80,7 +80,7 @@ class Reconciliation extends StatelessWidget {
 
 //Common body for expenses
   Widget body(List<PTIP> list, BuildContext con) {
-    return Container(
+    return ColoredBox(
       color: cwhite,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -158,7 +158,7 @@ class Reconciliation extends StatelessWidget {
   }
 
   Widget dispute(BuildContext conDispute) {
-    return Container(
+    return ColoredBox(
       color: camber_50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

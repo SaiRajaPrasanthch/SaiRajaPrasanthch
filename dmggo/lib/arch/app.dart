@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     loginCheck(context);
 
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   loginCheck(BuildContext context) async {
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -62,8 +62,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         case AppLifecycleState.inactive:
           //   subscriptionReceiveMsg?.cancel();
           //   await ChatApi().disConnect();
+          print('inactive');
           break;
         case AppLifecycleState.detached:
+          print('inactive');
           //   subscriptionReceiveMsg?.cancel();
           //   await ChatApi().disConnect();
           break;

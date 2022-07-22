@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:camera/camera.dart';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/pretrip_inspection_model.dart';
 import 'package:dmggo/arch/utils/localization/local_strings.dart';
-import 'package:dmggo/arch/view/carrier_terminal_selection.dart';
 import 'package:dmggo/arch/view/chat_list_screen.dart';
 import 'package:dmggo/arch/view/profile_screen.dart';
 import 'package:dmggo/local%20packages/microsoftAuth/helper/mobile_oauth.dart';
@@ -44,6 +44,9 @@ double hp_12 = 1.2;
 double h_1 = 1.0;
 double h_07 = 0.7;
 double h_05 = 0.5;
+double h_025 = 0.25;
+double h_02 = 0.20;
+double h_015 = 0.15;
 double h_01 = 0.1;
 double h_0 = 0.0;
 
@@ -63,6 +66,8 @@ double? screenWidth;
 double? screenHeight;
 
 String? strEmail;
+
+List<CameraDescription> cameras = <CameraDescription>[];
 
 //Chat
 QBUser? qbUser;
@@ -111,7 +116,7 @@ Map<String, String>? strHeaders = {
   'Content-type': 'application/json',
 };
 
-enum status { await, sent, read, delivered }
+enum Status { await, sent, read, delivered }
 
 // error codes
 
@@ -183,26 +188,60 @@ var currentTab = [
 ];
 
 List<PTI> listPTIS = [
-  PTI(isCheck: false, strTitle: strDashLights, strSubTitle: strNFLDB, strStatus: "Defective", strImage: 'assets/images/dash_lights.jpg', check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(isCheck: true, strTitle: strHeadLights, strSubTitle: strLHB, strStatus: "Working", check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(strTitle: strTires, strSubTitle: strVSI, strStatus: "", check: Check(strFail: 'Defective', strPass: 'Working')),
-  PTI(strTitle: strPackages, strSubTitle: strNPLV, strStatus: "", check: Check(strFail: 'Found Packages', strPass: 'Empty')),
-];
-List<PTI> listNewDamage = [
-  PTI(isCheck: false, strTitle: strFrontCond, strStatus: "Damage Found", strSubTitle: strUDED, strImage: 'assets/images/truck_front.jpg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
-  PTI(isCheck: true, strTitle: strRearCond, strSubTitle: strUDED, strStatus: "Fine", strImage: 'assets/images/truck_rear.jpeg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
   PTI(
-      isCheck: false,
+      isCheck: 0,
+      strTitle: strFrontCond,
+      strStatus: "Damage Found",
+      strSubTitle: strUDED,
+      strImage: 'assets/images/truck_front.jpg',
+      check: [Condition(intId: 1, strPass: 'Defect'), Condition(intId: 2, strPass: 'No Defect')]),
+  PTI(isCheck: 0, strTitle: strHeadLights, strSubTitle: strLHB, strStatus: "Working", check: [Condition(intId: 1, strPass: 'Defect'), Condition(intId: 2, strPass: 'No Defect')]),
+  PTI(
+      isCheck: 0,
       strTitle: strDriverSideCond,
       strSubTitle: strUDED,
       strStatus: "Damage Found",
       strImage: 'assets/images/truck_driver_side.jpeg',
-      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+      check: [Condition(intId: 1, strPass: 'Defect'), Condition(intId: 2, strPass: 'No Defect')]),
   PTI(
-      isCheck: false,
+      isCheck: 0,
       strTitle: strPassSideCond,
       strSubTitle: strUDED,
       strStatus: "Damage Found",
       strImage: 'assets/images/truck_passenger_side.jpeg',
-      check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+      check: [Condition(intId: 1, strPass: 'Damaged'), Condition(intId: 2, strPass: 'No Damage')]),
+  PTI(
+      isCheck: 0,
+      strTitle: strRearCond,
+      strSubTitle: strUDED,
+      strStatus: "Fine",
+      strImage: 'assets/images/truck_rear.jpeg',
+      check: [Condition(intId: 1, strPass: 'Damaged'), Condition(intId: 2, strPass: 'No Damage')]),
+  PTI(strTitle: strPackages, strSubTitle: strNPLV, strStatus: "", check: [Condition(intId: 1, strPass: 'Not Empty'), Condition(intId: 2, strPass: 'Empty')]),
+  PTI(strTitle: strTires, strSubTitle: strVSI, strStatus: "", check: [Condition(intId: 1, strPass: 'Defect'), Condition(intId: 2, strPass: 'No Defect')]),
+  PTI(
+      isCheck: 0,
+      strTitle: strDashLights,
+      strSubTitle: strNFLDB,
+      strStatus: "Defective",
+      strImage: 'assets/images/dash_lights.jpg',
+      check: [Condition(intId: 1, strPass: 'Defect'), Condition(intId: 2, strPass: 'No Defect')]),
 ];
+// List<PTI> listNewDamage = [
+//   PTI(isCheck: 0, strTitle: strFrontCond, strStatus: "Damage Found", strSubTitle: strUDED, strImage: 'assets/images/truck_front.jpg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+//   PTI(isCheck: 0, strTitle: strRearCond, strSubTitle: strUDED, strStatus: "Fine", strImage: 'assets/images/truck_rear.jpeg', check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+//   PTI(
+//       isCheck: false,
+//       strTitle: strDriverSideCond,
+//       strSubTitle: strUDED,
+//       strStatus: "Damage Found",
+//       strImage: 'assets/images/truck_driver_side.jpeg',
+//       check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+//   PTI(
+//       isCheck: false,
+//       strTitle: strPassSideCond,
+//       strSubTitle: strUDED,
+//       strStatus: "Damage Found",
+//       strImage: 'assets/images/truck_passenger_side.jpeg',
+//       check: Check(strFail: 'Damage Found', strPass: 'Fine')),
+// ];

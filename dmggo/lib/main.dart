@@ -1,10 +1,14 @@
+import 'package:camera/camera.dart';
 import 'package:dmggo/arch/app.dart';
 import 'package:dmggo/arch/repo/chat_api.dart';
 import 'package:dmggo/arch/utils/constants.dart';
 import 'package:dmggo/arch/view_model/carrier_terminal_log.dart';
 import 'package:dmggo/arch/view_model/changepass_log.dart';
 import 'package:dmggo/arch/view_model/chatlist_log.dart';
+import 'package:dmggo/arch/view_model/dvir_log.dart';
+import 'package:dmggo/arch/view_model/inspection_log.dart';
 import 'package:dmggo/arch/view_model/login_log.dart';
+import 'package:dmggo/arch/view_model/permissions.dart/camera_permission_log.dart';
 import 'package:dmggo/arch/view_model/profile_log.dart';
 import 'package:dmggo/arch/view_model/validations.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +27,9 @@ void main() async {
   if (await Validations().islogin()) {
     // await Validations().homeScreenAddingV2();
     initializeQB();
+    
   }
+  cameras = await availableCameras();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.black, // Color for Android
     statusBarBrightness: Brightness.light, // Dark == white status bar -- for IOS.
@@ -48,6 +54,15 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => CarrierTerminalLog(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => DVIRLog(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => CameraPermissions(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => InspectionLog(),
       ),
       ChangeNotifierProxyProvider<Validations, ChangePasswordLog>(
           create: (_) => ChangePasswordLog(), update: (_, validations, changePasswordLog) => changePasswordLog!..emailOrPassword = validations.validPhoneEmail.value),

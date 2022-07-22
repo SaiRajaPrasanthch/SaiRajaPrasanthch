@@ -16,7 +16,7 @@ class CommonPreTripListTile extends StatelessWidget {
   final String strTitle;
   final bool? isavail;
   final String? strSubTitle;
-  final Check check;
+  final Condition check;
   final String? strStatus;
   final String? strImage;
   CommonPreTripListTile({Key? key, required this.strTitle, required this.strSubTitle, this.isavail, this.strStatus, this.strImage, required this.check}) : super(key: key);
@@ -114,7 +114,7 @@ class CommonPreTripListTile extends StatelessWidget {
               size: h_20,
             ),
             backgroundColor: cred,
-            label: check.strFail,
+            label: check.strPass,
             onTap: () => showDialog(context: context, builder: (_) => CommonPreTripInspectPopup(strTitle: strTitle))),
       ],
     );

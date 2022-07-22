@@ -144,7 +144,7 @@ class CommonPhotoview extends StatelessWidget {
           Expanded(
             child: ClipRRect(
               borderRadius: brCir_20,
-              child: Container(
+              child: ColoredBox(
                 color: Colors.white,
                 child: Row(
                   children: <Widget>[

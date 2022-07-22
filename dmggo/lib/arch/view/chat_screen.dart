@@ -68,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
     await _chatMsgListViewModel.chatMessages(strRoomId: widget.strDialogId, limit: limit);
     setState(() {
       isLoading = false;
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_scrollController.hasClients && !isTop) {
           _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         }
@@ -93,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
       }
 
       setState(() {
-        WidgetsBinding.instance?.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           if (_scrollController.hasClients) {
             _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
             // if (msgExist.isNotEmpty) {
@@ -283,7 +283,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: ClipRRect(
                 borderRadius: brCir_20,
-                child: Container(
+                child: ColoredBox(
                   color: Colors.white,
                   child: Column(
                     children: [
@@ -489,16 +489,25 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   checkUpload({required List<String> list}) {
+    List<String> listLocal = [];
     for (var path in list) {
-      List<FileUpload> v = listFileUpload.where((element) => element.strFileName == path).toList();
+      List<FileUpload> v = listFileUpload.where((element) => element.strFilePath == path).toList();
       if (v.isNotEmpty) {
         Fluttertoast.showToast(msg: 'Same file is uploaded');
-        list.remove(path);
-
+        listLocal.add(path);
       }
     }
+    for (var element in listLocal) {
+      list.remove(element);
+    }
+
     for (var element in list) {
-      uploadimage(element);
+      if (listFileUpload.length < 5) {
+        uploadimage(element);
+      } else {
+        Fluttertoast.showToast(msg: 'Can only upload 5 files');
+        return;
+      }
     }
   }
 
@@ -518,18 +527,21 @@ class _ChatScreenState extends State<ChatScreen> {
               await Permission.photos.request();
             } else {
               final ImagePicker _picker = ImagePicker();
+              try {
+                final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 80);
+                if (kDebugMode) {
+                  print(photo);
+                }
+                if (photo != null) {
+                  uploadimage(photo.path);
+                } else {
+                  Fluttertoast.showToast(msg: 'Nothing captured from camera');
+                }
 
-              final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-              if (kDebugMode) {
-                print(photo);
+                exitScreen(context);
+              } catch (e) {
+                print(e);
               }
-              if (photo != null) {
-                uploadimage(photo.path);
-              } else {
-                Fluttertoast.showToast(msg: 'Nothing captured from camera');
-              }
-
-              exitScreen(context);
             }
           },
           child: Padding(
@@ -556,7 +568,8 @@ class _ChatScreenState extends State<ChatScreen> {
             if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
               await Permission.photos.request();
             } else {
-              final List<XFile>? images = await _picker.pickMultiImage();
+              try{
+              final List<XFile>? images = await _picker.pickMultiImage(imageQuality: 80);
               if (kDebugMode) {
                 print(images);
               }
@@ -567,6 +580,9 @@ class _ChatScreenState extends State<ChatScreen> {
               }
 
               exitScreen(context);
+               } catch (e) {
+                print(e);
+              }
             }
           },
           child: Padding(
@@ -590,23 +606,30 @@ class _ChatScreenState extends State<ChatScreen> {
               print(p);
             }
             if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
-              await Permission.photos.request();
+              await Permission.storage.request();
             } else {
-              FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true,);
+              try{
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                allowMultiple: true,
+              );
               if (kDebugMode) {
                 print(result);
               }
 
               if (result != null) {
-                for (var element in result.files) {
-                  uploadimage(element.path!);
-                }
+                checkUpload(list: result.files.map((e) => e.path!).toList());
+                // for (var element in result.files) {
+                //   uploadimage(element.path!);
+                // }
                 // File file = File(result.paths);
               } else {
                 Fluttertoast.showToast(msg: 'Nothing Picked');
               }
 
               exitScreen(context);
+               } catch (e) {
+                print(e);
+              }
             }
           },
           child: Padding(
@@ -682,13 +705,13 @@ class _ChatScreenState extends State<ChatScreen> {
       }
 
       QBAttachment attachment = QBAttachment();
-      attachment.id = file.id.toString();
+      attachment.id = file.uid.toString();
       attachment.contentType = file.contentType;
       attachment.url = url;
       attachment.name = fileLen[fileLen.length - 1];
 
       if (file.contentType!.contains('jpg') || file.contentType!.contains('png') || file.contentType!.contains('jpeg')) {
-        attachment.type = 'Photo';
+        attachment.type = 'image';
       } else {
         attachment.type = 'Attachment';
       }

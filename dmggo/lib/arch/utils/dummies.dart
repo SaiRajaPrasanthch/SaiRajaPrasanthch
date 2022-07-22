@@ -44,9 +44,9 @@ String dummyStrManagerEmail = 'laurend@dmggo.com';
 List<Chat> listChat = [
   Chat(stgMsg: 'Hello mike', isReceived: true, strTime: "12:24 AM"),
   Chat(stgMsg: 'How Are you?', isReceived: true, strTime: "12:30 AM"),
-  Chat(stgMsg: 'Hi', strStatus: status.await.toString(), isReceived: false, strTime: "02:24 PM"),
-  Chat(stgMsg: 'Where i need to drop the matterial and where i need to collect the approval', strStatus: status.delivered.toString(), strTime: "02:26 PM", isReceived: false),
-  Chat(stgMsg: 'And When i will get the payment', strStatus: status.read.toString(), strTime: "02:27 PM", isReceived: false),
+  Chat(stgMsg: 'Hi', strStatus: Status.await.toString(), isReceived: false, strTime: "02:24 PM"),
+  Chat(stgMsg: 'Where i need to drop the matterial and where i need to collect the approval', strStatus: Status.delivered.toString(), strTime: "02:26 PM", isReceived: false),
+  Chat(stgMsg: 'And When i will get the payment', strStatus: Status.read.toString(), strTime: "02:27 PM", isReceived: false),
 ];
 
 List<PTIP> listPTIP = [

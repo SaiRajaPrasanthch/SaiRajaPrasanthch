@@ -78,7 +78,7 @@ class ChangePasswordLog with ChangeNotifier {
 
   api(BuildContext con) async {
     loading = true;
-    var res = await UserInfo().postChangePass(strLUrl: URL_POST_CHNAGEPASSWORD, emailOrPhone: emailOrPassword, password: validConfrm.value, oldPassword: validOld.value);
+    var res = await UserInfo().postChangePass(strLUrl: urlPostChangePassword, emailOrPhone: emailOrPassword, password: validConfrm.value, oldPassword: validOld.value);
     loading = false;
     if (res is Success) {
       if (res.code == newUserResponse) {

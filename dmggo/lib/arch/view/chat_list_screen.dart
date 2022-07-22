@@ -31,7 +31,7 @@ class _ChatListScreenState extends State<ChatListScreen> with WidgetsBindingObse
   void initState() {
     super.initState();
     setState(() {});
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     _chatListViewModel.getUsers();
 

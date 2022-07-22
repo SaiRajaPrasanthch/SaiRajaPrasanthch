@@ -1,4 +1,5 @@
 import 'package:dmggo/arch/commonUI/com_alert.dart';
+import 'package:dmggo/arch/commonUI/com_no_role_assigned.dart';
 import 'package:dmggo/arch/models/driveronboardingsteps_model.dart';
 import 'package:dmggo/arch/models/get_userinfo.dart';
 import 'package:dmggo/arch/repo/api_status.dart';
@@ -157,7 +158,7 @@ class Validations extends ChangeNotifier {
     // if (strEmail!.toLowerCase() == dummyStrDriverEmail.toLowerCase()) {
     //   currentTab.insert(i_0, DriverHomeScreen());
     // }
-    if (role == i_1 || role == i_2 || role == i_3 || role == i_4) {
+    else if (role == i_1 || role == i_2 || role == i_3 || role == i_4) {
       context.read<CarrierTerminalLog>().getOps();
       currentTab.insert(i_0, ManagerHomeScreen());
       if (role == i_1 || role == i_2 || role == i_3) {
@@ -167,12 +168,14 @@ class Validations extends ChangeNotifier {
           );
         }
       }
+    } else {
+      currentTab.insert(i_0, ComNoRoleAssigned());
     }
   }
 
   directLogin({required String emailorPhone, required String password, required BuildContext context}) async {
     loading = true;
-    var res = await UserInfo().postValidUser(strLUrl: URL_POST_VALIDATEUSER, emailOrPhone: emailorPhone, password: password);
+    var res = await UserInfo().postValidUser(strLUrl: urlPostValidateUser, emailOrPhone: emailorPhone, password: password);
 
     if (res is Success) {
       if (res.code == newUserResponse) {
@@ -203,7 +206,7 @@ class Validations extends ChangeNotifier {
       var resQB =
           await ChatApi().createUserInQB(strLEmail: _getUserInfo!.email, strLPass: strLPassword, strLName: _getUserInfo!.firstName + ' ' + _getUserInfo!.lastName, strPhoneNumber: _getUserInfo!.phone);
       if (resQB is Success) {
-        var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: _getUserInfo!.userId);
+        var resCreateUser = await UserInfo().createUserInfo(strLUrl: urlPostCreateQuickBloxId, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: _getUserInfo!.userId);
         if (resCreateUser is Success) {
           await save(user: resQB.response as QBUser, passWord: strLPassword, introleId: getUserInfo!.roleId);
         } else {

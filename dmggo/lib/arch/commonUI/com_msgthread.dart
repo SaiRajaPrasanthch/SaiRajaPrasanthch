@@ -9,6 +9,7 @@ import 'package:dmggo/arch/utils/localization/local_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dmggo/arch/utils/localization/local_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -185,9 +186,11 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
             itemCount: widget.message!.attachments!.length,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return Stack(
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  widget.message!.attachments![index]!.type == 'Attachment'
+                  widget.message!.attachments![index]!.type != 'image'
                       ? file(
                           bottom: h_15,
                           ctImage: ctattach,
@@ -197,16 +200,13 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
                       : widget.message!.attachments![index]!.url == null
                           ? SizedBox()
                           : imageLoad(urlImage: widget.message!.attachments![index]!.url!, ctImage: ctattach, bottom: h_15),
-                  Positioned(
-                      right: 1,
-                      top: 1,
-                      child: IconButton(
-                        icon: Icon(Icons.download_rounded),
-                        color: cblue,
-                        onPressed: () {
-                          _downloadFile(widget.message!.attachments![index]!.url!, widget.message!.attachments![index]!.name!, widget.message!.attachments![index]!.id!);
-                        },
-                      ))
+                  IconButton(
+                    icon: Icon(Icons.download_rounded),
+                    color: cblue,
+                    onPressed: () {
+                      _downloadFile(widget.message!.attachments![index]!.url!, widget.message!.attachments![index]!.name!, widget.message!.attachments![index]!.id!);
+                    },
+                  )
                 ],
               );
             });
@@ -224,11 +224,11 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
           ),
           child: Image.network(
             urlImage!,
-
+            
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
               return SizedBox(
-                width: MediaQuery.of(ctImage).size.width * 0.75,
+                width: MediaQuery.of(ctImage).size.width * 0.53,
                 height: MediaQuery.of(ctImage).size.height * 0.25,
                 child: Center(
                   child: CircularProgressIndicator(
@@ -243,7 +243,7 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
             //   backgroundColor: cgrey_100,
             //   percent: loadingProgress!.cumulativeBytesLoaded / 100,
             // ),
-            width: MediaQuery.of(ctImage).size.width * 0.60,
+            width: MediaQuery.of(ctImage).size.width * 0.53,
             height: MediaQuery.of(ctImage).size.height * 0.25,
             fit: BoxFit.cover,
           ),
@@ -266,13 +266,13 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
           ),
           child: Container(
             color: appColor.withOpacity(0.3),
-            width: MediaQuery.of(ctImage).size.width * 0.60,
+            width: MediaQuery.of(ctImage).size.width * 0.53,
             height: MediaQuery.of(ctImage).size.width * 0.20,
             child: Row(
               children: [
                 Image.asset(imgFile),
                 SizedBox(
-                  width: MediaQuery.of(ctImage).size.width * 0.40,
+                  width: MediaQuery.of(ctImage).size.width * 0.30,
                   child: Text(
                     strFile!,
                     style: tscwnsn_14b,
@@ -294,18 +294,37 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
         print(url);
         print(filename);
       }
-      
-// await getApplicationDocumentsDirectory();
-      Directory? directory = Platform.isAndroid? await getExternalStorageDirectory():await getApplicationDocumentsDirectory();
-
-      Directory dir = Platform.isAndroid? Directory(directory!.path.split('/Android/')[0] + '/DMGgo'):Directory(directory!.path+'/DMGgo');
+      PermissionStatus p = await Permission.storage.request();
+      if (kDebugMode) {
+        print(p);
+      }
+      if (p.isDenied || p.isPermanentlyDenied || p.isLimited || p.isLimited) {
+        await Permission.storage.request();
+      }
+      PermissionStatus p1 = await Permission.manageExternalStorage.request();
+      if (kDebugMode) {
+        print(p);
+      }
+      if (p1.isDenied || p1.isPermanentlyDenied || p1.isLimited || p1.isLimited) {
+        await Permission.manageExternalStorage.request();
+      }
+      Directory? directory = await getApplicationDocumentsDirectory();
+      Directory dir = Directory(directory.path + '/DMGgo');
       String? folderName;
 
-      print(await dir.exists());
-      if (await dir.exists()) {
+      // if (kDebugMode) {
+      //   print(await dir.exists());
+      // }
+      if (dir.existsSync()) {
         folderName = dir.path;
       } else {
-        final Directory _appDocDirNewFolder = await dir.create(recursive: true);
+        Directory _appDocDirNewFolder;
+        try {
+          _appDocDirNewFolder = await dir.create(recursive: false);
+        } catch (e) {
+          dir.createSync();
+          _appDocDirNewFolder = dir;
+        }
         folderName = _appDocDirNewFolder.path;
       }
       File file = File('$folderName/$filename');
@@ -357,19 +376,9 @@ class _CommonMessageThreadState extends State<CommonMessageThread> {
           }
         }
       }
-      // return file;
-      // }).asStream();
-      // var r = request.asBroadcastStream();
-      // r.listen((event) {
-      //   print(event);
-      // });
-
-      // var response = await request.close();
-
-      // http.Response r = await http.get(Uri.parse(url), headers: {'Accept': 'text/plain'});
-      // print(r);
     } catch (e) {
-      print(e);
+      // print(e);
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 }

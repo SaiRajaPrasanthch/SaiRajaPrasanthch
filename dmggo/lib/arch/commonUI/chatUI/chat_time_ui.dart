@@ -26,12 +26,12 @@ class ChatTimeUI extends StatelessWidget {
             ), //TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey.shade600)
             if (strStatus != null)
               SvgPicture.asset(
-                  strStatus == status.sent || strStatus == status.await
+                  strStatus == Status.sent || strStatus == Status.await
                       ? imgChatSent
-                      : strStatus == status.delivered || strStatus == status.read
+                      : strStatus == Status.delivered || strStatus == Status.read
                           ? imgChatDelivered
                           : imgChatSent,
-                  color: strStatus == status.read ? cgreen : cgrey_600)
+                  color: strStatus == Status.read ? cgreen : cgrey_600)
           ],
         ),
       ),

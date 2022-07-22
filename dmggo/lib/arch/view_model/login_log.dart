@@ -22,7 +22,7 @@ class LoginLogic {
       if (kDebugMode) {
         print('7');
       }
-      var response = await UserInfo().getUserInfo(strLUrl: '${strGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
+      var response = await UserInfo().getUserInfo(strLUrl: '${urlGetUserInfoURL}email=${userData['unique_name']}&firstName=${userData['given_name']}&lastName=${userData['family_name']}');
       if (kDebugMode) {
         print('8');
       }
@@ -57,7 +57,7 @@ class LoginLogic {
             if (kDebugMode) {
               print('15');
             }
-            var resCreateUser = await UserInfo().createUserInfo(strLUrl: URL_POST_CREATEQUICKBLOXID, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
+            var resCreateUser = await UserInfo().createUserInfo(strLUrl: urlPostCreateQuickBloxId, qbUsers: resQB.response as QBUser, strPassword: strLPassword, intUserId: userinfo.userId);
             if (resCreateUser is Success) {
               // await saveInStorage(user: resQB.response as QBUser, strqbPassword: strLPassword, intId: userinfo.userId);
               await callQBServices();

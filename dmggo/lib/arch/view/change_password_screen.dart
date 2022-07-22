@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  ChangePasswordScreen({Key? key}) : super(key: key);
+ChangePasswordScreen({Key? key}) : super(key: key);
   TextEditingController txtOldPass = TextEditingController();
   TextEditingController txtNewPass = TextEditingController();
   TextEditingController txtConfPass = TextEditingController();
